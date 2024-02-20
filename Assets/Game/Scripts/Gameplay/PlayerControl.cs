@@ -1,53 +1,54 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+    #region CONST
+    private const string HORIZONTAL = "Horizontal";
+    private const string VERTICAL = "Vertical";
+    #endregion
+
+    #region HASHING
+    private static readonly int IdleAnim = Animator.StringToHash("Player_Idle");
+    private static readonly int RunAnim = Animator.StringToHash("Player_Run");
+    #endregion
+
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Animator _animator;
+    [SerializeField] private float _lockedTime = 0.5f;
 
     private float _moveX, _moveY;
     private Vector2 _moveDirection;
-    private string _currentAnimationName;
+    private int _currentState;
 
     private void Update()
     {
         GetInputs();
+
+        PlayAnimation();
+    }
+
+    private void FixedUpdate()
+    {
         ProcessInputs();
     }
 
     private void GetInputs()
     {
-        _moveX = Input.GetAxisRaw(Const.MovementControl.HORIZONTAL);
-        _moveY = Input.GetAxisRaw(Const.MovementControl.VERTICAL);
+        _moveX = Input.GetAxisRaw(HORIZONTAL);
+        _moveY = Input.GetAxisRaw(VERTICAL);
 
         _moveDirection = new Vector2(_moveX, _moveY).normalized;
     }
 
     private void ProcessInputs()
     {
-        if (Mathf.Abs(_moveX) > 0.1f || Mathf.Abs(_moveY) > 0.1f)
-        {
-            Run();
-        }
-        else
-        {
-            Idle();
-        }
-    }
-
-    private void Idle()
-    {
-        SetTriggerAnimation(Const.Animation.IDLE);
-    }
-
-    private void Run()
-    {
         _rb.MovePosition(_rb.position + _moveDirection * _moveSpeed * Time.fixedDeltaTime);
-        SetTriggerAnimation(Const.Animation.RUN);
 
         //Flip the character
         if (_moveX > 0.1f)
@@ -60,15 +61,33 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-    private void SetTriggerAnimation(string animationName)
+    private void PlayAnimation()
     {
-        if (_currentAnimationName != animationName)
+        int state = GetState();
+
+        if (state == _currentState)
         {
-            _animator.ResetTrigger(animationName);
+            return;
+        }
+        _animator.CrossFade(state, 0, 0);
+        _currentState = state;
+    }
 
-            _currentAnimationName = animationName;
+    private int GetState()
+    {
+        if (Time.time < _lockedTime)
+        {
+            return _currentState;
+        }
 
-            _animator.SetTrigger(_currentAnimationName);
+        //if attacking lock
+        //if dashing lock
+        return _moveX == 0 && _moveY == 0 ? IdleAnim : RunAnim;
+
+        int LockState(int state, float time)
+        {
+            _lockedTime = Time.time + time;
+            return state;
         }
     }
 }
