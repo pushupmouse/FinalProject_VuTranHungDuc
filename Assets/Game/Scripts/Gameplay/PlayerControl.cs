@@ -15,6 +15,9 @@ public class PlayerControl : MonoBehaviour
     #region HASHING
     private static readonly int IdleAnim = Animator.StringToHash("Player_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Player_Run");
+    private static readonly int Attack1Anim = Animator.StringToHash("Player_Attack1");
+    private static readonly int Attack2Anim = Animator.StringToHash("Player_Attack2");
+    private static readonly int Attack3Anim = Animator.StringToHash("Player_Attack3");
     #endregion
 
     [SerializeField] private float _moveSpeed;
@@ -31,7 +34,7 @@ public class PlayerControl : MonoBehaviour
     private float _lastAttackTime;
 
     private bool _isAttacking = false;
-    private float _attackDuration = 0.5f; // Adjust as needed
+    private float _attackDuration = 0.5f;
     private float _attackEndTime = 0f;
 
     private void Update()
@@ -99,13 +102,13 @@ public class PlayerControl : MonoBehaviour
 
         if (_isAttacking && Time.time >= _attackEndTime)
         {
-            _isAttacking = false; // Player can move again after attack duration ends
+            _isAttacking = false;
         }
     }
 
     private void Attack(int attackNumber)
     {
-        Debug.Log("Performing Attack " + attackNumber);
+        //attack logic
     }
 
     private void PlayAnimation()
@@ -116,6 +119,7 @@ public class PlayerControl : MonoBehaviour
         {
             return;
         }
+
         _animator.CrossFade(state, 0, 0);
         _currentState = state;
     }
@@ -127,14 +131,30 @@ public class PlayerControl : MonoBehaviour
             return _currentState;
         }
 
-        //if attacking lock
-        //if dashing lock
-        return _moveX == 0 && _moveY == 0 ? IdleAnim : RunAnim;
+        if (_isAttacking)
+        {
+            switch (_currentAttack)
+            {
+                case 1:
+                    return LockState(Attack1Anim, _attackDuration);
+                case 2:
+                    return LockState(Attack2Anim, _attackDuration);
+                case 3:
+                    return LockState(Attack3Anim, _attackDuration);
+            }
+        }
 
-        //int LockState(int state, float time)
-        //{
-        //    _lockedTime = Time.time + time;
-        //    return state;
-        //}
+        if (_moveX != 0 || _moveY != 0)
+        {
+            return RunAnim;
+        }
+
+        return IdleAnim;
+
+        int LockState(int state, float time)
+        {
+            _lockedTime = Time.time + time;
+            return state;
+        }
     }
 }
