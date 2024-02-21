@@ -26,19 +26,33 @@ public class PlayerControl : MonoBehaviour
     private Vector2 _moveDirection;
     private int _currentState;
 
+    private int _currentAttack = 0;
+    private float _resetAttackTime = 1f;
+    private float _lastAttackTime;
+
+    private bool _isAttacking = false;
+    private float _attackDuration = 0.5f; // Adjust as needed
+    private float _attackEndTime = 0f;
+
     private void Update()
     {
-        GetInputs();
+        GetMoveInputs();
+
+        GetAttackInputs();
 
         PlayAnimation();
     }
 
     private void FixedUpdate()
     {
-        ProcessInputs();
+        if (!_isAttacking)
+        {
+            Move();
+        }
     }
 
-    private void GetInputs()
+
+    private void GetMoveInputs()
     {
         _moveX = Input.GetAxisRaw(HORIZONTAL);
         _moveY = Input.GetAxisRaw(VERTICAL);
@@ -46,7 +60,7 @@ public class PlayerControl : MonoBehaviour
         _moveDirection = new Vector2(_moveX, _moveY).normalized;
     }
 
-    private void ProcessInputs()
+    private void Move()
     {
         _rb.MovePosition(_rb.position + _moveDirection * _moveSpeed * Time.fixedDeltaTime);
 
@@ -59,6 +73,39 @@ public class PlayerControl : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
         }
+    }
+
+    private void GetAttackInputs()
+    {
+        if (Input.GetKeyDown(KeyCode.J) && !_isAttacking)
+        {
+            if (Time.time - _lastAttackTime > _resetAttackTime)
+            {
+                _currentAttack = 1;
+            }
+            else
+            {
+                _currentAttack = (_currentAttack % 3) + 1;
+            }
+
+            Attack(_currentAttack);
+
+            _lastAttackTime = Time.time;
+
+            _isAttacking = true;
+
+            _attackEndTime = Time.time + _attackDuration;
+        }
+
+        if (_isAttacking && Time.time >= _attackEndTime)
+        {
+            _isAttacking = false; // Player can move again after attack duration ends
+        }
+    }
+
+    private void Attack(int attackNumber)
+    {
+        Debug.Log("Performing Attack " + attackNumber);
     }
 
     private void PlayAnimation()
@@ -84,10 +131,10 @@ public class PlayerControl : MonoBehaviour
         //if dashing lock
         return _moveX == 0 && _moveY == 0 ? IdleAnim : RunAnim;
 
-        int LockState(int state, float time)
-        {
-            _lockedTime = Time.time + time;
-            return state;
-        }
+        //int LockState(int state, float time)
+        //{
+        //    _lockedTime = Time.time + time;
+        //    return state;
+        //}
     }
 }
