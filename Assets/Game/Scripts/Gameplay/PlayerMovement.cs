@@ -4,19 +4,19 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(PlayerInputController))]
-[RequireComponent(typeof(AttackInputController))]
+[RequireComponent(typeof(PlayerAttackController))]
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _moveSpeed;
 
     private PlayerInputController _playerController;
-    private AttackInputController _attackController;
+    private PlayerAttackController _attackController;
 
     private void Awake()
     {
         _playerController = GetComponent<PlayerInputController>();
-        _attackController = GetComponent<AttackInputController>();
+        _attackController = GetComponent<PlayerAttackController>();
     }
 
     private void FixedUpdate()

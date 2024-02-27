@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerInputController))]
-[RequireComponent(typeof(AttackInputController))]
+[RequireComponent(typeof(PlayerAttackController))]
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private float _lockedTime = 0.5f;
 
     private PlayerInputController _playerController;
-    private AttackInputController _attackController;
+    private PlayerAttackController _attackController;
 
     private static readonly int IdleAnim = Animator.StringToHash("Player_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Player_Run");
@@ -23,7 +23,7 @@ public class PlayerAnimation : MonoBehaviour
     private void Awake()
     {
         _playerController = GetComponent<PlayerInputController>();
-        _attackController = GetComponent<AttackInputController>();
+        _attackController = GetComponent<PlayerAttackController>();
     }
 
     private void Update()
