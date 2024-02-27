@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour
     #endregion
 
     #region HASHING
+    //animation
     private static readonly int IdleAnim = Animator.StringToHash("Player_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Player_Run");
     private static readonly int Attack1Anim = Animator.StringToHash("Player_Attack1");
@@ -20,19 +21,24 @@ public class PlayerControl : MonoBehaviour
     private static readonly int Attack3Anim = Animator.StringToHash("Player_Attack3");
     #endregion
 
+    //movement
     [SerializeField] private float _moveSpeed;
     [SerializeField] private Rigidbody2D _rb;
+    //animation
     [SerializeField] private Animator _animator;
     [SerializeField] private float _lockedTime = 0.5f;
 
+    //move
     private float _moveX, _moveY;
     private Vector2 _moveDirection;
+
+    //animation
     private int _currentState;
 
+    //attack
     private int _currentAttack = 0;
     private float _resetAttackTime = 1f;
     private float _lastAttackTime;
-
     private bool _isAttacking = false;
     private float _attackDuration = 0.5f;
     private float _attackEndTime = 0f;
