@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInputController : MonoBehaviour
+public class InputMovementController : MonoBehaviour
 {
     private const string HORIZONTAL = "Horizontal";
     private const string VERTICAL = "Vertical";

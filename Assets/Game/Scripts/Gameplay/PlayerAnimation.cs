@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerInputController))]
-[RequireComponent(typeof(PlayerAttackController))]
+[RequireComponent(typeof(InputMovementController))]
+[RequireComponent(typeof(InputAttackController))]
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private float _lockedTime = 0.5f;
 
-    private PlayerInputController _playerController;
-    private PlayerAttackController _attackController;
+    private InputMovementController _movementController;
+    private InputAttackController _attackController;
 
     private static readonly int IdleAnim = Animator.StringToHash("Player_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Player_Run");
@@ -22,8 +22,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Awake()
     {
-        _playerController = GetComponent<PlayerInputController>();
-        _attackController = GetComponent<PlayerAttackController>();
+        _movementController = GetComponent<InputMovementController>();
+        _attackController = GetComponent<InputAttackController>();
     }
 
     private void Update()
@@ -59,7 +59,7 @@ public class PlayerAnimation : MonoBehaviour
             }
         }
 
-        if (_playerController.MoveX != 0 || _playerController.MoveY != 0)
+        if (_movementController.MoveX != 0 || _movementController.MoveY != 0)
         {
             return RunAnim;
         }

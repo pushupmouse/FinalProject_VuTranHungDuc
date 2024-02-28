@@ -3,20 +3,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackController : MonoBehaviour
+[RequireComponent(typeof(PlayerAttack))]
+public class InputAttackController : MonoBehaviour
 {
-
     [SerializeField] private float _resetAttackTime = 1f;
-    [SerializeField] private Transform attackPoint;
-    [SerializeField] private float attackRange = 0.5f;
-    [SerializeField] private LayerMask enemyLayers;
 
     [HideInInspector] public int CurrentAttack = 0;
     [HideInInspector] public bool IsAttacking = false;
     [HideInInspector] public float AttackDuration = 0.5f;
-    
+
+    private PlayerAttack _playerAttack;
+
     private float _attackEndTime = 0f;
     private float _lastAttackTime;
+
+    private void Awake()
+    {
+        _playerAttack = GetComponent<PlayerAttack>();
+    }
 
     private void Update()
     {
@@ -31,7 +35,7 @@ public class PlayerAttackController : MonoBehaviour
                 CurrentAttack = (CurrentAttack % 3) + 1;
             }
 
-            Attack();
+            _playerAttack.Attack();
 
             _lastAttackTime = Time.time;
 
@@ -46,26 +50,15 @@ public class PlayerAttackController : MonoBehaviour
         }
     }
 
-    private void Attack()
-    {
-        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+    
 
-        foreach (Collider2D enemy in hitTargets)
-        {
-            if (enemy != null)
-            {
-                Debug.Log("Hit " + enemy.name);
-            }
-        }
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    if (attackPoint == null)
+    //    {
+    //        return;
+    //    }
 
-    private void OnDrawGizmosSelected()
-    {
-        if (attackPoint == null)
-        {
-            return;
-        }
-
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    }
+    //    Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+    //}
 }
