@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private float _lockedTime = 0.5f;
+    [SerializeField] private float _lockedTime = 0.25f;
 
     private InputMovementController _movementController;
     private InputAttackController _attackController;
@@ -51,11 +51,17 @@ public class PlayerAnimation : MonoBehaviour
             switch (_attackController.CurrentAttack)
             {
                 case 1:
-                    return LockState(Attack1Anim, _attackController.AttackDuration);
+                    return Attack1Anim;
                 case 2:
-                    return LockState(Attack2Anim, _attackController.AttackDuration);
+                    return Attack2Anim;
                 case 3:
-                    return LockState(Attack3Anim, _attackController.AttackDuration);
+                    return Attack3Anim;
+                    //    case 1:
+                    //    return LockState(Attack1Anim, _attackController.AttackDuration);
+                    //case 2:
+                    //    return LockState(Attack2Anim, _attackController.AttackDuration);
+                    //case 3:
+                    //    return LockState(Attack3Anim, _attackController.AttackDuration);
             }
         }
 
@@ -66,10 +72,10 @@ public class PlayerAnimation : MonoBehaviour
 
         return IdleAnim;
 
-        int LockState(int state, float time)
-        {
-            _lockedTime = Time.time + time;
-            return state;
-        }
+        //int LockState(int state, float time)
+        //{
+        //    _lockedTime = Time.time + time;
+        //    return state;
+        //}
     }
 }

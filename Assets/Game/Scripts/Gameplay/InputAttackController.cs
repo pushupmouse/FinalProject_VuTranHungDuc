@@ -10,7 +10,7 @@ public class InputAttackController : MonoBehaviour
 
     [HideInInspector] public int CurrentAttack = 0;
     [HideInInspector] public bool IsAttacking = false;
-    [HideInInspector] public float AttackDuration = 0.5f;
+    [HideInInspector] public float AttackDuration = 0.25f;
 
     private PlayerAttack _playerAttack;
 
@@ -49,16 +49,4 @@ public class InputAttackController : MonoBehaviour
             IsAttacking = false;
         }
     }
-
-    
-
-    //private void OnDrawGizmosSelected()
-    //{
-    //    if (attackPoint == null)
-    //    {
-    //        return;
-    //    }
-
-    //    Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-    //}
 }

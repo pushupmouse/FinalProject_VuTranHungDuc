@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyFollow : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _target;
     [SerializeField] private float _detectionRange = 10f;
     [SerializeField] private float _attackRange = 2f;
@@ -12,9 +13,9 @@ public class EnemyFollow : MonoBehaviour
     private bool _targetInDetectionRange = false;
     private bool _targetInAttackRange = false;
 
-    private void Update()
+    private void FixedUpdate()
     {
-        if (_target != null && Vector3.Distance(transform.position, _target.position) <= _detectionRange)
+        if (_target != null && Vector2.Distance(transform.position, _target.position) <= _detectionRange)
         {
             _targetInDetectionRange = true;
         }
@@ -25,15 +26,15 @@ public class EnemyFollow : MonoBehaviour
 
         if (_targetInDetectionRange && !_targetInAttackRange)
         {
-            Vector3 direction = (_target.position - transform.position).normalized;
-            transform.Translate(direction * _moveSpeed * Time.deltaTime);
+            Vector2 direction = (_target.position - transform.position).normalized;
+            _rb.MovePosition(_rb.position + direction * _moveSpeed * Time.fixedDeltaTime);
 
             if (Vector3.Distance(transform.position, _target.position) <= _attackRange)
             {
                 _targetInAttackRange = true;
             }
         }
-        else if (_targetInAttackRange && Vector3.Distance(transform.position, _target.position) > _attackRange)
+        else if (!_targetInDetectionRange || (_targetInAttackRange && Vector2.Distance(transform.position, _target.position) > _attackRange))
         {
             _targetInAttackRange = false;
         }
