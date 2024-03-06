@@ -14,6 +14,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private static readonly int IdleAnim = Animator.StringToHash("Player_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Player_Run");
+    private static readonly int DashAnim = Animator.StringToHash("Player_Dash");
     private static readonly int Attack1Anim = Animator.StringToHash("Player_Attack1");
     private static readonly int Attack2Anim = Animator.StringToHash("Player_Attack2");
     private static readonly int Attack3Anim = Animator.StringToHash("Player_Attack3");
@@ -35,7 +36,7 @@ public class PlayerAnimation : MonoBehaviour
             return;
         }
 
-        _animator.CrossFade(state, 0, 0);
+        _animator.CrossFade(state, 0f, 0);
         _currentState = state;
     }
 
@@ -46,22 +47,21 @@ public class PlayerAnimation : MonoBehaviour
             return _currentState;
         }
 
+        if (_movementController.IsDashing)
+        {
+            return DashAnim;
+        }
+
         if (_attackController.IsAttacking)
         {
             switch (_attackController.CurrentAttack)
             {
                 case 1:
-                    return Attack1Anim;
+                    return LockState(Attack1Anim, _attackController.AttackDuration);
                 case 2:
-                    return Attack2Anim;
+                    return LockState(Attack2Anim, _attackController.AttackDuration);
                 case 3:
-                    return Attack3Anim;
-                    //    case 1:
-                    //    return LockState(Attack1Anim, _attackController.AttackDuration);
-                    //case 2:
-                    //    return LockState(Attack2Anim, _attackController.AttackDuration);
-                    //case 3:
-                    //    return LockState(Attack3Anim, _attackController.AttackDuration);
+                    return LockState(Attack3Anim, _attackController.AttackDuration);
             }
         }
 
@@ -71,11 +71,11 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         return IdleAnim;
+    }
 
-        //int LockState(int state, float time)
-        //{
-        //    _lockedTime = Time.time + time;
-        //    return state;
-        //}
+    int LockState(int state, float time)
+    {
+        _lockedTime = Time.time + time;
+        return state;
     }
 }

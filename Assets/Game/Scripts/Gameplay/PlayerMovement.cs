@@ -16,8 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private InputMovementController _movementController;
     private InputAttackController _attackController;
     private bool _isFacingRight = true;
-    private bool _canDash = true;
-    private bool _isDashing;
+
 
     private void Awake()
     {
@@ -25,24 +24,9 @@ public class PlayerMovement : MonoBehaviour
         _attackController = GetComponent<InputAttackController>();
     }
 
-    private void Update()
-    {
-        if (_isDashing)
-        {
-            return;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space) && _canDash)
-        {
-            StartCoroutine(Dash());
-        }
-
-        Flip();
-    }
-
     private void FixedUpdate()
     {
-        if (_isDashing)
+        if (_movementController.IsDashing)
         {
             return;
         }
@@ -54,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
         } 
 
         _rb.velocity = _movementController.MoveDirection * _moveSpeed;
+
+        Flip();
     }
 
     private void Flip()
@@ -70,21 +56,37 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private IEnumerator Dash()
+    public IEnumerator Dash()
     {
-        _canDash = false;
-        _isDashing = true;
+        _movementController.CanDash = false;
+        _movementController.IsDashing = true;
 
-        _rb.velocity = _movementController.MoveDirection * _dashSpeed;
+        if(_movementController.MoveDirection != Vector2.zero)
+        {
+            _rb.velocity = _movementController.MoveDirection * _dashSpeed;
+        }
+        else
+        {
+            if (_isFacingRight)
+            {
+                _rb.velocity = Vector2.right * _dashSpeed;
+            }
+            else
+            {
+                _rb.velocity = Vector2.left * _dashSpeed;
+            }
+        }
+
+
 
         yield return new WaitForSeconds(_dashTime);
 
-        _isDashing = false;
+        _movementController.IsDashing = false;
 
         _rb.velocity = Vector2.zero;
 
         yield return new WaitForSeconds(_dashCooldown);
 
-        _canDash = true;
+        _movementController.CanDash = true;
     }
 }
