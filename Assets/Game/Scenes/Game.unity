@@ -123,6 +123,16 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &234383430 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6027381810467038631, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+  m_PrefabInstance: {fileID: 6443060399483948690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &234383431 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7091617327220463957, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+  m_PrefabInstance: {fileID: 6443060399483948690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,6 +359,18 @@ PrefabInstance:
       propertyPath: _target
       value: 
       objectReference: {fileID: 1743723583}
+    - target: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+      propertyPath: _animator
+      value: 
+      objectReference: {fileID: 234383431}
+    - target: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+      propertyPath: _spriteTransform
+      value: 
+      objectReference: {fileID: 234383430}
+    - target: {fileID: 9001736729543653194, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+      propertyPath: _floatingPoints
+      value: 
+      objectReference: {fileID: 3948259208034878312, guid: 9f5163d17643b0a49aa62ddf6e999f7a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
