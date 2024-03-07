@@ -5,6 +5,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private GameObject _floatingPoints;
+
     private float _maxHealth = 100;
     private float _currentHealth;
 
@@ -29,7 +30,6 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("Enemy killed");
         Destroy(gameObject);
     }
 }

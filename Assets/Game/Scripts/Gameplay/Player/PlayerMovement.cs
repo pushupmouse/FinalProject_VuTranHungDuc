@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private InputAttackController _attackController;
     private bool _isFacingRight = true;
 
-
     private void Awake()
     {
         _movementController = GetComponent<InputMovementController>();

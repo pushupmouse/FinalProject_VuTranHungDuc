@@ -7,10 +7,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _attackRange = 0.75f;
     [SerializeField] private LayerMask _enemyLayers;
-
     [SerializeField] private float _damage = 40f;
     [SerializeField] private float _delay = 0.15f;
-    
+
     public void Attack()
     {
         Collider2D[] hitTargets = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _enemyLayers);
@@ -19,14 +18,13 @@ public class PlayerAttack : MonoBehaviour
         {
             if (enemy != null)
             {
-                //TODO: cache
-                Health enemyHealth = enemy.GetComponent<Health>();
+                Health enemyHealth = Cache<Health>.GetComponent(enemy);
                 if (enemyHealth != null)
                 {
                     StartCoroutine(DelayedDamage(enemyHealth, _damage, _delay));
                 }
 
-                Knockback enemyKnockback = enemy.GetComponent<Knockback>();
+                Knockback enemyKnockback = Cache<Knockback>.GetComponent(enemy);
                 if (enemyKnockback != null)
                 {
                     StartCoroutine(DelayedKnockback(enemyKnockback, transform.position, _delay));

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Knockback : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
-    [SerializeField] private float knockbackForce = 5f;
-    [SerializeField] private float knockbackDuration = 0.2f;
+    [SerializeField] private float _knockbackForce = 5f;
+    [SerializeField] private float _knockbackDuration = 0.2f;
 
     [HideInInspector] public bool IsKnockbacked;
 
@@ -15,7 +15,7 @@ public class Knockback : MonoBehaviour
         Vector3 knockbackDirection = (transform.position - attackerPos).normalized;
 
         _rb.velocity = Vector3.zero;
-        _rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+        _rb.AddForce(knockbackDirection * _knockbackForce, ForceMode2D.Impulse);
         StartCoroutine(KnockbackDuration());
     }
 
@@ -23,7 +23,7 @@ public class Knockback : MonoBehaviour
     {
         IsKnockbacked = true;
 
-        yield return new WaitForSeconds(knockbackDuration);
+        yield return new WaitForSeconds(_knockbackDuration);
 
         IsKnockbacked = false;
 

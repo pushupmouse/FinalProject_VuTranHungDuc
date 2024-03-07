@@ -9,11 +9,10 @@ public class InputMovementController : MonoBehaviour
 
     [HideInInspector] public float MoveX, MoveY;
     [HideInInspector] public Vector2 MoveDirection;
+    [HideInInspector] public bool CanDash = true;
+    [HideInInspector] public bool IsDashing;
 
     private PlayerMovement _playerMovement;
-
-    public bool CanDash = true;
-    public bool IsDashing;
 
     private void Awake()
     {

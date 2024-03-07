@@ -13,7 +13,6 @@ public class InputAttackController : MonoBehaviour
     [HideInInspector] public float AttackDuration = 0.25f;
 
     private PlayerAttack _playerAttack;
-
     private float _attackEndTime = 0f;
     private float _lastAttackTime;
 

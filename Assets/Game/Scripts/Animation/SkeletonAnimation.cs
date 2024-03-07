@@ -12,11 +12,11 @@ public class SkeletonAnimation : AnimationHandler
 
     [SerializeField] private Animator _animator;
 
-    private EnemyBehaviour _enemyBehavior;
+    private Enemy _enemy;
 
     private void Awake()
     {
-        _enemyBehavior = GetComponent<EnemyBehaviour>();
+        _enemy = GetComponent<Enemy>();
     }
 
     protected override void Update()
@@ -33,12 +33,12 @@ public class SkeletonAnimation : AnimationHandler
             return _currentState;
         }
 
-        if (_enemyBehavior.IsAttacking)
+        if (_enemy.IsAttacking)
         {
-            return LockState(AttackAnim, _enemyBehavior.AttackDuration);
+            return LockState(AttackAnim, _enemy.AttackDuration);
         }
 
-        if (_enemyBehavior.IsRunning)
+        if (_enemy.IsRunning)
         {
             return RunAnim;
         }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBehaviour : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _spriteTransform;
@@ -11,14 +11,14 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float _attackRange = 2f;
     [SerializeField] private float _moveSpeed = 3f;
 
+    [HideInInspector] public float AttackDuration = 1f;
+    [HideInInspector] public bool IsRunning;
+    [HideInInspector] public bool IsAttacking = false;
+
     private Knockback _knockback;
     private bool _targetInDetectionRange = false;
     private bool _targetInAttackRange = false;
     private float _attackEndTime = 0f;
-
-    [HideInInspector] public float AttackDuration = 1f;
-    [HideInInspector] public bool IsRunning;
-    [HideInInspector] public bool IsAttacking = false;
 
     private void Awake()
     {
