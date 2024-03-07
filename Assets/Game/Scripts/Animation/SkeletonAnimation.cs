@@ -8,6 +8,8 @@ public class SkeletonAnimation : AnimationHandler
     private static readonly int IdleAnim = Animator.StringToHash("Skeleton_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Skeleton_Run");
     private static readonly int AttackAnim = Animator.StringToHash("Skeleton_Attack");
+    private static readonly int TakeDamageAnim = Animator.StringToHash("Skeleton_TakeDamage");
+    private static readonly int DeathAnim = Animator.StringToHash("Skeleton_Death");
     #endregion
 
     [SerializeField] private Animator _animator;
@@ -28,6 +30,16 @@ public class SkeletonAnimation : AnimationHandler
 
     protected override int GetState()
     {
+        if (_enemy.IsDead)
+        {
+            return DeathAnim;
+        }
+
+        if(_enemy.IsTakeDamage)
+        {
+            return TakeDamageAnim;
+        }
+
         if (Time.time < _lockedTime)
         {
             return _currentState;

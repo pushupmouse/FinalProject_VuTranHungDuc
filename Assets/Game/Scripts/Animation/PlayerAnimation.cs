@@ -35,14 +35,14 @@ public class PlayerAnimation : AnimationHandler
 
     protected override int GetState()
     {
-        if (Time.time < _lockedTime)
-        {
-            return _currentState;
-        }
-
         if (_movementController.IsDashing)
         {
             return DashAnim;
+        }
+
+        if (Time.time < _lockedTime)
+        {
+            return _currentState;
         }
 
         if (_attackController.IsAttacking)

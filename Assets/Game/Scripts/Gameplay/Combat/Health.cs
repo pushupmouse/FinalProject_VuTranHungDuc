@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,9 @@ public class Health : MonoBehaviour
 
     private float _maxHealth = 100;
     private float _currentHealth;
+
+    public Action OnTakeDamage;
+    public Action OnDeath;
 
     private void Start()
     {
@@ -20,7 +24,8 @@ public class Health : MonoBehaviour
 
         GameObject points = Instantiate(_floatingPoints, transform.position, Quaternion.identity);
         points.transform.GetChild(0).GetComponent<TextMesh>().text = amount.ToString();
-        //Hurt animation
+
+        OnTakeDamage?.Invoke();
 
         if(_currentHealth < 0)
         {
@@ -30,6 +35,6 @@ public class Health : MonoBehaviour
 
     private void Die()
     {
-        Destroy(gameObject);
+        OnDeath?.Invoke();
     }
 }

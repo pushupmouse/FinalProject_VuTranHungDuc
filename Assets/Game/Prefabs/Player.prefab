@@ -127,6 +127,8 @@ MonoBehaviour:
   MoveX: 0
   MoveY: 0
   MoveDirection: {x: 0, y: 0}
+  CanDash: 1
+  IsDashing: 0
 --- !u!114 &5172964933829018224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,9 +143,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rb: {fileID: 2700492348914706305}
   _moveSpeed: 5
-  dashingPower: 10
-  dashingTime: 0.2
-  dashingCooldown: 1
+  _dashSpeed: 15
+  _dashTime: 0.2
+  _dashCooldown: 1
 --- !u!114 &9115063090778275605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +159,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2255711840371872275}
-  _lockedTime: 0.5
 --- !u!114 &5206221973602664951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackPoint: {fileID: 6687644256317009325}
-  _attackRange: 0.75
+  _attackRange: 1
   _enemyLayers:
     serializedVersion: 2
     m_Bits: 2048
