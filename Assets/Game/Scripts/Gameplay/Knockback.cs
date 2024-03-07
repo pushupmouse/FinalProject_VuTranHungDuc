@@ -8,6 +8,8 @@ public class Knockback : MonoBehaviour
     [SerializeField] private float knockbackForce = 5f;
     [SerializeField] private float knockbackDuration = 0.2f;
 
+    [HideInInspector] public bool IsKnockbacked;
+
     public void ApplyKnockback(Vector3 attackerPos)
     {
         Vector3 knockbackDirection = (transform.position - attackerPos).normalized;
@@ -19,7 +21,11 @@ public class Knockback : MonoBehaviour
 
     private IEnumerator KnockbackDuration()
     {
+        IsKnockbacked = true;
+
         yield return new WaitForSeconds(knockbackDuration);
+
+        IsKnockbacked = false;
 
         _rb.velocity = Vector3.zero;
     }

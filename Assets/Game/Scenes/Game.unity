@@ -237,6 +237,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5041336664337488942, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+      propertyPath: _attackRange
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8400341698045192277, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -347,6 +351,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5324170185752574529, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+      propertyPath: knockbackForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5324170185752574529, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+      propertyPath: knockbackDuration
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6027381810467038631, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.27
@@ -363,6 +375,14 @@ PrefabInstance:
       propertyPath: _animator
       value: 
       objectReference: {fileID: 234383431}
+    - target: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+      propertyPath: _moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+      propertyPath: _attackRange
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
       propertyPath: _spriteTransform
       value: 

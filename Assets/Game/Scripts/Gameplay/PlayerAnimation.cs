@@ -4,11 +4,10 @@ using UnityEngine;
 
 [RequireComponent(typeof(InputMovementController))]
 [RequireComponent(typeof(InputAttackController))]
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : AnimationHandler
 {
     [SerializeField] private Animator _animator;
-    [SerializeField] private float _lockedTime = 0.25f;
-
+    
     private InputMovementController _movementController;
     private InputAttackController _attackController;
 
@@ -19,7 +18,6 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int Attack2Anim = Animator.StringToHash("Player_Attack2");
     private static readonly int Attack3Anim = Animator.StringToHash("Player_Attack3");
 
-    private int _currentState;
 
     private void Awake()
     {
@@ -27,20 +25,14 @@ public class PlayerAnimation : MonoBehaviour
         _attackController = GetComponent<InputAttackController>();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        int state = GetState();
+        base.Update();
 
-        if (state == _currentState)
-        {
-            return;
-        }
-
-        _animator.CrossFade(state, 0f, 0);
-        _currentState = state;
+        _animator.CrossFade(_currentState, 0f, 0);
     }
 
-    private int GetState()
+    protected override int GetState()
     {
         if (Time.time < _lockedTime)
         {
@@ -71,11 +63,5 @@ public class PlayerAnimation : MonoBehaviour
         }
 
         return IdleAnim;
-    }
-
-    int LockState(int state, float time)
-    {
-        _lockedTime = Time.time + time;
-        return state;
     }
 }

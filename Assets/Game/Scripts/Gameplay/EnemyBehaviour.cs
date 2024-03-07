@@ -2,76 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyFollow : MonoBehaviour
+public class EnemyBehaviour : MonoBehaviour
 {
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Transform _spriteTransform;
     [SerializeField] private Transform _target;
     [SerializeField] private float _detectionRange = 10f;
     [SerializeField] private float _attackRange = 2f;
     [SerializeField] private float _moveSpeed = 3f;
 
+    private Knockback _knockback;
     private bool _targetInDetectionRange = false;
     private bool _targetInAttackRange = false;
-    private bool _isRunning;
-
-    #region ANIM
-    [SerializeField] private Transform _spriteTransform;
-
-    [SerializeField] private Animator _animator;
-    [SerializeField] private float _lockedTime = 0.25f;
-
-    [HideInInspector] private bool _isAttacking = false;
-    [HideInInspector] public float AttackDuration = 1f;
-
-    private static readonly int IdleAnim = Animator.StringToHash("Skeleton_Idle");
-    private static readonly int RunAnim = Animator.StringToHash("Skeleton_Run");
-    private static readonly int AttackAnim = Animator.StringToHash("Skeleton_Attack");
-
-    private int _currentState;
     private float _attackEndTime = 0f;
 
-    private void Update()
-    {
-        int state = GetState();
+    [HideInInspector] public float AttackDuration = 1f;
+    [HideInInspector] public bool IsRunning;
+    [HideInInspector] public bool IsAttacking = false;
 
-        if (state == _currentState)
+    private void Awake()
+    {
+        _knockback = GetComponent<Knockback>();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_knockback.IsKnockbacked)
         {
             return;
         }
 
-        _animator.CrossFade(state, 0f, 0);
-        _currentState = state;
-    }
-
-    private int GetState()
-    {
-        if (Time.time < _lockedTime)
-        {
-            return _currentState;
-        }
-
-        if (_isAttacking)
-        {
-            return LockState(AttackAnim, AttackDuration);
-        }
-
-        if (_isRunning)
-        {
-            return RunAnim;
-        }
-
-        return IdleAnim;
-    }
-
-    int LockState(int state, float time)
-    {
-        _lockedTime = Time.time + time;
-        return state;
-    }
-    #endregion
-
-    private void FixedUpdate()
-    {
         if (_target != null && Vector2.Distance(transform.position, _target.position) <= _detectionRange)
         {
             _targetInDetectionRange = true;
@@ -85,9 +45,16 @@ public class EnemyFollow : MonoBehaviour
         {
             Vector2 direction = (_target.position - transform.position).normalized;
 
-            _rb.velocity = direction * _moveSpeed;
+            if (!IsAttacking)
+            {
+                _rb.velocity = direction * _moveSpeed;
+            }
+            else
+            {
+                _rb.velocity = Vector2.zero;
+            }
 
-            _isRunning = true;
+            IsRunning = true;
 
             if (Vector3.Distance(transform.position, _target.position) <= _attackRange)
             {
@@ -95,18 +62,18 @@ public class EnemyFollow : MonoBehaviour
 
                 _rb.velocity = Vector2.zero;
 
-                _isRunning = false;
+                IsRunning = false;
 
-               //Attack();
+                //Attack();
 
-                _isAttacking = true;
+                IsAttacking = true;
 
                 _attackEndTime = Time.time + AttackDuration;
             }
 
-            if (_isAttacking && Time.time >= _attackEndTime)
+            if (IsAttacking && Time.time >= _attackEndTime)
             {
-                _isAttacking = false;
+                IsAttacking = false;
             }
         }
         else if (!_targetInDetectionRange || (_targetInAttackRange && Vector2.Distance(transform.position, _target.position) > _attackRange))
@@ -114,7 +81,7 @@ public class EnemyFollow : MonoBehaviour
             _targetInAttackRange = false;
         }
 
-        if (_isRunning)
+        if (IsRunning)
         {
             Flip();
         }
