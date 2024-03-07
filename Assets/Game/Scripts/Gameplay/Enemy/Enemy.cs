@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _attackRange = 2f;
     [SerializeField] private float _moveSpeed = 3f;
     [SerializeField] private float _hitDuration = 0.2f;
+    [SerializeField] private float _attackCooldown = 1f;
 
     [HideInInspector] public float AttackDuration = 1f;
     [HideInInspector] public bool IsRunning;
@@ -20,14 +21,17 @@ public class Enemy : MonoBehaviour
 
     private Health _health;
     private Knockback _knockback;
+    private AttackAction _attackAction;
     private bool _targetInDetectionRange = false;
     private bool _targetInAttackRange = false;
     private float _attackEndTime = 0f;
+    private float _lastAttackTime;
 
     private void Awake()
     {
         _health = GetComponent<Health>();
         _knockback = GetComponent<Knockback>();
+        _attackAction = GetComponent<AttackAction>();
     }
 
     private void Start()
@@ -49,6 +53,12 @@ public class Enemy : MonoBehaviour
         if (_target != null && Vector2.Distance(transform.position, _target.position) <= _detectionRange)
         {
             _targetInDetectionRange = true;
+
+            if (Vector3.Distance(transform.position, _target.position) <= _attackRange && Time.time - _lastAttackTime >= _attackCooldown)
+            {
+                _attackAction.Attack();
+                _lastAttackTime = Time.time;
+            }
         }
         else
         {
@@ -77,8 +87,6 @@ public class Enemy : MonoBehaviour
                 _rb.velocity = Vector2.zero;
 
                 IsRunning = false;
-
-                //Attack();
 
                 IsAttacking = true;
 

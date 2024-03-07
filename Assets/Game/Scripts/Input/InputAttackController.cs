@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(PlayerAttack))]
+[RequireComponent(typeof(AttackAction))]
 public class InputAttackController : MonoBehaviour
 {
     [SerializeField] private float _resetAttackTime = 1f;
@@ -12,13 +12,13 @@ public class InputAttackController : MonoBehaviour
     [HideInInspector] public bool IsAttacking = false;
     [HideInInspector] public float AttackDuration = 0.25f;
 
-    private PlayerAttack _playerAttack;
+    private AttackAction _attackAction;
     private float _attackEndTime = 0f;
     private float _lastAttackTime;
 
     private void Awake()
     {
-        _playerAttack = GetComponent<PlayerAttack>();
+        _attackAction = GetComponent<AttackAction>();
     }
 
     private void Update()
@@ -34,7 +34,7 @@ public class InputAttackController : MonoBehaviour
                 CurrentAttack = (CurrentAttack % 3) + 1;
             }
 
-            _playerAttack.Attack();
+            _attackAction.Attack();
 
             _lastAttackTime = Time.time;
 
