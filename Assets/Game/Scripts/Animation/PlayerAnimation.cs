@@ -6,18 +6,19 @@ using UnityEngine;
 [RequireComponent(typeof(InputAttackController))]
 public class PlayerAnimation : AnimationHandler
 {
-    [SerializeField] private Animator _animator;
-    
-    private InputMovementController _movementController;
-    private InputAttackController _attackController;
-
+    #region HASH
     private static readonly int IdleAnim = Animator.StringToHash("Player_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Player_Run");
     private static readonly int DashAnim = Animator.StringToHash("Player_Dash");
     private static readonly int Attack1Anim = Animator.StringToHash("Player_Attack1");
     private static readonly int Attack2Anim = Animator.StringToHash("Player_Attack2");
     private static readonly int Attack3Anim = Animator.StringToHash("Player_Attack3");
+    #endregion
 
+    [SerializeField] private Animator _animator;
+    
+    private InputMovementController _movementController;
+    private InputAttackController _attackController;
 
     private void Awake()
     {

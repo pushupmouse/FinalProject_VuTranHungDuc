@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class SkeletonAnimation : AnimationHandler
 {
-    [SerializeField] private Animator _animator;
-
-    private EnemyBehaviour _enemyBehavior;
-
+    #region HASH
     private static readonly int IdleAnim = Animator.StringToHash("Skeleton_Idle");
     private static readonly int RunAnim = Animator.StringToHash("Skeleton_Run");
     private static readonly int AttackAnim = Animator.StringToHash("Skeleton_Attack");
+    #endregion
+
+    [SerializeField] private Animator _animator;
+
+    private EnemyBehaviour _enemyBehavior;
 
     private void Awake()
     {
