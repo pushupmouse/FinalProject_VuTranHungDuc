@@ -19,9 +19,9 @@ public class Enemy : MonoBehaviour
     [HideInInspector] public bool IsTakeDamage;
     [HideInInspector] public bool IsDead;
 
-    private Health _health;
+    private HealthController _health;
     private Knockback _knockback;
-    private AttackAction _attackAction;
+    private AttackController _attackAction;
     private bool _targetInDetectionRange = false;
     private bool _targetInAttackRange = false;
     private float _attackEndTime = 0f;
@@ -29,9 +29,9 @@ public class Enemy : MonoBehaviour
 
     private void Awake()
     {
-        _health = GetComponent<Health>();
+        _health = GetComponent<HealthController>();
         _knockback = GetComponent<Knockback>();
-        _attackAction = GetComponent<AttackAction>();
+        _attackAction = GetComponent<AttackController>();
     }
 
     private void Start()

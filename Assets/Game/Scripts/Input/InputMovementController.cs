@@ -16,12 +16,12 @@ public class InputMovementController : MonoBehaviour
     [HideInInspector] public bool IsTakeDamage;
     [HideInInspector] public bool IsDead;
 
-    private Health _health;
+    private HealthController _health;
     private PlayerMovement _playerMovement;
 
     private void Awake()
     {
-        _health = GetComponent<Health>();
+        _health = GetComponent<HealthController>();
         _playerMovement = GetComponent<PlayerMovement>();
     }
 

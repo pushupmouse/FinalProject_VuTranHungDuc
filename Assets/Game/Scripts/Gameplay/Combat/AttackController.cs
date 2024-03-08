@@ -3,13 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public class AttackAction : MonoBehaviour
+public class AttackController : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
     [SerializeField] private float _attackRange = 0.75f;
     [SerializeField] private LayerMask _targetLayers;
-    [SerializeField] private float _damage = 40f;
     [SerializeField] private float _delay = 0.15f;
+
+    private float _damage;
+
+    public void InitializeDamage(float value)
+    {
+        if (value <= 0)
+        {
+            _damage = 1;
+        }
+        else
+        {
+            _damage = value;
+        }
+    }
 
     public void Attack()
     {
@@ -21,7 +34,7 @@ public class AttackAction : MonoBehaviour
             {
                 Transform target = hit.transform;
 
-                Health hitHealth = Cache<Health>.GetComponent(hit);
+                HealthController hitHealth = Cache<HealthController>.GetComponent(hit);
                 if (hitHealth != null)
                 {
                     StartCoroutine(DelayedDamage(hitHealth, _damage, _delay, target));
@@ -36,7 +49,7 @@ public class AttackAction : MonoBehaviour
         }
     }
 
-    private IEnumerator DelayedDamage(Health hitHealth, float damage, float delay, Transform target)
+    private IEnumerator DelayedDamage(HealthController hitHealth, float damage, float delay, Transform target)
     {
         yield return new WaitForSeconds(delay);
 

@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 8978773357049194792}
   - component: {fileID: 2700492348914706305}
   - component: {fileID: 1678048617865994187}
+  - component: {fileID: 5206221973602664951}
   - component: {fileID: 5172964933829018224}
   - component: {fileID: 9115063090778275605}
-  - component: {fileID: 5206221973602664951}
+  - component: {fileID: 975495283408982183}
+  - component: {fileID: 4832093791711402418}
   - component: {fileID: 5041336664337488942}
   m_Layer: 10
   m_Name: Player
@@ -124,11 +126,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01ddc64ff97e2004789ca64214041037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hitDuration: 0.2
   MoveX: 0
   MoveY: 0
   MoveDirection: {x: 0, y: 0}
   CanDash: 1
   IsDashing: 0
+  IsTakeDamage: 0
+  IsDead: 0
+--- !u!114 &5206221973602664951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460281408603380474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1db5ba7d0e81c7447a18979e1cb76ad9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _resetAttackTime: 1
+  CurrentAttack: 0
+  IsAttacking: 0
+  AttackDuration: 0.5
 --- !u!114 &5172964933829018224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 2255711840371872275}
---- !u!114 &5206221973602664951
+--- !u!114 &975495283408982183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,13 +189,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1460281408603380474}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1db5ba7d0e81c7447a18979e1cb76ad9, type: 3}
+  m_Script: {fileID: 11500000, guid: d3219a11222cd4d4ca7ad3bbd543ec91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _resetAttackTime: 1
-  CurrentAttack: 0
-  IsAttacking: 0
-  AttackDuration: 0.5
+  attributeData: {fileID: 11400000, guid: f544188715d6952428eac64d3039b17e, type: 2}
+  Constitution: 0
+  Strength: 0
+  Defense: 0
+  Vitality: 0
+  Accuracy: 0
+  Dexterity: 0
+  Luck: 0
+--- !u!114 &4832093791711402418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460281408603380474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c7db6111530d724cae7100ee16db35e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _floatingPoints: {fileID: 3948259208034878312, guid: 9f5163d17643b0a49aa62ddf6e999f7a, type: 3}
 --- !u!114 &5041336664337488942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,10 +227,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackPoint: {fileID: 6687644256317009325}
   _attackRange: 1
-  _enemyLayers:
+  _targetLayers:
     serializedVersion: 2
     m_Bits: 2048
-  _damage: 40
   _delay: 0.15
 --- !u!1 &2250868771541603937
 GameObject:
