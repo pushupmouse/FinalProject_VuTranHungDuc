@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 150757986627874862}
   - component: {fileID: 3279070709529798371}
   m_Layer: 0
-  m_Name: FloatingPoint
+  m_Name: GFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 4873359560415197149}
   - component: {fileID: -8879463613880763708}
   m_Layer: 0
-  m_Name: FloatingParent
+  m_Name: FloatingPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,3 +164,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad06a4d9baaf9174c915c5713d361296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _text: {fileID: 150757986627874862}

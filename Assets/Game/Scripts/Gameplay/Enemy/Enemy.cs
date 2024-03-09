@@ -43,9 +43,9 @@ public class Enemy : MonoBehaviour
         IsDead = false;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (_knockback.IsKnockbacked || IsDead)
+        if (IsDead || _knockback.IsKnockbacked)
         {
             return;
         }
@@ -56,8 +56,7 @@ public class Enemy : MonoBehaviour
 
             if (Vector3.Distance(transform.position, _target.position) <= _attackRange && Time.time - _lastAttackTime >= _attackCooldown)
             {
-                _attackAction.Attack();
-                _lastAttackTime = Time.time;
+                StartAttacking();
             }
         }
         else
@@ -65,47 +64,62 @@ public class Enemy : MonoBehaviour
             _targetInDetectionRange = false;
         }
 
-        if (_targetInDetectionRange && !_targetInAttackRange)
-        {
-            Vector2 direction = (_target.position - transform.position).normalized;
-
-            if (!IsAttacking)
-            {
-                _rb.velocity = direction * _moveSpeed;
-            }
-            else
-            {
-                _rb.velocity = Vector2.zero;
-            }
-
-            IsRunning = true;
-
-            if (Vector3.Distance(transform.position, _target.position) <= _attackRange)
-            {
-                _targetInAttackRange = true;
-
-                _rb.velocity = Vector2.zero;
-
-                IsRunning = false;
-
-                IsAttacking = true;
-
-                _attackEndTime = Time.time + AttackDuration;
-            }
-
-            if (IsAttacking && Time.time >= _attackEndTime)
-            {
-                IsAttacking = false;
-            }
-        }
-        else if (!_targetInDetectionRange || (_targetInAttackRange && Vector2.Distance(transform.position, _target.position) > _attackRange))
+        if (!_targetInDetectionRange || (_targetInAttackRange && Vector2.Distance(transform.position, _target.position) > _attackRange))
         {
             _targetInAttackRange = false;
+            IsAttacking = false;
         }
 
-        if (IsRunning)
+        Flip();
+    }
+
+    private void FixedUpdate()
+    {
+        if (_targetInDetectionRange && !_targetInAttackRange)
         {
-            Flip();
+            MoveTowardsTarget();
+            
+        }
+        else
+        {
+            _rb.velocity = Vector2.zero;
+            
+        }
+    }
+
+    private void StartAttacking()
+    {
+        IsAttacking = true;
+        _attackAction.Attack();
+        _lastAttackTime = Time.time;
+        _attackEndTime = Time.time + AttackDuration;
+    }
+
+    private void MoveTowardsTarget()
+    {
+        Vector2 direction = (_target.position - transform.position).normalized;
+
+        if (!IsAttacking)
+        {
+            _rb.velocity = direction * _moveSpeed;
+            IsRunning = true;
+        }
+        else
+        {
+            _rb.velocity = Vector2.zero;
+            IsRunning = false;
+        }
+
+        if (Vector3.Distance(transform.position, _target.position) <= _attackRange)
+        {
+            _targetInAttackRange = true;
+            _rb.velocity = Vector2.zero;
+            IsRunning = false;
+            
+        }
+        if (IsAttacking && Time.time >= _attackEndTime)
+        {
+            IsAttacking = false;
         }
     }
 

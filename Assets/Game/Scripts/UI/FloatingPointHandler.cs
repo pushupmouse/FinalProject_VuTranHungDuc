@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class FloatingPointHandler : MonoBehaviour
 {
-    private void Start()
+    [SerializeField] private TextMesh _text;
+
+    public void DisplayDamageText(float damage)
     {
         Destroy(gameObject, 1f);
         transform.localPosition += new Vector3(0, 1f, 0);
+        _text.text = damage.ToString();
     }
 }

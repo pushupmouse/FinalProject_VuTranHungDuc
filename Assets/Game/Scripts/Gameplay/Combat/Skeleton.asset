@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f243e90968ea9a445a336efca14c6f7f, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  Constitution: 50
+  Constitution: 1000
   Strength: 10
-  Defense: 30
+  Defense: 0
   Vitality: 0
   Accuracy: 0
   Dexterity: 0

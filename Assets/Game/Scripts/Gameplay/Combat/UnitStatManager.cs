@@ -42,6 +42,7 @@ public class UnitStatManager : MonoBehaviour
         if (_attackController != null)
         {
             _attackController.InitializeDamage(Strength);
+            _attackController.InitializeCritChance(Accuracy);
         }
     }
 }
