@@ -23,7 +23,7 @@ public class InputAttackController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J) && !IsAttacking)
+        if (Input.GetKey(KeyCode.J) && !IsAttacking)
         {
             if (Time.time - _lastAttackTime > _resetAttackTime)
             {

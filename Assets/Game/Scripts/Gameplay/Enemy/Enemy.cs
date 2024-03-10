@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
     private Knockback _knockback;
     private AttackController _attackAction;
     private bool _targetInDetectionRange = false;
-    private bool _targetInAttackRange = false;
     private float _attackEndTime = 0f;
     private float _lastAttackTime;
 
@@ -45,7 +44,7 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (IsDead || _knockback.IsKnockbacked)
+        if (_knockback.IsKnockbacked || IsDead)
         {
             return;
         }
@@ -56,7 +55,8 @@ public class Enemy : MonoBehaviour
 
             if (Vector3.Distance(transform.position, _target.position) <= _attackRange && Time.time - _lastAttackTime >= _attackCooldown)
             {
-                StartAttacking();
+                _attackAction.Attack();
+                _lastAttackTime = Time.time;
             }
         }
         else
@@ -64,64 +64,61 @@ public class Enemy : MonoBehaviour
             _targetInDetectionRange = false;
         }
 
-        if (!_targetInDetectionRange || (_targetInAttackRange && Vector2.Distance(transform.position, _target.position) > _attackRange))
+        if (IsRunning)
         {
-            _targetInAttackRange = false;
-            IsAttacking = false;
+            Flip();
         }
-
-        Flip();
     }
 
     private void FixedUpdate()
     {
-        if (_targetInDetectionRange && !_targetInAttackRange)
+        if (_knockback.IsKnockbacked || IsDead)
         {
-            MoveTowardsTarget();
-            
+            IsAttacking = false;
+            return;
         }
-        else
+
+        if (_targetInDetectionRange)
         {
-            _rb.velocity = Vector2.zero;
-            
-        }
-    }
+            Vector2 direction = (_target.position - transform.position).normalized;
 
-    private void StartAttacking()
-    {
-        IsAttacking = true;
-        _attackAction.Attack();
-        _lastAttackTime = Time.time;
-        _attackEndTime = Time.time + AttackDuration;
-    }
+            if (!IsAttacking)
+            {
+                _rb.velocity = direction * _moveSpeed;
+            }
+            else
+            {
+                _rb.velocity = Vector2.zero;
+            }
 
-    private void MoveTowardsTarget()
-    {
-        Vector2 direction = (_target.position - transform.position).normalized;
-
-        if (!IsAttacking)
-        {
-            _rb.velocity = direction * _moveSpeed;
             IsRunning = true;
+
+            if (Vector3.Distance(transform.position, _target.position) <= _attackRange)
+            {
+                _rb.velocity = Vector2.zero;
+
+                IsRunning = false;
+
+                if (!IsAttacking)
+                {
+                    IsAttacking = true;
+                    _attackEndTime = Time.time + AttackDuration;
+                }
+            }
+
+            if (IsAttacking && Time.time >= _attackEndTime)
+            {
+                IsAttacking = false;
+            }
         }
         else
         {
             _rb.velocity = Vector2.zero;
             IsRunning = false;
-        }
-
-        if (Vector3.Distance(transform.position, _target.position) <= _attackRange)
-        {
-            _targetInAttackRange = true;
-            _rb.velocity = Vector2.zero;
-            IsRunning = false;
-            
-        }
-        if (IsAttacking && Time.time >= _attackEndTime)
-        {
             IsAttacking = false;
         }
     }
+
 
     private void Flip()
     {

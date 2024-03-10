@@ -14,13 +14,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _dashCooldown = 1f;
 
     private InputMovementController _movementController;
-    private InputAttackController _attackController;
+    private InputAttackController _inputAttackController;
     private bool _isFacingRight = true;
 
     private void Awake()
     {
         _movementController = GetComponent<InputMovementController>();
-        _attackController = GetComponent<InputAttackController>();
+        _inputAttackController = GetComponent<InputAttackController>();
     }
 
     private void FixedUpdate()
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
 
-        if (_attackController.IsAttacking)
+        if (_inputAttackController.IsAttacking)
         {
             _rb.velocity = Vector2.zero;
             return;
