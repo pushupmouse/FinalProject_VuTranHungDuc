@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class AttackController : MonoBehaviour
 {
@@ -100,7 +99,7 @@ public class AttackController : MonoBehaviour
                 damage += _critDamageMult * damage;
             }
 
-            hitHealth.TakeDamage(damage);
+            hitHealth.TakeDamage(damage, isCritical);
         }
     }
 

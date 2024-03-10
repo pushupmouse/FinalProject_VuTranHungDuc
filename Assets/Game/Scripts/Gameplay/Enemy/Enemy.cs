@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         {
             _targetInDetectionRange = true;
 
-            if (Vector3.Distance(transform.position, _target.position) <= _attackRange && Time.time - _lastAttackTime >= _attackCooldown)
+            if (Vector3.Distance(transform.position, _target.position) <= _attackRange && Time.time - _lastAttackTime >= _attackCooldown && IsAttacking)
             {
                 _attackAction.Attack();
                 _lastAttackTime = Time.time;

@@ -11,7 +11,7 @@ public class UnitStatManager : MonoBehaviour
     [HideInInspector] public float Defense;
     [HideInInspector] public float Vitality;
     [HideInInspector] public float Accuracy;
-    [HideInInspector] public float Dexterity;
+    [HideInInspector] public float Resilience;
     [HideInInspector] public float Luck;
 
     private HealthController _healthController;
@@ -30,7 +30,7 @@ public class UnitStatManager : MonoBehaviour
         Defense = attributeData.Defense;
         Vitality = attributeData.Vitality;
         Accuracy = attributeData.Accuracy;
-        Dexterity = attributeData.Dexterity;
+        Resilience = attributeData.Resilience;
         Luck = attributeData.Luck;
 
 
@@ -38,6 +38,7 @@ public class UnitStatManager : MonoBehaviour
         {
             _healthController.InitializeHealth(Constitution);
             _healthController.InitializeDamageRed(Defense);
+            _healthController.InitializeRecoveryChance(Resilience);
         }
         if (_attackController != null)
         {
