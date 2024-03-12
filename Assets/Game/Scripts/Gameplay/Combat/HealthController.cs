@@ -10,29 +10,48 @@ public class HealthController : MonoBehaviour
 
     [SerializeField] private FloatingPointHandler _floatingPoint;
     [SerializeField] private float _maxRecoveryChance = 0.75f;
+    [SerializeField] private HealthBar _healthBar;
 
     private float _maxHealth;
-    private float _health;
+    private float _currentHealth;
     private float _defense;
     private float _damageReduction;
     private float _recoveryChance;
     private float _recoveryAmount;
+    private bool _healthChanged = false;
 
     public Action OnTakeDamage;
     public Action OnDeath;
+
+    private void Update()
+    {
+        if (_healthChanged && _healthBar != null)
+        {
+            _healthBar.SetHealth(_currentHealth);
+            _healthChanged = false;
+        }
+    }
+
+    public void OnInit()
+    {
+        if (_healthBar != null)
+        {
+            _healthBar.SetMaxHealth(_maxHealth);
+        }
+    }
 
     public void InitializeHealth(float value)
     {
         if (value <= 0)
         {
-            _health = 100;
+            _currentHealth = 100;
         }
         else
         {
-            _health = value;
+            _currentHealth = value;
         }
 
-        _maxHealth = _health;
+        _maxHealth = _currentHealth;
     }
 
     public void InitializeDamageRed(float value)
@@ -72,12 +91,13 @@ public class HealthController : MonoBehaviour
     public void TakeDamage(float amount, bool isCritical)
     {
         float damage = amount * (1 - _damageReduction);
-        _health -= damage;
+        _currentHealth -= damage;
+        _healthChanged = true;
 
         FloatingPointHandler point = Instantiate(_floatingPoint, transform.position, Quaternion.identity);
         point.DisplayDamageText(Mathf.CeilToInt(damage), isCritical);
 
-        if (_health <= 0)
+        if (_currentHealth <= 0)
         {
             Die();
         }
@@ -101,10 +121,11 @@ public class HealthController : MonoBehaviour
         while (elapsedTime < duration)
         {
             yield return new WaitForSeconds(0.25f);
-            _health += healPerSecond;
+            _currentHealth += healPerSecond;
+            _healthChanged = true;
             FloatingPointHandler point = Instantiate(_floatingPoint, transform.position, Quaternion.identity);
             point.DisplayHealText(Mathf.CeilToInt(healPerSecond));
-            _health = Mathf.Min(_health, _maxHealth);
+            _currentHealth = Mathf.Min(_currentHealth, _maxHealth);
             elapsedTime += 0.25f;
         }
     }

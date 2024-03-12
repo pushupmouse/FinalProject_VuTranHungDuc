@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Skeleton
   m_EditorClassIdentifier: 
   Constitution: 1000
-  Strength: 50
+  Strength: 20
   Defense: 20
   Fortune: 0
   Accuracy: 0

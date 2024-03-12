@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f243e90968ea9a445a336efca14c6f7f, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  Constitution: 20000
+  Constitution: 100
   Strength: 100
-  Defense: 80
+  Defense: 20
   Fortune: 0
   Accuracy: 0.5
-  Resilience: 0.5
+  Resilience: 1
   Luck: 0

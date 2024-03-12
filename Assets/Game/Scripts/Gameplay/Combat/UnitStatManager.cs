@@ -45,5 +45,7 @@ public class UnitStatManager : MonoBehaviour
             _attackController.InitializeDamage(Strength);
             _attackController.InitializeCritChance(Accuracy);
         }
+
+        _healthController.OnInit();
     }
 }

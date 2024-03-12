@@ -122,6 +122,11 @@ public class Enemy : MonoBehaviour
 
     private void Flip()
     {
+        if(_target == null)
+        {
+            return;
+        }
+
         Vector2 direction = (_target.position - transform.position).normalized;
 
         if (direction.x > 0.1f)
