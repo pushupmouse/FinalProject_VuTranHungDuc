@@ -11,7 +11,7 @@ public class AttributeData : ScriptableObject
     public float Defense;
 
     [Header("Secondary Attributes")]
-    public float Vitality;
+    public float Fortune;
     public float Accuracy;
     public float Resilience;
     public float Luck;

@@ -9,7 +9,7 @@ public class UnitStatManager : MonoBehaviour
     [HideInInspector] public float Constitution;
     [HideInInspector] public float Strength;
     [HideInInspector] public float Defense;
-    [HideInInspector] public float Vitality;
+    [HideInInspector] public float Fortune;
     [HideInInspector] public float Accuracy;
     [HideInInspector] public float Resilience;
     [HideInInspector] public float Luck;
@@ -28,7 +28,7 @@ public class UnitStatManager : MonoBehaviour
         Constitution = attributeData.Constitution;
         Strength = attributeData.Strength;
         Defense = attributeData.Defense;
-        Vitality = attributeData.Vitality;
+        Fortune = attributeData.Fortune;
         Accuracy = attributeData.Accuracy;
         Resilience = attributeData.Resilience;
         Luck = attributeData.Luck;

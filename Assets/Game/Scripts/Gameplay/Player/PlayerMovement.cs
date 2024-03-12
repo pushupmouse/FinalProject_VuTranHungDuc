@@ -11,16 +11,34 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _dashSpeed = 15f;
     [SerializeField] private float _dashTime = 0.2f;
+    [SerializeField] private float _staminaRegenRate = 10f;
+    [SerializeField] private float _staminaConsumption = 50f;
     [SerializeField] private float _dashCooldown = 1f;
 
     private InputMovementController _movementController;
     private InputAttackController _inputAttackController;
     private bool _isFacingRight = true;
+    private float _maxStamina = 100f;
+    private float _currentStamina;
 
     private void Awake()
     {
         _movementController = GetComponent<InputMovementController>();
         _inputAttackController = GetComponent<InputAttackController>();
+    }
+
+    private void Start()
+    {
+        _currentStamina = _maxStamina;
+    }
+
+    private void Update()
+    {
+        if (_currentStamina < _maxStamina)
+        {
+            _currentStamina += _staminaRegenRate * Time.deltaTime;
+            _currentStamina = Mathf.Clamp(_currentStamina, 0f, _maxStamina);
+        }
     }
 
     private void FixedUpdate()
@@ -57,35 +75,73 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator Dash()
     {
-        _movementController.CanDash = false;
-        _movementController.IsDashing = true;
+        if (_currentStamina >= _staminaConsumption)
+        {
+            _currentStamina -= _staminaConsumption;
 
-        if(_movementController.MoveDirection != Vector2.zero)
-        {
-            _rb.velocity = _movementController.MoveDirection * _dashSpeed;
-        }
-        else
-        {
-            if (_isFacingRight)
+            _movementController.CanDash = false;
+            _movementController.IsDashing = true;
+
+            if (_movementController.MoveDirection != Vector2.zero)
             {
-                _rb.velocity = Vector2.right * _dashSpeed;
+                _rb.velocity = _movementController.MoveDirection * _dashSpeed;
             }
             else
             {
-                _rb.velocity = Vector2.left * _dashSpeed;
+                if (_isFacingRight)
+                {
+                    _rb.velocity = Vector2.right * _dashSpeed;
+                }
+                else
+                {
+                    _rb.velocity = Vector2.left * _dashSpeed;
+                }
             }
+
+            yield return new WaitForSeconds(_dashTime);
+
+            _movementController.IsDashing = false;
+
+            _rb.velocity = Vector2.zero;
+
+            yield return new WaitForSeconds(_dashCooldown);
+
+            _movementController.CanDash = true;
         }
-
-
-
-        yield return new WaitForSeconds(_dashTime);
-
-        _movementController.IsDashing = false;
-
-        _rb.velocity = Vector2.zero;
-
-        yield return new WaitForSeconds(_dashCooldown);
-
-        _movementController.CanDash = true;
     }
+
+
+    //public IEnumerator Dash()
+    //{
+    //    _movementController.CanDash = false;
+    //    _movementController.IsDashing = true;
+
+    //    if(_movementController.MoveDirection != Vector2.zero)
+    //    {
+    //        _rb.velocity = _movementController.MoveDirection * _dashSpeed;
+    //    }
+    //    else
+    //    {
+    //        if (_isFacingRight)
+    //        {
+    //            _rb.velocity = Vector2.right * _dashSpeed;
+    //        }
+    //        else
+    //        {
+    //            _rb.velocity = Vector2.left * _dashSpeed;
+    //        }
+    //    }
+
+
+
+    //    yield return new WaitForSeconds(_dashTime);
+
+    //    _movementController.IsDashing = false;
+
+    //    _rb.velocity = Vector2.zero;
+
+    //    yield return new WaitForSeconds(_dashCooldown);
+
+    //    _movementController.CanDash = true;
+    //}
 }

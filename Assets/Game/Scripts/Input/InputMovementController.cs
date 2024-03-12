@@ -19,6 +19,7 @@ public class InputMovementController : MonoBehaviour
     private HealthController _health;
     private PlayerMovement _playerMovement;
 
+
     private void Awake()
     {
         _health = GetComponent<HealthController>();
@@ -31,6 +32,7 @@ public class InputMovementController : MonoBehaviour
         _health.OnDeath += HandleDeath;
         _health.OnTakeDamage -= HandleTakeDamage;
         _health.OnTakeDamage += HandleTakeDamage;
+
         IsDead = false;
     }
 

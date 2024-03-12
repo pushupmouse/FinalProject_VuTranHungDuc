@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   Constitution: 20000
-  Strength: 20
-  Defense: 30
-  Vitality: 0
-  Accuracy: 0.76
-  Resilience: 1000
+  Strength: 100
+  Defense: 80
+  Fortune: 0
+  Accuracy: 0.5
+  Resilience: 0.5
   Luck: 0

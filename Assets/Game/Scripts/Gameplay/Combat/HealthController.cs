@@ -9,12 +9,14 @@ public class HealthController : MonoBehaviour
     private const float _DIMINISH_CONST = 100f;
 
     [SerializeField] private FloatingPointHandler _floatingPoint;
+    [SerializeField] private float _maxRecoveryChance = 0.75f;
 
     private float _maxHealth;
     private float _health;
     private float _defense;
     private float _damageReduction;
     private float _recoveryChance;
+    private float _recoveryAmount;
 
     public Action OnTakeDamage;
     public Action OnDeath;
@@ -55,7 +57,15 @@ public class HealthController : MonoBehaviour
         }
         else
         {
-            _recoveryChance = (float)Math.Round(value / (value + _DIMINISH_CONST * 2), 2);
+            _recoveryChance = value;
+        }
+
+        _recoveryAmount = _defense * 0.05f + 1;
+
+
+        if (_recoveryChance > _maxRecoveryChance)
+        {
+            _recoveryAmount += _recoveryChance - _maxRecoveryChance;
         }
     }
 
@@ -78,7 +88,7 @@ public class HealthController : MonoBehaviour
             if(Random.value <= _recoveryChance)
             {
                 StopCoroutine("HealOverTime");
-                StartCoroutine(HealOverTime(_defense * 0.02f, 1f));
+                StartCoroutine(HealOverTime(_recoveryAmount, 1f));
             }
         }
     }
