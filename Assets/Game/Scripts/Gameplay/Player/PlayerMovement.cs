@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _staminaRegenRate = 10f;
     [SerializeField] private float _staminaConsumption = 50f;
     [SerializeField] private float _dashCooldown = 1f;
+    [SerializeField] private StaminaBar _staminaBar;
 
     private InputMovementController _movementController;
     private InputAttackController _inputAttackController;
@@ -34,10 +35,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (_currentStamina < _maxStamina)
+        if (_currentStamina < _maxStamina && !_movementController.IsDashing)
         {
             _currentStamina += _staminaRegenRate * Time.deltaTime;
             _currentStamina = Mathf.Clamp(_currentStamina, 0f, _maxStamina);
+            _staminaBar.SetStamina(_currentStamina);
         }
     }
 
@@ -78,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         if (_currentStamina >= _staminaConsumption)
         {
             _currentStamina -= _staminaConsumption;
+            _staminaBar.SetStamina(_currentStamina);
 
             _movementController.CanDash = false;
             _movementController.IsDashing = true;
@@ -109,39 +112,4 @@ public class PlayerMovement : MonoBehaviour
             _movementController.CanDash = true;
         }
     }
-
-
-    //public IEnumerator Dash()
-    //{
-    //    _movementController.CanDash = false;
-    //    _movementController.IsDashing = true;
-
-    //    if(_movementController.MoveDirection != Vector2.zero)
-    //    {
-    //        _rb.velocity = _movementController.MoveDirection * _dashSpeed;
-    //    }
-    //    else
-    //    {
-    //        if (_isFacingRight)
-    //        {
-    //            _rb.velocity = Vector2.right * _dashSpeed;
-    //        }
-    //        else
-    //        {
-    //            _rb.velocity = Vector2.left * _dashSpeed;
-    //        }
-    //    }
-
-
-
-    //    yield return new WaitForSeconds(_dashTime);
-
-    //    _movementController.IsDashing = false;
-
-    //    _rb.velocity = Vector2.zero;
-
-    //    yield return new WaitForSeconds(_dashCooldown);
-
-    //    _movementController.CanDash = true;
-    //}
 }
