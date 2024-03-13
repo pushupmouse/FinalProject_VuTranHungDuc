@@ -9,8 +9,17 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Gradient _gradient;
     [SerializeField] private Image _fill;
     [SerializeField] private float _transitionSpeed = 0.5f;
+    [SerializeField] private bool _isInactive;
 
     private Coroutine _healthCoroutine;
+
+    private void Start()
+    {
+        if (_isInactive)
+        {
+            SetHealthBarVisibility(false);
+        }
+    }
 
     public void SetMaxHealth(float maxValue)
     {
@@ -22,6 +31,11 @@ public class HealthBar : MonoBehaviour
 
     public void SetHealth(float value)
     {
+        if (_isInactive)
+        {
+            SetHealthBarVisibility(true);
+        }
+
         if (_healthCoroutine != null)
         {
             StopCoroutine(_healthCoroutine);
@@ -47,5 +61,11 @@ public class HealthBar : MonoBehaviour
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
 
         _healthCoroutine = null;
+    }
+
+    private void SetHealthBarVisibility(bool visible)
+    {
+        _slider.gameObject.SetActive(visible);
+        _fill.gameObject.SetActive(visible);
     }
 }
