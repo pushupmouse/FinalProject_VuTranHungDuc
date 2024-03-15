@@ -16,14 +16,14 @@ public class DungeonTraversal : MonoBehaviour
     {
         if (Input.GetKeyDown(key))
         {
-            RoomNode nextRoom = dungeonLayout.currentPlayerLocation.nextRooms[(int)direction];
+            RoomNode nextRoom = dungeonLayout.CurrentPlayerLocation.nextRooms[(int)direction];
             if (nextRoom != null)
             {
                 MoveToRoom(nextRoom);
             }
             else
             {
-                Debug.Log($"There is no room to the {directionName}!");
+                Debug.Log($"There is no path to the {directionName}!");
             }
         }
     }
@@ -31,7 +31,8 @@ public class DungeonTraversal : MonoBehaviour
     void MoveToRoom(RoomNode nextRoom)
     {
         // Update currentPlayerRoom directly in the DungeonLayout script
-        dungeonLayout.currentPlayerLocation = nextRoom;
-        Debug.Log("Current Room: " + dungeonLayout.currentPlayerLocation.type);
+        dungeonLayout.CurrentPlayerLocation = nextRoom;
+        Debug.Log("Current Room: " + dungeonLayout.CurrentPlayerLocation.type);
+        Debug.Log("Position: " + dungeonLayout.CurrentPlayerLocation.position);
     }
 }
