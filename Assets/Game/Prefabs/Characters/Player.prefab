@@ -166,7 +166,10 @@ MonoBehaviour:
   _moveSpeed: 5
   _dashSpeed: 15
   _dashTime: 0.2
-  _dashCooldown: 1
+  _staminaRegenRate: 10
+  _staminaConsumption: 25
+  _dashCooldown: 0.25
+  _staminaBar: {fileID: 0}
 --- !u!114 &9115063090778275605
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,9 +199,9 @@ MonoBehaviour:
   Constitution: 0
   Strength: 0
   Defense: 0
-  Vitality: 0
+  Fortune: 0
   Accuracy: 0
-  Dexterity: 0
+  Resilience: 0
   Luck: 0
 --- !u!114 &4832093791711402418
 MonoBehaviour:
@@ -212,7 +215,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c7db6111530d724cae7100ee16db35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _floatingPoints: {fileID: 3948259208034878312, guid: 9f5163d17643b0a49aa62ddf6e999f7a, type: 3}
+  _floatingPoint: {fileID: -8879463613880763708, guid: 9f5163d17643b0a49aa62ddf6e999f7a, type: 3}
+  _maxRecoveryChance: 0.75
+  _healthBar: {fileID: 0}
 --- !u!114 &5041336664337488942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,6 +236,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   _delay: 0.15
+  _maxCritChance: 0.75
+  _critDamageMult: 0.5
 --- !u!1 &2250868771541603937
 GameObject:
   m_ObjectHideFlags: 0
