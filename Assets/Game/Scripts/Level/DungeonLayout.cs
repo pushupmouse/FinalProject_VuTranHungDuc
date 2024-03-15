@@ -36,6 +36,7 @@ public class RoomNode
 public class DungeonLayout : MonoBehaviour
 {
     [SerializeField] private int _maxMainRooms;
+    [SerializeField] private int _maxBranchRooms;
 
     private RoomNode[,] _roomGrid; // 2D array to store the rooms based on their XY positions
     public RoomNode StartingRoom;
@@ -111,8 +112,7 @@ public class DungeonLayout : MonoBehaviour
             }
         }
 
-        // Inside the Start method after creating main path rooms
-
+        // Branching logic
         foreach (RoomNode mainRoom in _roomGrid)
         {
             if (mainRoom == null || mainRoom.type == RoomType.Boss)
@@ -130,8 +130,8 @@ public class DungeonLayout : MonoBehaviour
 
             if (availableDirections.Count > 0)
             {
-                // Randomize the number of branch rooms (0 to 2)
-                int numBranches = Random.Range(0, Mathf.Min(3, availableDirections.Count));
+                // Randomize the number of branch rooms (0 to _maxBranchRooms)
+                int numBranches = Random.Range(0, Mathf.Min(_maxBranchRooms + 1, availableDirections.Count));
 
                 for (int i = 0; i < numBranches; i++)
                 {
@@ -301,36 +301,26 @@ public class DungeonLayout : MonoBehaviour
             return Direction.Invalid; // Default to North if the positions are the same or invalid
     }
 
-    private void PrintDungeonLayout(RoomNode startRoom)
+    private HashSet<RoomNode> visited = new HashSet<RoomNode>();
+
+    private void PrintDungeonLayout(RoomNode currentRoom)
     {
-        // Use a stack for DFS traversal
-        Stack<RoomNode> stack = new Stack<RoomNode>();
-        HashSet<RoomNode> visited = new HashSet<RoomNode>();
+        // Print the current room type and its position
+        Debug.Log("Room Type: " + currentRoom.type + " | Position: " + currentRoom.position);
 
-        // Push the starting room onto the stack
-        stack.Push(startRoom);
+        // Mark the current room as visited
+        visited.Add(currentRoom);
 
-        while (stack.Count > 0)
+        // Traverse each adjacent room
+        foreach (RoomNode adjacentRoom in currentRoom.nextRooms)
         {
-            // Pop the top room from the stack
-            RoomNode currentRoom = stack.Pop();
-
-            // Print the current room type and its position
-            Debug.Log("Room Type: " + currentRoom.type + " | Position: " + currentRoom.position);
-
-            // Mark the current room as visited
-            visited.Add(currentRoom);
-
-            // Traverse each adjacent room
-            foreach (RoomNode adjacentRoom in currentRoom.nextRooms)
+            // Check if the adjacent room is not null and not visited
+            if (adjacentRoom != null && !visited.Contains(adjacentRoom))
             {
-                // Check if the adjacent room is not null and not visited
-                if (adjacentRoom != null && !visited.Contains(adjacentRoom))
-                {
-                    // Push the adjacent room onto the stack for traversal
-                    stack.Push(adjacentRoom);
-                }
+                // Recursively traverse the adjacent room
+                PrintDungeonLayout(adjacentRoom);
             }
         }
     }
+
 }
