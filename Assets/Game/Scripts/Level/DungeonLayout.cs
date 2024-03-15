@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum RoomType
 {
@@ -33,9 +35,11 @@ public class RoomNode
 
 public class DungeonLayout : MonoBehaviour
 {
+    [SerializeField] private int _maxMainRooms;
+
+    private RoomNode[,] _roomGrid; // 2D array to store the rooms based on their XY positions
     public RoomNode StartingRoom;
     public RoomNode CurrentPlayerLocation;
-    private RoomNode[,] _roomGrid; // 2D array to store the rooms based on their XY positions
 
     private void Start()
     {
@@ -51,10 +55,10 @@ public class DungeonLayout : MonoBehaviour
 
         // Create rooms for the main path leading to the boss
         RoomNode previousRoom = startingRoom;
-        for (int i = 1; i <= 3; i++) // Three rooms distance to boss room
+        for (int i = 1; i <= _maxMainRooms; i++) // Three rooms distance to boss room
         {
             // Randomly select a room type for the current room
-            RoomType currentRoomType = (i < 3) ? branchRoomTypes[Random.Range(0, branchRoomTypes.Length)] : RoomType.Boss;
+            RoomType currentRoomType = (i < _maxMainRooms) ? branchRoomTypes[Random.Range(0, branchRoomTypes.Length)] : RoomType.Boss;
 
             // Get a list of available directions (excluding the direction back to the previous room)
             List<Direction> availableDirections = new List<Direction> { Direction.North, Direction.East, Direction.South, Direction.West };
@@ -106,6 +110,50 @@ public class DungeonLayout : MonoBehaviour
                 break;
             }
         }
+
+        // Inside the Start method after creating main path rooms
+
+        foreach (RoomNode mainRoom in _roomGrid)
+        {
+            if (mainRoom == null || mainRoom.type == RoomType.Boss)
+                continue; // Skip null rooms or boss room
+
+            List<Direction> availableDirections = new List<Direction>();
+            // Check available adjacent positions
+            foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+            {
+                if (dir != Direction.Invalid && mainRoom.nextRooms[(int)dir] == null && !IsRoomOccupied(mainRoom.position + DirectionToVector(dir)))
+                {
+                    availableDirections.Add(dir);
+                }
+            }
+
+            if (availableDirections.Count > 0)
+            {
+                // Randomize the number of branch rooms (0 to 2)
+                int numBranches = Random.Range(0, Mathf.Min(3, availableDirections.Count));
+
+                for (int i = 0; i < numBranches; i++)
+                {
+                    // Randomly select a direction from available directions
+                    Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)];
+
+                    // Calculate the position of the branch room
+                    Vector2Int branchPosition = mainRoom.position + DirectionToVector(randomDirection);
+
+                    // Create the branch room and add it to the grid
+                    RoomNode branchRoom = new RoomNode(RoomType.Fighting, branchPosition);
+                    AddRoomToGrid(branchRoom);
+
+                    // Connect the branch room to the main room
+                    ConnectRooms(mainRoom, branchRoom);
+
+                    // Remove the selected direction to avoid creating additional branches from this direction
+                    availableDirections.Remove(randomDirection);
+                }
+            }
+        }
+
         // Set the starting room as the current player location
         CurrentPlayerLocation = startingRoom;
 
