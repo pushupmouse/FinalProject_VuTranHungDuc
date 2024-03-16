@@ -41,7 +41,8 @@ public class DungeonLayout : MonoBehaviour
     private RoomNode[,] _roomGrid; // 2D array to store the rooms based on their XY positions
     public RoomNode CurrentPlayerLocation;
 
-    //public DungeonTraversal dungeonTraversal;
+    public DungeonTraversal dungeonTraversal;
+    public RoomLayout roomLayout;
 
     private void Start()
     {
@@ -157,7 +158,8 @@ public class DungeonLayout : MonoBehaviour
 
         // Set the starting room as the current player location
         CurrentPlayerLocation = startingRoom;
-        //dungeonTraversal.Init();
+        dungeonTraversal.Init();
+        roomLayout.AddDoors();
     }
 
     private void AddRoomToGrid(RoomNode room)
