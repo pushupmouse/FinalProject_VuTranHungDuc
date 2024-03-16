@@ -19,7 +19,6 @@ public class InputMovementController : MonoBehaviour
     private HealthController _health;
     private PlayerMovement _playerMovement;
 
-
     private void Awake()
     {
         _health = GetComponent<HealthController>();

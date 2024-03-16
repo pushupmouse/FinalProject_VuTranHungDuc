@@ -39,7 +39,11 @@ public class PlayerMovement : MonoBehaviour
         {
             _currentStamina += _staminaRegenRate * Time.deltaTime;
             _currentStamina = Mathf.Clamp(_currentStamina, 0f, _maxStamina);
-            _staminaBar.SetStamina(_currentStamina);
+
+            if(_staminaBar != null)
+            {
+                _staminaBar.SetStamina(_currentStamina);
+            }
         }
     }
 
@@ -80,7 +84,10 @@ public class PlayerMovement : MonoBehaviour
         if (_currentStamina >= _staminaConsumption)
         {
             _currentStamina -= _staminaConsumption;
-            _staminaBar.SetStamina(_currentStamina);
+            if (_staminaBar != null)
+            {
+                _staminaBar.SetStamina(_currentStamina);
+            }
 
             _movementController.CanDash = false;
             _movementController.IsDashing = true;
