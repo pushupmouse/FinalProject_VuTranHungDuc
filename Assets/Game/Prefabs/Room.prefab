@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5191266094744747846}
+  - component: {fileID: 1854918559087701581}
   m_Layer: 0
   m_Name: Room
   m_TagString: Untagged
@@ -33,6 +34,32 @@ Transform:
   - {fileID: 5494548435458651398}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1854918559087701581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2107643672629152152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 391f5f214e2e55f47bfab4c169cdbbe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _doorInfos:
+  - DoorTileLeft: {fileID: 11400000, guid: b8b0fd7fe78ef1c4085a231d4662ba95, type: 2}
+    DoorTileRight: {fileID: 11400000, guid: 1506e54ee6c646d4d8d86bf202c17ca3, type: 2}
+    DoorDirection: 0
+  - DoorTileLeft: {fileID: 11400000, guid: 4e13c46ac6be0124ab432be47b216e23, type: 2}
+    DoorTileRight: {fileID: 11400000, guid: 6e288b408434ce6448449a8433036e8a, type: 2}
+    DoorDirection: 1
+  - DoorTileLeft: {fileID: 11400000, guid: b8b0fd7fe78ef1c4085a231d4662ba95, type: 2}
+    DoorTileRight: {fileID: 11400000, guid: 1506e54ee6c646d4d8d86bf202c17ca3, type: 2}
+    DoorDirection: 2
+  - DoorTileLeft: {fileID: 11400000, guid: cd5898d590baf6344a7d490ba1e543d8, type: 2}
+    DoorTileRight: {fileID: 11400000, guid: d8bb242382e400f4c80a313e414098cf, type: 2}
+    DoorDirection: 3
+  _wallTilemap: {fileID: 6498009740876098715}
 --- !u!1 &6106892800514178156
 GameObject:
   m_ObjectHideFlags: 0

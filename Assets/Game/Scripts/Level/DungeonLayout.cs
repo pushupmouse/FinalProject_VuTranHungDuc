@@ -39,8 +39,9 @@ public class DungeonLayout : MonoBehaviour
     [SerializeField] private int _maxBranchRooms;
 
     private RoomNode[,] _roomGrid; // 2D array to store the rooms based on their XY positions
-    public RoomNode StartingRoom;
     public RoomNode CurrentPlayerLocation;
+
+    //public DungeonTraversal dungeonTraversal;
 
     private void Start()
     {
@@ -156,8 +157,7 @@ public class DungeonLayout : MonoBehaviour
 
         // Set the starting room as the current player location
         CurrentPlayerLocation = startingRoom;
-
-        PrintDungeonLayout(startingRoom);
+        //dungeonTraversal.Init();
     }
 
     private void AddRoomToGrid(RoomNode room)
@@ -301,26 +301,23 @@ public class DungeonLayout : MonoBehaviour
             return Direction.Invalid; // Default to North if the positions are the same or invalid
     }
 
-    private HashSet<RoomNode> visited = new HashSet<RoomNode>();
-
-    private void PrintDungeonLayout(RoomNode currentRoom)
+    public List<Direction> GetAvailableDirections()
     {
-        // Print the current room type and its position
-        Debug.Log("Room Type: " + currentRoom.type + " | Position: " + currentRoom.position);
+        List<Direction> availableDirections = new List<Direction>();
 
-        // Mark the current room as visited
-        visited.Add(currentRoom);
-
-        // Traverse each adjacent room
-        foreach (RoomNode adjacentRoom in currentRoom.nextRooms)
+        // Check for each direction if there is a next room
+        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
         {
-            // Check if the adjacent room is not null and not visited
-            if (adjacentRoom != null && !visited.Contains(adjacentRoom))
+            if (dir != Direction.Invalid)
             {
-                // Recursively traverse the adjacent room
-                PrintDungeonLayout(adjacentRoom);
+                RoomNode nextRoom = CurrentPlayerLocation.nextRooms[(int)dir];
+                if (nextRoom != null)
+                {
+                    availableDirections.Add(dir);
+                }
             }
         }
-    }
 
+        return availableDirections;
+    }
 }
