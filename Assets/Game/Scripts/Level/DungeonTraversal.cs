@@ -3,16 +3,13 @@ using UnityEngine;
 
 public class DungeonTraversal : MonoBehaviour
 {
-    public DungeonLayout dungeonLayout; // Reference to the DungeonLayout script
+    public DungeonLayout dungeonLayout;
 
     public void Init()
     {
-        // Log the initial room and available directions
         Debug.Log("Current Room: " + dungeonLayout.CurrentPlayerLocation.type);
-        //Debug.Log("Position: " + dungeonLayout.CurrentPlayerLocation.position);
 
         List<Direction> availableDirections = dungeonLayout.GetAvailableDirections();
-        //Debug.Log("Available directions:");
         foreach (Direction availableDirection in availableDirections)
         {
             Debug.Log(availableDirection.ToString());
@@ -45,14 +42,10 @@ public class DungeonTraversal : MonoBehaviour
 
     void MoveToRoom(RoomNode nextRoom)
     {
-        // Update currentPlayerRoom directly in the DungeonLayout script
         dungeonLayout.CurrentPlayerLocation = nextRoom;
         Debug.Log("Current Room: " + dungeonLayout.CurrentPlayerLocation.type);
-        //Debug.Log("Position: " + dungeonLayout.CurrentPlayerLocation.position);
 
-        // Log available directions after moving
         List<Direction> availableDirections = dungeonLayout.GetAvailableDirections();
-        //Debug.Log("Available directions:");
         foreach (Direction availableDirection in availableDirections)
         {
             Debug.Log(availableDirection.ToString());

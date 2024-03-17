@@ -16,10 +16,8 @@ public class RoomLayout : MonoBehaviour
     [SerializeField] private Tilemap _wallTilemap;
     public DungeonLayout _dungeonLayout; // Reference to the dungeon layout script
 
-    public void AddDoors()
+    public void AddDoors(List<Direction> availableDirections)
     {
-        List<Direction> availableDirections = _dungeonLayout.GetAvailableDirections();
-
         BoundsInt bounds = _wallTilemap.cellBounds;
 
         foreach (Direction dir in availableDirections)
@@ -73,4 +71,5 @@ public class RoomLayout : MonoBehaviour
             _wallTilemap.SetTile(worldPositionRight, _doorInfos[(int)dir].DoorTileRight);
         }
     }
+
 }
