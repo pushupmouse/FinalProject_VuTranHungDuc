@@ -14,7 +14,6 @@ public class RoomLayout : MonoBehaviour
 
     [SerializeField] private DoorInfo[] _doorInfos;
     [SerializeField] private Tilemap _wallTilemap;
-    public DungeonLayout _dungeonLayout; // Reference to the dungeon layout script
 
     public void AddDoors(List<Direction> availableDirections)
     {

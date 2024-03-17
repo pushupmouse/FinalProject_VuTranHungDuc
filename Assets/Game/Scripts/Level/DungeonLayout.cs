@@ -5,11 +5,11 @@ using Random = UnityEngine.Random;
 
 public enum RoomType
 {
-    Start,
-    Fighting,
-    Shop,
-    Treasure,
-    Boss
+    Start = 0,
+    Boss = 1,
+    Fighting = 2,
+    Shop = 3,
+    Treasure = 4,
 }
 
 public enum Direction
@@ -24,85 +24,98 @@ public enum Direction
 public class RoomNode
 {
     public RoomType type;
-    public RoomNode[] nextRooms = new RoomNode[4];
-    public Vector2Int position;
+    public RoomNode[] nextRooms = new RoomNode[4]; // Array holding references to adjacent rooms (North, East, South, West)
+    public Vector2Int position; // Position of the room in the grid
 
     public RoomNode(RoomType type, Vector2Int position)
     {
-        this.type = type;
+        this.type = type; 
         this.position = position;
     }
 }
 
 public class DungeonLayout : MonoBehaviour
 {
-    [SerializeField] private int _maxMainRooms;
-    [SerializeField] private int _maxBranchRooms;
+    [SerializeField] private int _maxMainRooms; // Maximum number of main rooms to generate
+    [SerializeField] private DungeonManager dungeonManager; 
 
-    private RoomNode[,] _roomGrid;
+    private RoomNode[,] _roomGrid; // 2D array representing the grid of rooms
     public RoomNode CurrentPlayerLocation;
-
-    public DungeonTraversal dungeonTraversal;
-    public RoomLayout roomLayout;
-    public DungeonManager dungeonManager;
 
     private void Start()
     {
-        RoomType[] branchRoomTypes = {  RoomType.Start, RoomType.Fighting, RoomType.Shop, RoomType.Treasure };
+        CreateMainRooms();
+        CreateBranchRooms(); 
 
-        RoomNode startingRoom = new RoomNode(RoomType.Start, new Vector2Int(0, 0));
+        dungeonManager.InitializeDungeonManager();
+    }
 
-        _roomGrid = new RoomNode[100, 100];
-        AddRoomToGrid(startingRoom);
+    private void CreateMainRooms()
+    {
+        RoomType[] mainRoomTypes = { RoomType.Fighting, RoomType.Shop, RoomType.Treasure }; // Types of main rooms
 
-        RoomNode previousRoom = startingRoom;
-        for (int i = 1; i <= _maxMainRooms; i++) 
+        RoomNode startingRoom = new RoomNode(RoomType.Start, new Vector2Int(0, 0)); // Create the starting room at position (0, 0)
+
+        _roomGrid = new RoomNode[100, 100]; // Initialize the room grid with a fixed size
+        AddRoomToGrid(startingRoom); // Add the starting room to the grid
+
+        CurrentPlayerLocation = startingRoom; // Set the current player location to the starting room
+
+        RoomNode previousRoom = startingRoom; // Track the previous room while generating rooms
+        for (int i = 1; i <= _maxMainRooms; i++) // Iterate to create main rooms
         {
-            RoomType currentRoomType = (i < _maxMainRooms) ? branchRoomTypes[Random.Range(0, branchRoomTypes.Length)] : RoomType.Boss;
+            RoomType currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Boss; // Determine the type of the current room (main or boss)
 
-            List<Direction> availableDirections = new List<Direction> { Direction.North, Direction.East, Direction.South, Direction.West };
+            List<Direction> availableDirections = new List<Direction> { Direction.North, Direction.East, Direction.South, Direction.West }; // List of available directions for branching
             if (i > 1)
             {
-                Direction directionBack = GetOppositeDirection(previousRoom.position, startingRoom.position);
-                availableDirections.Remove(directionBack);
+                Direction directionBack = GetOppositeDirection(previousRoom.position, startingRoom.position); // Get the direction back to the starting room
+                availableDirections.Remove(directionBack); // Remove the back direction from available directions
             }
 
             if (currentRoomType == RoomType.Boss)
             {
-                availableDirections.Remove(GetDirection(previousRoom.position, startingRoom.position));
+                availableDirections.Remove(GetDirection(previousRoom.position, startingRoom.position)); // Remove the direction leading back to the starting room if the current room is a boss room
             }
 
-            for (int j = availableDirections.Count - 1; j >= 0; j--)
+            for (int j = availableDirections.Count - 1; j >= 0; j--) // Iterate through available directions
             {
-                Direction direction = availableDirections[j];
-                Vector2Int nextPosition = previousRoom.position + DirectionToVector(direction);
-                if (IsRoomOccupied(nextPosition))
+                Direction direction = availableDirections[j]; // Get the current direction
+                Vector2Int nextPosition = previousRoom.position + DirectionToVector(direction); // Calculate the position of the next room in the specified direction
+                if (IsRoomOccupied(nextPosition)) // Check if the next room position is occupied
                 {
-                    availableDirections.RemoveAt(j);
+                    availableDirections.RemoveAt(j); // Remove the direction if the room is occupied
                 }
             }
 
-            if (availableDirections.Count > 0)
+            if (availableDirections.Count > 0) // If there are available directions to add a room
             {
-                Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)];
+                Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)]; // Choose a random direction from available directions
 
-                Vector2Int currentPosition = previousRoom.position + DirectionToVector(randomDirection);
+                Vector2Int currentPosition = previousRoom.position + DirectionToVector(randomDirection); // Calculate the position of the current room based on the chosen direction
 
-                RoomNode currentRoom = new RoomNode(currentRoomType, currentPosition);
-                AddRoomToGrid(currentRoom);
+                RoomNode currentRoom = new RoomNode(currentRoomType, currentPosition); // Create the current room with the determined type and position
 
-                ConnectRooms(previousRoom, currentRoom);
+                AddRoomToGrid(currentRoom); // Add the current room to the grid
 
-                previousRoom = currentRoom;
+                ConnectRooms(previousRoom, currentRoom); // Connect the previous room to the current room
+
+                previousRoom = currentRoom; // Update the previous room to the current room
             }
         }
+    }
+
+    private void CreateBranchRooms()
+    {
+        RoomType[] branchRoomTypes = { RoomType.Fighting, RoomType.Shop, RoomType.Treasure }; // Types of branch rooms
 
         foreach (RoomNode mainRoom in _roomGrid)
         {
             if (mainRoom == null || mainRoom.type == RoomType.Boss)
-                continue;
+                continue; // Skip null rooms or boss room
 
             List<Direction> availableDirections = new List<Direction>();
+            // Check available adjacent positions
             foreach (Direction dir in Enum.GetValues(typeof(Direction)))
             {
                 if (dir != Direction.Invalid && mainRoom.nextRooms[(int)dir] == null && !IsRoomOccupied(mainRoom.position + DirectionToVector(dir)))
@@ -113,26 +126,29 @@ public class DungeonLayout : MonoBehaviour
 
             if (availableDirections.Count > 0)
             {
-                int numBranches = Random.Range(0, Mathf.Min(_maxBranchRooms + 1, availableDirections.Count));
+                // Randomize the number of branch rooms (0 to 2)
+                int numBranches = Random.Range(0, Mathf.Min(3, availableDirections.Count));
 
                 for (int i = 0; i < numBranches; i++)
                 {
+                    // Randomly select a direction from available directions
                     Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)];
 
+                    // Calculate the position of the branch room
                     Vector2Int branchPosition = mainRoom.position + DirectionToVector(randomDirection);
 
+                    // Create the branch room and add it to the grid
                     RoomNode branchRoom = new RoomNode(RoomType.Fighting, branchPosition);
                     AddRoomToGrid(branchRoom);
 
+                    // Connect the branch room to the main room
                     ConnectRooms(mainRoom, branchRoom);
 
+                    // Remove the selected direction to avoid creating additional branches from this direction
                     availableDirections.Remove(randomDirection);
                 }
             }
         }
-
-        CurrentPlayerLocation = startingRoom;
-        dungeonManager.InitializeDungeonManager();
     }
 
     private void AddRoomToGrid(RoomNode room)
@@ -144,10 +160,6 @@ public class DungeonLayout : MonoBehaviour
             adjustedY >= 0 && adjustedY < _roomGrid.GetLength(1))
         {
             _roomGrid[adjustedX, adjustedY] = room;
-        }
-        else
-        {
-            Debug.LogError("Room position is outside the bounds of the room grid.");
         }
     }
 
@@ -178,14 +190,6 @@ public class DungeonLayout : MonoBehaviour
                 roomA.nextRooms[(int)Direction.South] = roomB;
                 roomB.nextRooms[(int)Direction.North] = roomA;
             }
-            else
-            {
-                Debug.LogError("Rooms are not adjacent. Cannot connect.");
-            }
-        }
-        else
-        {
-            Debug.LogError("One or both rooms are null. Cannot connect.");
         }
     }
 
