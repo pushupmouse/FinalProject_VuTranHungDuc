@@ -60,6 +60,7 @@ MonoBehaviour:
     DoorTileRight: {fileID: 11400000, guid: d8bb242382e400f4c80a313e414098cf, type: 2}
     DoorDirection: 3
   _wallTilemap: {fileID: 6498009740876098715}
+  _interactDoor: {fileID: 7555289072263958799, guid: 199760be4feb568488ff4ed676bf4227, type: 3}
 --- !u!1 &6106892800514178156
 GameObject:
   m_ObjectHideFlags: 0

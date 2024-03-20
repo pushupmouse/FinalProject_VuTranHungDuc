@@ -37,7 +37,6 @@ public class RoomNode
 public class DungeonLayout : MonoBehaviour
 {
     [SerializeField] private int _maxMainRooms; // Maximum number of main rooms to generate
-    [SerializeField] private DungeonManager dungeonManager; 
 
     private RoomNode[,] _roomGrid; // 2D array representing the grid of rooms
     public RoomNode CurrentPlayerLocation;
@@ -45,8 +44,8 @@ public class DungeonLayout : MonoBehaviour
     private void Start()
     {
         CreateMainRooms();
-        CreateBranchRooms(); 
-
+        CreateBranchRooms();
+        DungeonManager dungeonManager = DungeonManager.Instance;
         dungeonManager.InitializeDungeonManager();
     }
 

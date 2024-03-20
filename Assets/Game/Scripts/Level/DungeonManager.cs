@@ -2,12 +2,26 @@ using UnityEngine;
 
 public class DungeonManager : MonoBehaviour
 {
+    public static DungeonManager Instance;
+
     public RoomLayout roomLayoutPrefab;
-    public Transform gridParent; 
+    public Transform gridParent;
 
-    public DungeonLayout dungeonLayout; 
-    private RoomLayout currentRoom; 
+    public DungeonLayout dungeonLayout;
+    private RoomLayout currentRoom;
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("Multiple DungeonManager instances detected. Destroying duplicate.");
+            Destroy(gameObject);
+        }
+    }
 
     public void InitializeDungeonManager()
     {
@@ -24,31 +38,7 @@ public class DungeonManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        CheckMovement(KeyCode.I, Direction.North);
-        CheckMovement(KeyCode.J, Direction.West);
-        CheckMovement(KeyCode.K, Direction.South);
-        CheckMovement(KeyCode.L, Direction.East);
-    }
-
-    void CheckMovement(KeyCode key, Direction direction)
-    {
-        if (Input.GetKeyDown(key))
-        {
-            RoomNode nextRoom = dungeonLayout.CurrentPlayerLocation.nextRooms[(int)direction];
-            if (nextRoom != null)
-            {
-                MoveToRoom(nextRoom);
-            }
-            else
-            {
-                Debug.Log($"There is no path to the {(Direction)direction}!");
-            }
-        }
-    }
-
-    void MoveToRoom(RoomNode nextRoom)
+    public void MoveToRoom(RoomNode nextRoom)
     {
         if (currentRoom != null)
         {
@@ -62,5 +52,7 @@ public class DungeonManager : MonoBehaviour
         currentRoom.AddDoors(dungeonLayout.GetAvailableDirections());
 
         Debug.Log("Current Room: " + dungeonLayout.CurrentPlayerLocation.type);
+
+        
     }
 }

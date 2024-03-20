@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &373682967 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+  m_PrefabInstance: {fileID: 612141487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +287,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1743723593}
   m_SourcePrefab: {fileID: 100100000, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
 --- !u!1 &700309944
 GameObject:
@@ -370,7 +378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &994362212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -514,9 +522,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxMainRooms: 3
-  _maxBranchRooms: 2
-  dungeonTraversal: {fileID: 1334381781}
-  roomLayout: {fileID: 0}
   dungeonManager: {fileID: 1993010690}
 --- !u!1 &1392800402
 GameObject:
@@ -567,6 +572,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8400341698045192277, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
   m_PrefabInstance: {fileID: 612141487}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1743723593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 373682967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766742d7ef4aafc4e928e7338874a1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractorSource: {fileID: 1743723583}
+  InteractRange: 0.5
+  DownwardOffset: 0.3
 --- !u!114 &1795767290 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1111984389996517648, guid: 63d9c594ac685ba4fa987094bec724b6, type: 3}
@@ -677,11 +697,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6784550235353370547, guid: 63d9c594ac685ba4fa987094bec724b6, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6784550235353370547, guid: 63d9c594ac685ba4fa987094bec724b6, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7188023532169185077, guid: 63d9c594ac685ba4fa987094bec724b6, type: 3}
       propertyPath: m_Name
@@ -842,11 +862,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4828781529190396948, guid: 5a9b667e7de4bfa4c9d48a4b4bb06a08, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4828781529190396948, guid: 5a9b667e7de4bfa4c9d48a4b4bb06a08, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7005227746383464550, guid: 5a9b667e7de4bfa4c9d48a4b4bb06a08, type: 3}
       propertyPath: m_Pivot.x

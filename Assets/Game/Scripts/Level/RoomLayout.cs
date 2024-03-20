@@ -1,6 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-using System.Collections.Generic;
 
 public class RoomLayout : MonoBehaviour
 {
@@ -14,6 +14,7 @@ public class RoomLayout : MonoBehaviour
 
     [SerializeField] private DoorInfo[] _doorInfos;
     [SerializeField] private Tilemap _wallTilemap;
+    [SerializeField] private Door _interactDoor;
 
     public void AddDoors(List<Direction> availableDirections)
     {
@@ -68,7 +69,27 @@ public class RoomLayout : MonoBehaviour
 
             _wallTilemap.SetTile(worldPositionLeft, _doorInfos[(int)dir].DoorTileLeft);
             _wallTilemap.SetTile(worldPositionRight, _doorInfos[(int)dir].DoorTileRight);
+
+            Door interactDoor = Instantiate(_interactDoor, _wallTilemap.CellToWorld(worldPositionLeft), Quaternion.identity);
+            interactDoor.DoorDirection = dir;
+
+            switch (dir)
+            {
+                case Direction.North:
+                case Direction.South:
+                    interactDoor.transform.position += new Vector3(0f, 0.5f, 0f);
+                    break;
+                case Direction.East:
+                case Direction.West:
+                    interactDoor.transform.position += new Vector3(0.5f, 0f, 0f);
+                    interactDoor.transform.Rotate(0f, 0f, 90f);
+                    break;
+                default:
+                    Debug.LogError("Invalid door direction.");
+                    break;
+            }
+
+            interactDoor.transform.SetParent(_wallTilemap.transform);
         }
     }
-
 }
