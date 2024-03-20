@@ -92,4 +92,24 @@ public class RoomLayout : MonoBehaviour
             interactDoor.transform.SetParent(_wallTilemap.transform);
         }
     }
+
+    public Vector2Int GetDoorPosition(Direction direction)
+    {
+        BoundsInt bounds = _wallTilemap.cellBounds;
+
+        switch (direction)
+        {
+            case Direction.North:
+                return new Vector2Int(bounds.min.x + bounds.size.x / 2, bounds.max.y - 1);
+            case Direction.South:
+                return new Vector2Int(bounds.min.x + bounds.size.x / 2, bounds.min.y);
+            case Direction.East:
+                return new Vector2Int(bounds.max.x - 1, bounds.min.y + bounds.size.y / 2);
+            case Direction.West:
+                return new Vector2Int(bounds.min.x, bounds.min.y + bounds.size.y / 2);
+            default:
+                Debug.LogError("Invalid direction.");
+                return Vector2Int.zero;
+        }
+    }
 }

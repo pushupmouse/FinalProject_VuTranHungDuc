@@ -521,8 +521,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf39bf3c0b4cfb4e81b43720b1e9552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMainRooms: 3
-  dungeonManager: {fileID: 1993010690}
+  _maxMainRooms: 4
 --- !u!1 &1392800402
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,7 +737,7 @@ Transform:
   m_GameObject: {fileID: 1993010688}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.209921, y: 0.8263848, z: -4.7891703}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -758,6 +757,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomLayoutPrefab: {fileID: 1854918559087701581, guid: 336e164ef1fb1b744950aab5452cb08f, type: 3}
   gridParent: {fileID: 1392800404}
+  player: {fileID: 1743723583}
   dungeonLayout: {fileID: 1334381782}
 --- !u!224 &172477787415007310 stripped
 RectTransform:

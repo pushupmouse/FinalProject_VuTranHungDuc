@@ -13,7 +13,7 @@ public class Door : MonoBehaviour, IInteractable
             RoomNode nextRoom = dungeonManager.dungeonLayout.CurrentPlayerLocation.nextRooms[(int)DoorDirection];
             if (nextRoom != null)
             {
-                dungeonManager.MoveToRoom(nextRoom);
+                dungeonManager.MoveToRoom(nextRoom, DoorDirection);
             }
         }
     }
