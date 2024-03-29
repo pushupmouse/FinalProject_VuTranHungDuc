@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class RoomLayout : MonoBehaviour
+public class RoomGenerator : MonoBehaviour
 {
     [System.Serializable]
     public class DoorInfo

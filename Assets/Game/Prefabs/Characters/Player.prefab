@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 975495283408982183}
   - component: {fileID: 4832093791711402418}
   - component: {fileID: 5041336664337488942}
+  - component: {fileID: 8553745061963572415}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -238,6 +239,21 @@ MonoBehaviour:
   _delay: 0.15
   _maxCritChance: 0.75
   _critDamageMult: 0.5
+--- !u!114 &8553745061963572415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1460281408603380474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 766742d7ef4aafc4e928e7338874a1c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractorSource: {fileID: 8400341698045192277}
+  InteractRange: 0.5
+  DownwardOffset: 0.3
 --- !u!1 &2250868771541603937
 GameObject:
   m_ObjectHideFlags: 0

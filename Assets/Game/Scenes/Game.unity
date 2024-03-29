@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &373682967 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
-  m_PrefabInstance: {fileID: 612141487}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -232,10 +227,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4832093791711402418, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
       propertyPath: _healthBar
       value: 
@@ -287,10 +278,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1743723593}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
 --- !u!1 &700309944
 GameObject:
@@ -473,9 +461,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1334381780}
   - component: {fileID: 1334381782}
-  - component: {fileID: 1334381781}
   m_Layer: 0
-  m_Name: Dungeon Layout
+  m_Name: Dungeon Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,19 +483,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1334381781
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1334381778}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16c1d06a70d5cdc4a829801d9d580809, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dungeonLayout: {fileID: 1334381782}
 --- !u!114 &1334381782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,26 +540,56 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1743723583 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8400341698045192277, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
-  m_PrefabInstance: {fileID: 612141487}
+--- !u!1 &1521285352
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1743723593
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1521285354}
+  - component: {fileID: 1521285353}
+  m_Layer: 0
+  m_Name: Level Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1521285353
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 373682967}
+  m_GameObject: {fileID: 1521285352}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 766742d7ef4aafc4e928e7338874a1c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 9d08ab7821df11b458363d46a03f62f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InteractorSource: {fileID: 1743723583}
-  InteractRange: 0.5
-  DownwardOffset: 0.3
+  _enemy: {fileID: 0}
+--- !u!4 &1521285354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521285352}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2923377, y: 2.321205, z: -0.07799887}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1743723583 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8400341698045192277, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+  m_PrefabInstance: {fileID: 612141487}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1795767290 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1111984389996517648, guid: 63d9c594ac685ba4fa987094bec724b6, type: 3}
@@ -722,7 +726,7 @@ GameObject:
   - component: {fileID: 1993010689}
   - component: {fileID: 1993010690}
   m_Layer: 0
-  m_Name: DungeonManager
+  m_Name: Dungeon Traversal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -755,10 +759,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8319d6607e5e6f49bd305d3f0134786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomLayoutPrefab: {fileID: 1854918559087701581, guid: 336e164ef1fb1b744950aab5452cb08f, type: 3}
-  gridParent: {fileID: 1392800404}
-  player: {fileID: 1743723583}
-  dungeonLayout: {fileID: 1334381782}
+  _room: {fileID: 1854918559087701581, guid: 336e164ef1fb1b744950aab5452cb08f, type: 3}
+  _gridParent: {fileID: 1392800404}
+  _player: {fileID: 1743723583}
+  _dungeonManager: {fileID: 1334381782}
 --- !u!224 &172477787415007310 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7005227746383464550, guid: 5a9b667e7de4bfa4c9d48a4b4bb06a08, type: 3}
@@ -965,3 +969,4 @@ SceneRoots:
   - {fileID: 1334381780}
   - {fileID: 1993010689}
   - {fileID: 1392800404}
+  - {fileID: 1521285354}

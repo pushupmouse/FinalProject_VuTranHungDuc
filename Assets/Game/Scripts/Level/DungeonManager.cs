@@ -1,109 +1,280 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+public enum RoomType
+{
+    Start = 0,
+    Boss = 1,
+    Fighting = 2,
+    Shop = 3,
+    Treasure = 4,
+}
+
+public enum Direction
+{
+    North = 0,
+    East = 1,
+    South = 2,
+    West = 3,
+    Invalid = 4,
+}
+
+public class RoomNode
+{
+    public RoomType type;
+    public RoomNode[] nextRooms = new RoomNode[4]; // Array holding references to adjacent rooms (North, East, South, West)
+    public Vector2Int position; // Position of the room in the grid
+
+    public RoomNode(RoomType type, Vector2Int position)
+    {
+        this.type = type; 
+        this.position = position;
+    }
+}
 
 public class DungeonManager : MonoBehaviour
 {
-    public static DungeonManager Instance;
+    [SerializeField] private int _maxMainRooms; // Maximum number of main rooms to generate
 
-    public RoomLayout roomLayoutPrefab;
-    public Transform gridParent;
-    public Transform player;
-    public DungeonLayout dungeonLayout;
-    private RoomLayout currentRoom;
+    private RoomNode[,] _roomGrid; // 2D array representing the grid of rooms
+    public RoomNode CurrentPlayerLocation;
 
-    private void Awake()
+    private void Start()
     {
-        if (Instance == null)
+        CreateMainRooms();
+        CreateBranchRooms();
+        DungeonTraversalManager dungeonManager = DungeonTraversalManager.Instance;
+        dungeonManager.InitializeTraversal();
+    }
+
+    private void CreateMainRooms()
+    {
+        RoomType[] mainRoomTypes = { RoomType.Fighting, RoomType.Shop, RoomType.Treasure }; // Types of main rooms
+
+        RoomNode startingRoom = new RoomNode(RoomType.Start, new Vector2Int(0, 0)); // Create the starting room at position (0, 0)
+
+        _roomGrid = new RoomNode[100, 100]; // Initialize the room grid with a fixed size
+        AddRoomToGrid(startingRoom); // Add the starting room to the grid
+
+        CurrentPlayerLocation = startingRoom; // Set the current player location to the starting room
+
+        RoomNode previousRoom = startingRoom; // Track the previous room while generating rooms
+        for (int i = 1; i <= _maxMainRooms; i++) // Iterate to create main rooms
         {
-            Instance = this;
+            RoomType currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Boss; // Determine the type of the current room (main or boss)
+
+            List<Direction> availableDirections = new List<Direction> { Direction.North, Direction.East, Direction.South, Direction.West }; // List of available directions for branching
+            if (i > 1)
+            {
+                Direction directionBack = GetOppositeDirection(previousRoom.position, startingRoom.position); // Get the direction back to the starting room
+                availableDirections.Remove(directionBack); // Remove the back direction from available directions
+            }
+
+            if (currentRoomType == RoomType.Boss)
+            {
+                availableDirections.Remove(GetDirection(previousRoom.position, startingRoom.position)); // Remove the direction leading back to the starting room if the current room is a boss room
+            }
+
+            for (int j = availableDirections.Count - 1; j >= 0; j--) // Iterate through available directions
+            {
+                Direction direction = availableDirections[j]; // Get the current direction
+                Vector2Int nextPosition = previousRoom.position + DirectionToVector(direction); // Calculate the position of the next room in the specified direction
+                if (IsRoomOccupied(nextPosition)) // Check if the next room position is occupied
+                {
+                    availableDirections.RemoveAt(j); // Remove the direction if the room is occupied
+                }
+            }
+
+            if (availableDirections.Count > 0) // If there are available directions to add a room
+            {
+                Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)]; // Choose a random direction from available directions
+
+                Vector2Int currentPosition = previousRoom.position + DirectionToVector(randomDirection); // Calculate the position of the current room based on the chosen direction
+
+                RoomNode currentRoom = new RoomNode(currentRoomType, currentPosition); // Create the current room with the determined type and position
+
+                AddRoomToGrid(currentRoom); // Add the current room to the grid
+
+                ConnectRooms(previousRoom, currentRoom); // Connect the previous room to the current room
+
+                previousRoom = currentRoom; // Update the previous room to the current room
+            }
+        }
+    }
+
+    private void CreateBranchRooms()
+    {
+        RoomType[] branchRoomTypes = { RoomType.Fighting, RoomType.Shop, RoomType.Treasure }; // Types of branch rooms
+
+        foreach (RoomNode mainRoom in _roomGrid)
+        {
+            if (mainRoom == null || mainRoom.type == RoomType.Boss)
+                continue; // Skip null rooms or boss room
+
+            List<Direction> availableDirections = new List<Direction>();
+            // Check available adjacent positions
+            foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+            {
+                if (dir != Direction.Invalid && mainRoom.nextRooms[(int)dir] == null && !IsRoomOccupied(mainRoom.position + DirectionToVector(dir)))
+                {
+                    availableDirections.Add(dir);
+                }
+            }
+
+            if (availableDirections.Count > 0)
+            {
+                // Randomize the number of branch rooms (0 to 2)
+                int numBranches = Random.Range(0, Mathf.Min(3, availableDirections.Count));
+
+                for (int i = 0; i < numBranches; i++)
+                {
+                    // Randomly select a direction from available directions
+                    Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)];
+
+                    // Calculate the position of the branch room
+                    Vector2Int branchPosition = mainRoom.position + DirectionToVector(randomDirection);
+
+                    // Create the branch room and add it to the grid
+                    RoomNode branchRoom = new RoomNode(RoomType.Fighting, branchPosition);
+                    AddRoomToGrid(branchRoom);
+
+                    // Connect the branch room to the main room
+                    ConnectRooms(mainRoom, branchRoom);
+
+                    // Remove the selected direction to avoid creating additional branches from this direction
+                    availableDirections.Remove(randomDirection);
+                }
+            }
+        }
+    }
+
+    private void AddRoomToGrid(RoomNode room)
+    {
+        int adjustedX = room.position.x + _roomGrid.GetLength(0) / 2;
+        int adjustedY = room.position.y + _roomGrid.GetLength(1) / 2;
+
+        if (adjustedX >= 0 && adjustedX < _roomGrid.GetLength(0) &&
+            adjustedY >= 0 && adjustedY < _roomGrid.GetLength(1))
+        {
+            _roomGrid[adjustedX, adjustedY] = room;
+        }
+    }
+
+    private void ConnectRooms(RoomNode roomA, RoomNode roomB)
+    {
+        if (roomA != null && roomB != null)
+        {
+            int deltaX = roomB.position.x - roomA.position.x;
+            int deltaY = roomB.position.y - roomA.position.y;
+
+            if (deltaX == 1)
+            {
+                roomA.nextRooms[(int)Direction.East] = roomB;
+                roomB.nextRooms[(int)Direction.West] = roomA;
+            }
+            else if (deltaX == -1)
+            {
+                roomA.nextRooms[(int)Direction.West] = roomB;
+                roomB.nextRooms[(int)Direction.East] = roomA;
+            }
+            else if (deltaY == 1)
+            {
+                roomA.nextRooms[(int)Direction.North] = roomB;
+                roomB.nextRooms[(int)Direction.South] = roomA;
+            }
+            else if (deltaY == -1)
+            {
+                roomA.nextRooms[(int)Direction.South] = roomB;
+                roomB.nextRooms[(int)Direction.North] = roomA;
+            }
+        }
+    }
+
+    private bool IsRoomOccupied(Vector2Int position)
+    {
+        int adjustedX = position.x + _roomGrid.GetLength(0) / 2;
+        int adjustedY = position.y + _roomGrid.GetLength(1) / 2;
+
+        if (adjustedX >= 0 && adjustedX < _roomGrid.GetLength(0) &&
+            adjustedY >= 0 && adjustedY < _roomGrid.GetLength(1))
+        {
+            return _roomGrid[adjustedX, adjustedY] != null;
         }
         else
         {
-            Debug.LogWarning("Multiple DungeonManager instances detected. Destroying duplicate.");
-            Destroy(gameObject);
+            return false;
         }
     }
 
-    public void InitializeDungeonManager()
-    {
-        RoomNode firstRoom = dungeonLayout.CurrentPlayerLocation;
-        if (firstRoom != null)
-        {
-            currentRoom = Instantiate(roomLayoutPrefab, gridParent);
-
-            currentRoom.AddDoors(dungeonLayout.GetAvailableDirections());
-
-            dungeonLayout.CurrentPlayerLocation = firstRoom;
-
-            Debug.Log("Current Room: " + dungeonLayout.CurrentPlayerLocation.type);
-        }
-    }
-
-    public void MoveToRoom(RoomNode nextRoom, Direction enteredFromDirection)
-    {
-        if (currentRoom != null)
-        {
-            Destroy(currentRoom.gameObject);
-        }
-
-        currentRoom = Instantiate(roomLayoutPrefab, gridParent);
-
-        dungeonLayout.CurrentPlayerLocation = nextRoom;
-
-        currentRoom.AddDoors(dungeonLayout.GetAvailableDirections());
-
-        Debug.Log("Current Room: " + dungeonLayout.CurrentPlayerLocation.type);
-
-        // Calculate the opposite direction
-        Direction oppositeDirection = GetOppositeDirection(enteredFromDirection);
-
-        // Get the door position for the opposite direction
-        Vector2Int oppositeDoorPosition = currentRoom.GetDoorPosition(oppositeDirection);
-
-        // Set the player's position to be next to the door of the opposite direction
-        Vector3 playerPosition = gridParent.TransformPoint(new Vector3(oppositeDoorPosition.x, oppositeDoorPosition.y, 0));
-
-        // Offset the player according to the direction
-        playerPosition += GetPlayerOffset(oppositeDirection);
-
-        // Update player's position
-        player.transform.position = playerPosition;
-    }
-
-    private Direction GetOppositeDirection(Direction direction)
+    private Vector2Int DirectionToVector(Direction direction)
     {
         switch (direction)
         {
             case Direction.North:
-                return Direction.South;
-            case Direction.South:
-                return Direction.North;
+                return new Vector2Int(0, 1);
             case Direction.East:
-                return Direction.West;
+                return new Vector2Int(1, 0);
+            case Direction.South:
+                return new Vector2Int(0, -1);
             case Direction.West:
-                return Direction.East;
+                return new Vector2Int(-1, 0);
             default:
-                Debug.LogError("Invalid direction.");
-                return Direction.Invalid;
+                return Vector2Int.zero;
         }
     }
 
-    // Method to offset the player according to the direction
-    private Vector3 GetPlayerOffset(Direction direction)
+    private Direction GetDirection(Vector2Int currentPosition, Vector2Int previousPosition)
     {
-        switch (direction)
-        {
-            case Direction.North:
-                return new Vector3(0f, -1f, 0f); // Offset to the south
-            case Direction.South:
-                return new Vector3(0f, 2f, 0f); // Offset to the north
-            case Direction.East:
-                return new Vector3(-1f, 1f, 0f); // Offset to the west
-            case Direction.West:
-                return new Vector3(2f, 1f, 0f); // Offset to the east
-            default:
-                Debug.LogError("Invalid direction.");
-                return Vector3.zero;
-        }
+        int deltaX = currentPosition.x - previousPosition.x;
+        int deltaY = currentPosition.y - previousPosition.y;
+
+        if (deltaX == 1)
+            return Direction.East;
+        else if (deltaX == -1)
+            return Direction.West;
+        else if (deltaY == 1)
+            return Direction.North;
+        else if (deltaY == -1)
+            return Direction.South;
+        else
+            return Direction.Invalid; 
     }
 
+    private Direction GetOppositeDirection(Vector2Int currentPosition, Vector2Int previousPosition)
+    {
+        int deltaX = currentPosition.x - previousPosition.x;
+        int deltaY = currentPosition.y - previousPosition.y;
+
+        if (deltaX == 1)
+            return Direction.West;
+        else if (deltaX == -1)
+            return Direction.East;
+        else if (deltaY == 1)
+            return Direction.South;
+        else if (deltaY == -1)
+            return Direction.North;
+        else
+            return Direction.Invalid; 
+    }
+
+    public List<Direction> GetAvailableDirections()
+    {
+        List<Direction> availableDirections = new List<Direction>();
+
+        foreach (Direction dir in Enum.GetValues(typeof(Direction)))
+        {
+            if (dir != Direction.Invalid)
+            {
+                RoomNode nextRoom = CurrentPlayerLocation.nextRooms[(int)dir];
+                if (nextRoom != null)
+                {
+                    availableDirections.Add(dir);
+                }
+            }
+        }
+
+        return availableDirections;
+    }
 }
