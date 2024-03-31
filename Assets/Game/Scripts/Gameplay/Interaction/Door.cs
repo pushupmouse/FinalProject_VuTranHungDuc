@@ -2,19 +2,33 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, IInteractable
 {
-    public Direction DoorDirection;
+    [HideInInspector] public Direction DoorDirection;
+
+    private SpawnManager spawnManager;
+
+    private void Start()
+    {
+        spawnManager = SpawnManager.Instance;
+    }
 
     public void Interact()
     {
-        DungeonTraversalManager dungeonTraversalManager = DungeonTraversalManager.Instance;
-
-        if (dungeonTraversalManager != null)
+        if (!spawnManager.EnemiesAlive) // Check if all enemies are defeated
         {
-            RoomNode nextRoom = dungeonTraversalManager._dungeonManager.CurrentPlayerLocation.nextRooms[(int)DoorDirection];
-            if (nextRoom != null)
+            DungeonTraversalManager dungeonTraversalManager = DungeonTraversalManager.Instance;
+
+            if (dungeonTraversalManager != null)
             {
-                dungeonTraversalManager.MoveToRoom(nextRoom, DoorDirection);
+                RoomNode nextRoom = dungeonTraversalManager._dungeonManager.CurrentPlayerLocation.nextRooms[(int)DoorDirection];
+                if (nextRoom != null)
+                {
+                    dungeonTraversalManager.MoveToRoom(nextRoom, DoorDirection);
+                }
             }
+        }
+        else
+        {
+            Debug.Log("Cannot interact with the door. Enemies are not defeated yet.");
         }
     }
 }

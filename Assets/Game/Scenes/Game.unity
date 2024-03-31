@@ -551,7 +551,7 @@ GameObject:
   - component: {fileID: 1521285354}
   - component: {fileID: 1521285353}
   m_Layer: 0
-  m_Name: Level Manager
+  m_Name: Spawn Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -569,7 +569,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d08ab7821df11b458363d46a03f62f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemy: {fileID: 0}
+  _spawnChance: 0.203
+  Enemy: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+  EnemiesAlive: 0
 --- !u!4 &1521285354
 Transform:
   m_ObjectHideFlags: 0

@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [SerializeField, Range(0f, 1f)] private float _spawnChance = 0.5f;
+
     public static SpawnManager Instance;
 
-    public Enemy _enemy;
+    private List<Enemy> _spawnedEnemies = new List<Enemy>();
+    public Enemy Enemy;
+    public bool EnemiesAlive = false;
 
     private void Awake()
     {
@@ -20,9 +24,39 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void SpawnEnemy()
+    public void SpawnEnemy(Room room)
     {
-        
-        Instantiate(_enemy, Vector3.zero, Quaternion.identity);
+        foreach (Transform spawnPoint in room.SpawnPoints)
+        {
+            if (Random.value <= _spawnChance) // Check if random value is below spawn chance threshold
+            {
+                if(!EnemiesAlive)
+                {
+                    EnemiesAlive = true;
+                }
+
+                Enemy enemy = Instantiate(Enemy, spawnPoint.position, Quaternion.identity);
+
+                enemy.OnEnemyDeath -= RemoveEnemy;
+                enemy.OnEnemyDeath += RemoveEnemy;
+
+                _spawnedEnemies.Add(enemy);
+            }
+        }
+    }
+
+    private void RemoveEnemy(Enemy enemy)
+    {
+        _spawnedEnemies.Remove(enemy);
+
+        if (_spawnedEnemies.Count == 0)
+        {
+            OnAllEnemiesDefeated();
+        }
+    }
+
+    private void OnAllEnemiesDefeated()
+    {
+        EnemiesAlive = false;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class RoomGenerator : MonoBehaviour
+public class Room : MonoBehaviour
 {
     [System.Serializable]
     public class DoorInfo
@@ -15,6 +15,8 @@ public class RoomGenerator : MonoBehaviour
     [SerializeField] private DoorInfo[] _doorInfos;
     [SerializeField] private Tilemap _wallTilemap;
     [SerializeField] private Door _interactDoor;
+    
+    public List<Transform> SpawnPoints;
 
     public void AddDoors(List<Direction> availableDirections)
     {

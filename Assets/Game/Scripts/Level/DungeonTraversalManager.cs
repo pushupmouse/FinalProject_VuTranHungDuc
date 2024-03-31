@@ -4,11 +4,11 @@ public class DungeonTraversalManager : MonoBehaviour
 {
     public static DungeonTraversalManager Instance;
 
-    [SerializeField] private RoomGenerator _room;
+    [SerializeField] private Room _room;
     [SerializeField] private Transform _gridParent;
     [SerializeField] private Transform _player;
     
-    private RoomGenerator currentRoom;
+    private Room currentRoom;
     public DungeonManager _dungeonManager;
 
     private void Awake()
@@ -69,7 +69,7 @@ public class DungeonTraversalManager : MonoBehaviour
         _player.transform.position = playerPosition;
 
         SpawnManager spawnManager = SpawnManager.Instance;
-        spawnManager.SpawnEnemy();
+        spawnManager.SpawnEnemy(currentRoom);
     }
 
     private Direction GetOppositeDirection(Direction direction)

@@ -237,7 +237,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2048
   _delay: 0.15
-  _maxCritChance: 0.75
+  _maxCritChance: 1
   _critDamageMult: 0.5
 --- !u!114 &8553745061963572415
 MonoBehaviour:
