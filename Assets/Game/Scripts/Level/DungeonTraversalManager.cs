@@ -23,6 +23,11 @@ public class DungeonTraversalManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _dungeonManager = DungeonManager.Instance;
+    }
+
     public void InitializeTraversal()
     {
         RoomNode firstRoom = _dungeonManager.CurrentPlayerLocation;
@@ -51,8 +56,6 @@ public class DungeonTraversalManager : MonoBehaviour
 
         currentRoom.AddDoors(_dungeonManager.GetAvailableDirections());
 
-        Debug.Log("Current Room: " + _dungeonManager.CurrentPlayerLocation.type);
-
         // Calculate the opposite direction
         Direction oppositeDirection = GetOppositeDirection(enteredFromDirection);
 
@@ -69,7 +72,29 @@ public class DungeonTraversalManager : MonoBehaviour
         _player.transform.position = playerPosition;
 
         SpawnManager spawnManager = SpawnManager.Instance;
-        spawnManager.SpawnEnemy(currentRoom);
+        switch (_dungeonManager.CurrentPlayerLocation.type)
+        {
+            case RoomType.Start:
+                Debug.Log("Starting out!");
+                break;
+            case RoomType.Boss:
+                Debug.Log("Time to fight the boss");
+                break;
+            case RoomType.Fighting:
+                Debug.Log("More enemies");
+                spawnManager.SpawnEnemy(currentRoom);
+                break;
+            case RoomType.Shop:
+                Debug.Log("Upgrade time");
+                break;
+            case RoomType.Treasure:
+                Debug.Log("WOHOO");
+                break;
+            default:
+                Debug.Log("What is this...");
+                break;
+        }
+
     }
 
     private Direction GetOppositeDirection(Direction direction)

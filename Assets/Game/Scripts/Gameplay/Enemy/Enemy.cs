@@ -141,6 +141,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void SetTarget(Transform target)
+    {
+        _target = target;
+    }
+
     public void HandleTakeDamage()
     {
         IsTakeDamage = true;

@@ -26,6 +26,7 @@ public class RoomNode
     public RoomType type;
     public RoomNode[] nextRooms = new RoomNode[4]; // Array holding references to adjacent rooms (North, East, South, West)
     public Vector2Int position; // Position of the room in the grid
+    public bool IsCleared = false;
 
     public RoomNode(RoomType type, Vector2Int position)
     {
@@ -36,10 +37,24 @@ public class RoomNode
 
 public class DungeonManager : MonoBehaviour
 {
+    public static DungeonManager Instance;
+
     [SerializeField] private int _maxMainRooms; // Maximum number of main rooms to generate
 
     private RoomNode[,] _roomGrid; // 2D array representing the grid of rooms
     public RoomNode CurrentPlayerLocation;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {

@@ -5,10 +5,12 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField, Range(0f, 1f)] private float _spawnChance = 0.5f;
+    [SerializeField] private Transform _target;
 
     public static SpawnManager Instance;
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
+    private DungeonManager _dungeonManager;
     public Enemy Enemy;
     public bool EnemiesAlive = false;
 
@@ -24,8 +26,18 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        _dungeonManager = DungeonManager.Instance;
+    }
+
     public void SpawnEnemy(Room room)
     {
+        if (_dungeonManager.CurrentPlayerLocation.IsCleared)
+        {
+            return;
+        }
+
         foreach (Transform spawnPoint in room.SpawnPoints)
         {
             if (Random.value <= _spawnChance) // Check if random value is below spawn chance threshold
@@ -41,6 +53,8 @@ public class SpawnManager : MonoBehaviour
                 enemy.OnEnemyDeath += RemoveEnemy;
 
                 _spawnedEnemies.Add(enemy);
+
+                enemy.SetTarget(_target);
             }
         }
     }
@@ -58,5 +72,10 @@ public class SpawnManager : MonoBehaviour
     private void OnAllEnemiesDefeated()
     {
         EnemiesAlive = false;
+
+        if (!_dungeonManager.CurrentPlayerLocation.IsCleared)
+        {
+            _dungeonManager.CurrentPlayerLocation.IsCleared = true;
+        }
     }
 }

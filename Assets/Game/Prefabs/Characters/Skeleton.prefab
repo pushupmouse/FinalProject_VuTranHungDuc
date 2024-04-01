@@ -266,7 +266,7 @@ MonoBehaviour:
   _rb: {fileID: 7003895552559764899}
   _spriteTransform: {fileID: 6027381810467038631}
   _target: {fileID: 0}
-  _detectionRange: 5
+  _detectionRange: 7
   _attackRange: 0.5
   _moveSpeed: 3
   _hitDuration: 0.2
