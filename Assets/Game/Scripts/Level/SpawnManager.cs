@@ -15,6 +15,7 @@ public class SpawnManager : MonoBehaviour
     [HideInInspector] public bool EnemiesAlive = false;
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
+    private List<Coin> _spawnedCoins = new List<Coin>();
     private DungeonManager _dungeonManager;
     
     private void Awake()
@@ -52,8 +53,10 @@ public class SpawnManager : MonoBehaviour
 
                 Enemy enemy = Instantiate(_enemy, spawnPoint.position, Quaternion.identity);
 
-                enemy.OnEnemyDeath -= RemoveEnemy;
-                enemy.OnEnemyDeath += RemoveEnemy;
+                enemy.OnEnemyDeath -= OnEnemyDeathHandler;
+                enemy.OnEnemyDeath += OnEnemyDeathHandler;
+
+                enemy.transform.SetParent(room.SpawnInstances);
 
                 _spawnedEnemies.Add(enemy);
 
@@ -62,7 +65,7 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void SpawnTreasure()
+    public void SpawnTreasure(Room room)
     {
         if (_dungeonManager.CurrentPlayerLocation.IsCleared)
         {
@@ -73,9 +76,11 @@ public class SpawnManager : MonoBehaviour
 
         chest.OnChestOpen -= OnChestOpenHandler;
         chest.OnChestOpen += OnChestOpenHandler;
+
+        chest.transform.SetParent(room.SpawnInstances);
     }
 
-    private void RemoveEnemy(Enemy enemy)
+    private void OnEnemyDeathHandler(Enemy enemy)
     {
         _spawnedEnemies.Remove(enemy);
 
@@ -95,11 +100,23 @@ public class SpawnManager : MonoBehaviour
         {
             _dungeonManager.CurrentPlayerLocation.IsCleared = true;
         }
+
+        foreach (Coin coin in _spawnedCoins)
+        {
+            if (coin != null)
+            {
+                coin.CollectCoins();
+            }
+        }
     }
 
     private void SpawnCoin(Enemy enemy)
     {
-        Instantiate(_coin, enemy.transform.position, Quaternion.identity);
+        Coin coin = Instantiate(_coin, enemy.transform.position, Quaternion.identity);
+
+        coin.SetTarget(_target);
+
+        _spawnedCoins.Add(coin);
     }
 
     private void OnChestOpenHandler()

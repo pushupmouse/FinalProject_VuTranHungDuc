@@ -17,6 +17,7 @@ public class Room : MonoBehaviour
     [SerializeField] private Door _interactDoor;
     
     public List<Transform> SpawnPoints;
+    public Transform SpawnInstances;
 
     public void AddDoors(List<Direction> availableDirections)
     {
