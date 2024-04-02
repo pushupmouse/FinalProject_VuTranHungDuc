@@ -626,6 +626,8 @@ MonoBehaviour:
   _target: {fileID: 1743723583}
   _enemy: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
   _coin: {fileID: 1046081068886245829, guid: 1c2be0395a7f57f4e95ed5db61946e45, type: 3}
+  _chest: {fileID: 2901563251189732253, guid: dc1d27c0ae146b448911c1bc91cfff22, type: 3}
+  _middleSpawn: {fileID: 0}
   EnemiesAlive: 0
 --- !u!4 &1521285354
 Transform:

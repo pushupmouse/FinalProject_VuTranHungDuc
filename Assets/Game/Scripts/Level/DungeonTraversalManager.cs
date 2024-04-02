@@ -88,6 +88,7 @@ public class DungeonTraversalManager : MonoBehaviour
                 Debug.Log("Upgrade time");
                 break;
             case RoomType.Treasure:
+                spawnManager.SpawnTreasure();
                 Debug.Log("WOHOO");
                 break;
             default:

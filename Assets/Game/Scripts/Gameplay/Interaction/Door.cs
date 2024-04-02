@@ -26,9 +26,5 @@ public class Door : MonoBehaviour, IInteractable
                 }
             }
         }
-        else
-        {
-            Debug.Log("Cannot interact with the door. Enemies are not defeated yet.");
-        }
     }
 }
