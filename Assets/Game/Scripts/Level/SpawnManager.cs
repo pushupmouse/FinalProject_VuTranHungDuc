@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public static SpawnManager Instance;
+
     [SerializeField, Range(0f, 1f)] private float _spawnChance = 0.5f;
     [SerializeField] private Transform _target;
+    [SerializeField] private Enemy _enemy;
+    [SerializeField] private Coin _coin;
 
-    public static SpawnManager Instance;
+    [HideInInspector] public bool EnemiesAlive = false;
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
     private DungeonManager _dungeonManager;
-    public Enemy Enemy;
-    public bool EnemiesAlive = false;
-
+    
     private void Awake()
     {
         if (Instance == null)
@@ -40,14 +42,14 @@ public class SpawnManager : MonoBehaviour
 
         foreach (Transform spawnPoint in room.SpawnPoints)
         {
-            if (Random.value <= _spawnChance) // Check if random value is below spawn chance threshold
+            if (Random.value <= _spawnChance)
             {
                 if(!EnemiesAlive)
                 {
                     EnemiesAlive = true;
                 }
 
-                Enemy enemy = Instantiate(Enemy, spawnPoint.position, Quaternion.identity);
+                Enemy enemy = Instantiate(_enemy, spawnPoint.position, Quaternion.identity);
 
                 enemy.OnEnemyDeath -= RemoveEnemy;
                 enemy.OnEnemyDeath += RemoveEnemy;
@@ -63,6 +65,8 @@ public class SpawnManager : MonoBehaviour
     {
         _spawnedEnemies.Remove(enemy);
 
+        SpawnCoin(enemy);
+
         if (_spawnedEnemies.Count == 0)
         {
             OnAllEnemiesDefeated();
@@ -77,5 +81,10 @@ public class SpawnManager : MonoBehaviour
         {
             _dungeonManager.CurrentPlayerLocation.IsCleared = true;
         }
+    }
+
+    private void SpawnCoin(Enemy enemy)
+    {
+        Instantiate(_coin, enemy.transform.position, Quaternion.identity);
     }
 }
