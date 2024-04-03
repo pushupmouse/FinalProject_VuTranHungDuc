@@ -5,38 +5,31 @@ using UnityEngine;
 public class PlayerEquipment : MonoBehaviour
 {
     [SerializeField] private UnitStatsManager _unitStatsManager;
-    [SerializeField] private EquipmentData _chest;
-    [SerializeField] private EquipmentData _gloves;
-    [SerializeField] private EquipmentData _boots;
 
+    private EquipmentData _helmetEquipment;
     private EquipmentData _chestEquipment;
+    private EquipmentData _shieldEquipment;
     private EquipmentData _glovesEquipment;
     private EquipmentData _bootsEquipment;
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            EquipEquipment(_chest);
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            EquipEquipment(_gloves);
-        }
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            EquipEquipment(_boots);
-        }
-    }
 
     public void EquipEquipment(EquipmentData equipmentData)
     {
         switch (equipmentData.EquipmentType)
         {
+            case EquipmentType.Helmet:
+                if (_helmetEquipment != null)
+                    return;
+                _helmetEquipment = equipmentData;
+                break;
             case EquipmentType.Chest:
                 if (_chestEquipment != null)
                     return;
                 _chestEquipment = equipmentData;
+                break;
+            case EquipmentType.Shield:
+                if (_shieldEquipment != null)
+                    return;
+                _shieldEquipment = equipmentData;
                 break;
             case EquipmentType.Gloves:
                 if (_glovesEquipment != null)
@@ -52,6 +45,6 @@ public class PlayerEquipment : MonoBehaviour
                 break;
         }
 
-        _unitStatsManager.ModifyStat(equipmentData.MainAttribute, equipmentData.BonusAmount);
+        _unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, equipmentData.BonusAmount);
     }
 }

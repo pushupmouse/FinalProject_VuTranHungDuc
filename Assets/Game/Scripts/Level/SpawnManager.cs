@@ -112,11 +112,25 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnCoin(Enemy enemy)
     {
-        Coin coin = Instantiate(_coin, enemy.transform.position, Quaternion.identity);
+        // Calculate the direction vector from enemy to player
+        Vector3 directionToPlayer = _target.transform.position - enemy.transform.position;
 
+        // Set the spawn position slightly behind the enemy from the player's perspective
+        Vector3 spawnPosition = enemy.transform.position - directionToPlayer.normalized * 1f;
+
+        // Instantiate the coin at the calculated position
+        Coin coin = Instantiate(_coin, spawnPosition, Quaternion.identity);
+
+        // Set the target for the coin
         coin.SetTarget(_target);
 
+        // Add the spawned coin to the list
         _spawnedCoins.Add(coin);
+    }
+
+    private void SpawnEquipment(Enemy enemy)
+    {
+
     }
 
     private void OnChestOpenHandler()
