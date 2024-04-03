@@ -12,7 +12,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private float _maxRecoveryChance = 0.75f;
     [SerializeField] private HealthBar _healthBar;
 
-    private float _maxHealth;
+    private float _maxHealth = 0;
     private float _currentHealth;
     private float _defense;
     private float _damageReduction;
@@ -32,27 +32,35 @@ public class HealthController : MonoBehaviour
         }
     }
 
-    public void OnInit()
+    private void SetHealthBar()
     {
         if (_healthBar != null)
         {
             _healthBar.SetMaxHealth(_maxHealth);
+            _healthBar.SetHealth(_currentHealth);
         }
     }
 
     public void InitializeHealth(float value)
     {
+        float oldMaxHealth;
+
         if (value <= 0)
         {
-            _currentHealth = 100;
+            oldMaxHealth = _maxHealth;
+            _maxHealth = 100;
         }
         else
         {
-            _currentHealth = value;
+            oldMaxHealth = _maxHealth;
+            _maxHealth = value;
         }
 
-        _maxHealth = _currentHealth;
+        _currentHealth += _maxHealth - oldMaxHealth;
+
+        SetHealthBar();
     }
+
 
     public void InitializeDamageRed(float value)
     {

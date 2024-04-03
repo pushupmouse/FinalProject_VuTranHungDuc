@@ -21,12 +21,15 @@ public class HealthBar : MonoBehaviour
         }
     }
 
-    public void SetMaxHealth(float maxValue)
+    public void SetMaxHealth(float maxHealthValue)
     {
-        _slider.maxValue = maxValue;
-        _slider.value = maxValue;
+        float previousMaxHealth = _slider.maxValue;
+        float previousHealth = _slider.value;
 
-        _fill.color = _gradient.Evaluate(1f);
+        _slider.maxValue = maxHealthValue;
+        _slider.value = Mathf.Clamp(previousHealth * (maxHealthValue / previousMaxHealth), 0f, maxHealthValue);
+
+        _fill.color = _gradient.Evaluate(_slider.normalizedValue);
     }
 
     public void SetHealth(float value)

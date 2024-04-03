@@ -9,14 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f243e90968ea9a445a336efca14c6f7f, type: 3}
-  m_Name: Skeleton
+  m_Script: {fileID: 11500000, guid: 41704df073b298247add322be762a60c, type: 3}
+  m_Name: Gloves
   m_EditorClassIdentifier: 
-  attributes:
-  - 60
-  - 20
-  - 20
-  - 20
-  - 0.5
-  - 0
-  - 0.2
+  EquipmentType: 1
+  MainAttribute: 1
+  BonusAmount: 10

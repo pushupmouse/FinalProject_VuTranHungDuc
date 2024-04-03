@@ -1,51 +1,87 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitStatManager : MonoBehaviour
+public class UnitStatsManager : MonoBehaviour
 {
     [SerializeField] private AttributeData attributeData;
+    [SerializeField] private float _constitution;
+    [SerializeField] private float _strength;
+    [SerializeField] private float _defense;
+    [SerializeField] private float _accuracy;
+    [SerializeField] private float _resilience;
 
-    [HideInInspector] public float Constitution;
-    [HideInInspector] public float Strength;
-    [HideInInspector] public float Defense;
-    [HideInInspector] public float Fortune;
-    [HideInInspector] public float Accuracy;
-    [HideInInspector] public float Resilience;
-    [HideInInspector] public float Luck;
+    private HealthController healthController;
+    private AttackController attackController;
 
-    private HealthController _healthController;
-    private AttackController _attackController;
 
     private void Awake()
     {
-        _healthController = GetComponent<HealthController>();
-        _attackController = GetComponent<AttackController>();
+        healthController = GetComponent<HealthController>();
+        attackController = GetComponent<AttackController>();
     }
 
     private void Start()
     {
-        Constitution = attributeData.Constitution;
-        Strength = attributeData.Strength;
-        Defense = attributeData.Defense;
-        Fortune = attributeData.Fortune;
-        Accuracy = attributeData.Accuracy;
-        Resilience = attributeData.Resilience;
-        Luck = attributeData.Luck;
+        InitializeStats();
+    }
 
+    private void InitializeStats()
+    {
+        _constitution = attributeData.GetAttributeValue(AttributeType.Constitution);
+        _strength = attributeData.GetAttributeValue(AttributeType.Strength);
+        _defense = attributeData.GetAttributeValue(AttributeType.Defense);
+        _accuracy = attributeData.GetAttributeValue(AttributeType.Accuracy);
+        _resilience = attributeData.GetAttributeValue(AttributeType.Resilience);
 
-        if (_healthController != null)
+        ApplyStats();
+    }
+
+    private void ApplyStats()
+    {
+        if (healthController != null)
         {
-            _healthController.InitializeHealth(Constitution);
-            _healthController.InitializeDamageRed(Defense);
-            _healthController.InitializeRecoveryChance(Resilience);
-        }
-        if (_attackController != null)
-        {
-            _attackController.InitializeDamage(Strength);
-            _attackController.InitializeCritChance(Accuracy);
+            healthController.InitializeHealth(_constitution);
+            healthController.InitializeDamageRed(_defense);
+            healthController.InitializeRecoveryChance(_resilience);
         }
 
-        _healthController.OnInit();
+        if (attackController != null)
+        {
+            attackController.InitializeDamage(_strength);
+            attackController.InitializeCritChance(_accuracy);
+        }
+    }
+
+    public void ModifyStat(AttributeType attributeType, float amount)
+    {
+        switch (attributeType)
+        {
+            case AttributeType.Constitution:
+                _constitution += amount;
+                if (healthController != null)
+                    healthController.InitializeHealth(_constitution);
+                break;
+            case AttributeType.Strength:
+                _strength += amount;
+                if (attackController != null)
+                    attackController.InitializeDamage(_strength);
+                break;
+            case AttributeType.Defense:
+                _defense += amount;
+                if (healthController != null)
+                    healthController.InitializeDamageRed(_defense);
+                break;
+            case AttributeType.Accuracy:
+                _accuracy += amount;
+                if (attackController != null)
+                    attackController.InitializeCritChance(_accuracy);
+                break;
+            case AttributeType.Resilience:
+                _resilience += amount;
+                if (healthController != null)
+                    healthController.InitializeRecoveryChance(_resilience);
+                break;
+            default:
+                break;
+        }
     }
 }
