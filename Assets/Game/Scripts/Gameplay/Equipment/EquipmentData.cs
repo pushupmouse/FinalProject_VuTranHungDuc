@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum EquipmentType
@@ -18,13 +19,27 @@ public enum RarityType
     Crimson = 4,
 }
 
+[System.Serializable]
+public class RarityData
+{
+    public RarityType rarityType;
+    public Sprite image;
+    public float bonusAmount;
+
+    public RarityData(RarityType type, Sprite img, float bonus)
+    {
+        rarityType = type;
+        image = img;
+        bonusAmount = bonus;
+    }
+}
+
 [CreateAssetMenu(fileName = "New Equipment Data", menuName = "Equipment Data")]
 public class EquipmentData : ScriptableObject
 {
     public EquipmentType EquipmentType;
     public AttributeType PrimaryAttribute;
     public AttributeType SecondaryAttribute;
-    public RarityType RarityType;
-    public Sprite Image;
-    public float BonusAmount;
+
+    public List<RarityData> RarityDataList = new List<RarityData>();
 }

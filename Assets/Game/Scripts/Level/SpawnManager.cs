@@ -130,7 +130,7 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEquipment(Enemy enemy)
     {
-
+        //Equipment equipment = Instantiate(GetRandomEquipment(), enemy.transform.position, Quaternion.identity);
     }
 
     private void OnChestOpenHandler()

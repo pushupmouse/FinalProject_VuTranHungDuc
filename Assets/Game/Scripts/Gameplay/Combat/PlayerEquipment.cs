@@ -45,6 +45,6 @@ public class PlayerEquipment : MonoBehaviour
                 break;
         }
 
-        _unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, equipmentData.BonusAmount);
+        //_unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, equipmentData.BonusAmount);
     }
 }

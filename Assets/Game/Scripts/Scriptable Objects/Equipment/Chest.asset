@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 41704df073b298247add322be762a60c, type: 3}
-  m_Name: Regular Helmet
+  m_Name: Chest
   m_EditorClassIdentifier: 
-  EquipmentType: 0
+  EquipmentType: 1
   PrimaryAttribute: 0
-  SecondaryAttribute: 3
-  RarityType: 0
-  Image: {fileID: -914479419, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+  SecondaryAttribute: 5
+  RarityType: 1
+  Image: {fileID: -590056264, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
   BonusAmount: 10
