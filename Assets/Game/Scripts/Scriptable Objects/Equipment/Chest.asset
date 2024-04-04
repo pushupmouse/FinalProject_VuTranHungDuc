@@ -21,13 +21,13 @@ MonoBehaviour:
     bonusAmount: 5
   - rarityType: 1
     image: {fileID: -590056264, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 5
+    bonusAmount: 10
   - rarityType: 2
     image: {fileID: -365172461, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 5
+    bonusAmount: 15
   - rarityType: 3
     image: {fileID: 1427363474, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 5
+    bonusAmount: 20
   - rarityType: 4
     image: {fileID: -2137013068, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 10
+    bonusAmount: 30

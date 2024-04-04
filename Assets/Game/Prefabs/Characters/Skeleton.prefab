@@ -302,13 +302,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributeData: {fileID: 11400000, guid: b2c74102a04f2fc4d9444f86c9d7d023, type: 2}
-  Constitution: 0
-  Strength: 0
-  Defense: 0
-  Fortune: 0
-  Accuracy: 0
-  Resilience: 0
-  Luck: 0
+  _constitution: 0
+  _strength: 0
+  _defense: 0
+  _accuracy: 0
+  _resilience: 0
 --- !u!114 &4725475939000193199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,6 +461,14 @@ PrefabInstance:
     - target: {fileID: 5030385731015739418, guid: bb9d3693f36de4948afc15f40eebc04d, type: 3}
       propertyPath: m_Name
       value: Canvas HP Bar
+      objectReference: {fileID: 0}
+    - target: {fileID: 5030385731015739418, guid: bb9d3693f36de4948afc15f40eebc04d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9144140241180117291, guid: bb9d3693f36de4948afc15f40eebc04d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

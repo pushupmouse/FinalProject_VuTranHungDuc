@@ -63,6 +63,11 @@ public class HealthBar : MonoBehaviour
         _slider.value = targetValue;
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
 
+        if (targetValue <= 0f)
+        {
+            SetHealthBarVisibility(false);
+        }
+
         _healthCoroutine = null;
     }
 

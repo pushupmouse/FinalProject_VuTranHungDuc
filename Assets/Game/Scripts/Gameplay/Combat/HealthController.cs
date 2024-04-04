@@ -10,7 +10,7 @@ public class HealthController : MonoBehaviour
 
     [SerializeField] private FloatingPointHandler _floatingPoint;
     [SerializeField] private float _maxRecoveryChance = 0.75f;
-    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] public HealthBar _healthBar;
 
     private float _maxHealth = 0;
     private float _currentHealth;

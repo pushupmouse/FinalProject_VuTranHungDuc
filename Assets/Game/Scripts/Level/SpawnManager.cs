@@ -138,8 +138,7 @@ public class SpawnManager : MonoBehaviour
 
         Equipment equipment = Instantiate(_equipment, enemy.transform.position, Quaternion.identity);
 
-        //equipment.SetTypeAndRarity((EquipmentType)randomEquipmentIndex, RarityType.Regular);
-        equipment.SetTypeAndRarity((EquipmentType)0, RarityType.Regular);
+        equipment.SetTypeAndRarity((EquipmentType)randomEquipmentIndex, RarityType.Regular);
     }
 
     private void OnChestOpenHandler()
