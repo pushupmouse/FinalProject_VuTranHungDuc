@@ -1,38 +1,65 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class EquipmentTuple
+{
+    public EquipmentType equipmentType;
+    public EquipmentData equipmentData;
+}
+
 public class Equipment : MonoBehaviour
 {
-    public EquipmentData equipmentData;
+    public List<EquipmentTuple> equipmentList = new List<EquipmentTuple>();
     public SpriteRenderer spriteRenderer;
-
-    // Other fields and methods related to equipment...
 
     private void Start()
     {
-        SetAppearance();
+        SetRandomAppearance();
     }
 
-    public void SetAppearance()
+    private void SetAppearance(EquipmentType equipmentType, RarityType rarityType)
     {
-        //if (equipmentData != null && equipmentData.Image != null)
-        //{
-        //    // Set appearance using the sprite from EquipmentData
-        //    // For example, if you're setting the appearance of a SpriteRenderer component:
-        //    if (spriteRenderer != null)
-        //    {
-        //        spriteRenderer.sprite = equipmentData.Image;
-        //    }
-        //}
-        //else
-        //{
-        //    Debug.LogWarning("EquipmentData or Image is missing.");
-        //}
+        int equipmentIndex = (int)equipmentType;
+        if (equipmentIndex < 0 || equipmentIndex >= equipmentList.Count)
+        {
+            return;
+        }
+
+        EquipmentData equipmentData = equipmentList[equipmentIndex].equipmentData;
+
+        int rarityIndex = (int)rarityType;
+        if (rarityIndex < 0 || rarityIndex >= equipmentData.RarityDataList.Count)
+        {
+            return;
+        }
+
+        RarityData rarityData = equipmentData.RarityDataList[rarityIndex];
+
+        spriteRenderer.sprite = rarityData.image;
     }
 
-    public Equipment GetRandomEquipment()
+    private void SetRandomAppearance()
     {
-        return null;
+        // Generate random indices for equipment type and rarity type
+        int randomEquipmentIndex = UnityEngine.Random.Range(0, equipmentList.Count);
+        int randomRarityIndex = UnityEngine.Random.Range(0, Enum.GetValues(typeof(RarityType)).Length);
+
+        // Check if the random indices are within bounds
+        if (randomEquipmentIndex < 0 || randomEquipmentIndex >= equipmentList.Count ||
+            randomRarityIndex < 0 || randomRarityIndex >= equipmentList[randomEquipmentIndex].equipmentData.RarityDataList.Count)
+        {
+            Debug.LogWarning("Invalid random indices generated.");
+            return;
+        }
+
+        // Get the corresponding equipment data and rarity data
+        EquipmentData equipmentData = equipmentList[randomEquipmentIndex].equipmentData;
+        RarityData rarityData = equipmentData.RarityDataList[randomRarityIndex];
+
+        // Set the sprite renderer's sprite to the random rarity's image
+        spriteRenderer.sprite = rarityData.image;
     }
 }

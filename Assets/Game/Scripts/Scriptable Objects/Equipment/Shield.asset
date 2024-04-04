@@ -15,6 +15,19 @@ MonoBehaviour:
   EquipmentType: 2
   PrimaryAttribute: 2
   SecondaryAttribute: 5
-  RarityType: 1
-  Image: {fileID: 141807013, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-  BonusAmount: 10
+  RarityDataList:
+  - rarityType: 0
+    image: {fileID: -519875040, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 1
+    image: {fileID: 141807013, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 2
+    image: {fileID: 1943745140, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 3
+    image: {fileID: -178809090, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 4
+    image: {fileID: 1487762582, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 10

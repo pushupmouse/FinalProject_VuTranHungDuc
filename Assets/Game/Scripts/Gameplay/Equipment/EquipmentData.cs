@@ -25,13 +25,6 @@ public class RarityData
     public RarityType rarityType;
     public Sprite image;
     public float bonusAmount;
-
-    public RarityData(RarityType type, Sprite img, float bonus)
-    {
-        rarityType = type;
-        image = img;
-        bonusAmount = bonus;
-    }
 }
 
 [CreateAssetMenu(fileName = "New Equipment Data", menuName = "Equipment Data")]

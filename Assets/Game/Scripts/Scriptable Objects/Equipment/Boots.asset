@@ -17,17 +17,17 @@ MonoBehaviour:
   SecondaryAttribute: 4
   RarityDataList:
   - rarityType: 0
-    image: {fileID: 0}
-    bonusAmount: 0
-  - rarityType: 0
-    image: {fileID: 0}
-    bonusAmount: 0
-  - rarityType: 0
-    image: {fileID: 0}
-    bonusAmount: 0
-  - rarityType: 0
-    image: {fileID: 0}
-    bonusAmount: 0
-  - rarityType: 0
-    image: {fileID: 0}
-    bonusAmount: 0
+    image: {fileID: -372936629, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 1
+    image: {fileID: 17205702, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 2
+    image: {fileID: -1373675766, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 3
+    image: {fileID: -417235246, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 5
+  - rarityType: 4
+    image: {fileID: -1826958777, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
+    bonusAmount: 10

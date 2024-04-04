@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private Enemy _enemy;
     [SerializeField] private Coin _coin;
+    [SerializeField] private Equipment _equipment;
     [SerializeField] private Chest _chest;
 
     [HideInInspector] public bool EnemiesAlive = false;
@@ -86,6 +87,8 @@ public class SpawnManager : MonoBehaviour
 
         SpawnCoin(enemy);
 
+        SpawnEquipment(enemy);
+
         if (_spawnedEnemies.Count == 0)
         {
             OnAllEnemiesDefeated();
@@ -130,7 +133,7 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEquipment(Enemy enemy)
     {
-        //Equipment equipment = Instantiate(GetRandomEquipment(), enemy.transform.position, Quaternion.identity);
+        Equipment equipment = Instantiate(_equipment, enemy.transform.position, Quaternion.identity);
     }
 
     private void OnChestOpenHandler()

@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 474273973}
   - component: {fileID: 474273972}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Equipment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,7 +153,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64bf4712b508d204193faf2a8f3849bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentData: {fileID: 11400000, guid: bcb4a8d2845ca8243ab1c3fca2eaa7d3, type: 2}
+  equipmentList:
+  - equipmentType: 0
+    equipmentData: {fileID: 11400000, guid: ea8ce8692e45313449cfddcff8de5afc, type: 2}
+  - equipmentType: 1
+    equipmentData: {fileID: 11400000, guid: fde9fd8546589724d901fc7338baf5c5, type: 2}
+  - equipmentType: 2
+    equipmentData: {fileID: 11400000, guid: 4ea3527602d25ba469b52bf605d2edd1, type: 2}
+  - equipmentType: 3
+    equipmentData: {fileID: 11400000, guid: 933f52d4edf96254fb3cb2cadabacfba, type: 2}
+  - equipmentType: 4
+    equipmentData: {fileID: 11400000, guid: 532214dd12015324482e3d8a45cacc13, type: 2}
   spriteRenderer: {fileID: 474273973}
 --- !u!212 &474273973
 SpriteRenderer:
