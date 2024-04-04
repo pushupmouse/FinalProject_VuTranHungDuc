@@ -12,54 +12,39 @@ public class EquipmentTuple
 
 public class Equipment : MonoBehaviour
 {
-    public List<EquipmentTuple> equipmentList = new List<EquipmentTuple>();
-    public SpriteRenderer spriteRenderer;
+    [SerializeField] private List<EquipmentTuple> _equipmentList = new List<EquipmentTuple>();
+    [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private void Start()
+    private EquipmentData _equipmentData;
+    private RarityData _rarityData;
+    public Action OnEquip;
+
+    public void SetTypeAndRarity(EquipmentType equipmentType, RarityType rarityType)
     {
-        SetRandomAppearance();
+        EquipmentTuple equipmentTuple = _equipmentList.Find(x => x.equipmentType == equipmentType);
+        if (equipmentTuple == null)
+        {
+            return;
+        }
+
+        _equipmentData = equipmentTuple.equipmentData;
+
+        _rarityData = _equipmentData.RarityDataList.Find(x => x.rarityType == rarityType);
+        if (_rarityData == null)
+        {
+            return;
+        }
+
+        _spriteRenderer.sprite = _rarityData.image;
     }
 
-    private void SetAppearance(EquipmentType equipmentType, RarityType rarityType)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        int equipmentIndex = (int)equipmentType;
-        if (equipmentIndex < 0 || equipmentIndex >= equipmentList.Count)
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-            return;
+            PlayerEquipmentManager.Instance.EquipEquipment(_equipmentData, _rarityData);
+
+            Destroy(gameObject);
         }
-
-        EquipmentData equipmentData = equipmentList[equipmentIndex].equipmentData;
-
-        int rarityIndex = (int)rarityType;
-        if (rarityIndex < 0 || rarityIndex >= equipmentData.RarityDataList.Count)
-        {
-            return;
-        }
-
-        RarityData rarityData = equipmentData.RarityDataList[rarityIndex];
-
-        spriteRenderer.sprite = rarityData.image;
-    }
-
-    private void SetRandomAppearance()
-    {
-        // Generate random indices for equipment type and rarity type
-        int randomEquipmentIndex = UnityEngine.Random.Range(0, equipmentList.Count);
-        int randomRarityIndex = UnityEngine.Random.Range(0, Enum.GetValues(typeof(RarityType)).Length);
-
-        // Check if the random indices are within bounds
-        if (randomEquipmentIndex < 0 || randomEquipmentIndex >= equipmentList.Count ||
-            randomRarityIndex < 0 || randomRarityIndex >= equipmentList[randomEquipmentIndex].equipmentData.RarityDataList.Count)
-        {
-            Debug.LogWarning("Invalid random indices generated.");
-            return;
-        }
-
-        // Get the corresponding equipment data and rarity data
-        EquipmentData equipmentData = equipmentList[randomEquipmentIndex].equipmentData;
-        RarityData rarityData = equipmentData.RarityDataList[randomRarityIndex];
-
-        // Set the sprite renderer's sprite to the random rarity's image
-        spriteRenderer.sprite = rarityData.image;
     }
 }

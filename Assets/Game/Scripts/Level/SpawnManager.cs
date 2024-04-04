@@ -1,12 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance;
 
-    [SerializeField, Range(0f, 1f)] private float _spawnChance = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float _enemySpawnRate = 0.5f;
+    [SerializeField, Range(0f, 1f)] private float _equipmentSpawnRate = 0.1f;
     [SerializeField] private Transform _target;
     [SerializeField] private Enemy _enemy;
     [SerializeField] private Coin _coin;
@@ -45,7 +48,7 @@ public class SpawnManager : MonoBehaviour
 
         foreach (Transform spawnPoint in room.SpawnPoints)
         {
-            if (Random.value <= _spawnChance)
+            if (Random.value <= _enemySpawnRate)
             {
                 if(!EnemiesAlive)
                 {
@@ -87,7 +90,10 @@ public class SpawnManager : MonoBehaviour
 
         SpawnCoin(enemy);
 
-        SpawnEquipment(enemy);
+        if (Random.value <= _equipmentSpawnRate)
+        {
+            SpawnEquipment(enemy);
+        }
 
         if (_spawnedEnemies.Count == 0)
         {
@@ -115,25 +121,25 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnCoin(Enemy enemy)
     {
-        // Calculate the direction vector from enemy to player
         Vector3 directionToPlayer = _target.transform.position - enemy.transform.position;
 
-        // Set the spawn position slightly behind the enemy from the player's perspective
         Vector3 spawnPosition = enemy.transform.position - directionToPlayer.normalized * 1f;
 
-        // Instantiate the coin at the calculated position
         Coin coin = Instantiate(_coin, spawnPosition, Quaternion.identity);
 
-        // Set the target for the coin
         coin.SetTarget(_target);
 
-        // Add the spawned coin to the list
         _spawnedCoins.Add(coin);
     }
 
     private void SpawnEquipment(Enemy enemy)
     {
+        int randomEquipmentIndex = UnityEngine.Random.Range(0, Enum.GetValues(typeof(EquipmentType)).Length);
+
         Equipment equipment = Instantiate(_equipment, enemy.transform.position, Quaternion.identity);
+
+        //equipment.SetTypeAndRarity((EquipmentType)randomEquipmentIndex, RarityType.Regular);
+        equipment.SetTypeAndRarity((EquipmentType)0, RarityType.Regular);
     }
 
     private void OnChestOpenHandler()

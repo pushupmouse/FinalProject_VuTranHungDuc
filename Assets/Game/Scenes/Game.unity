@@ -123,7 +123,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &474273971
+--- !u!1 &172130270
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,102 +131,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 474273974}
-  - component: {fileID: 474273973}
-  - component: {fileID: 474273972}
+  - component: {fileID: 172130272}
+  - component: {fileID: 172130271}
   m_Layer: 0
-  m_Name: Equipment
+  m_Name: Player Equipment Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &474273972
+--- !u!114 &172130271
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474273971}
+  m_GameObject: {fileID: 172130270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64bf4712b508d204193faf2a8f3849bf, type: 3}
+  m_Script: {fileID: 11500000, guid: 8dd51bbe1279328409cbe68aa4c47f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  equipmentList:
-  - equipmentType: 0
-    equipmentData: {fileID: 11400000, guid: ea8ce8692e45313449cfddcff8de5afc, type: 2}
-  - equipmentType: 1
-    equipmentData: {fileID: 11400000, guid: fde9fd8546589724d901fc7338baf5c5, type: 2}
-  - equipmentType: 2
-    equipmentData: {fileID: 11400000, guid: 4ea3527602d25ba469b52bf605d2edd1, type: 2}
-  - equipmentType: 3
-    equipmentData: {fileID: 11400000, guid: 933f52d4edf96254fb3cb2cadabacfba, type: 2}
-  - equipmentType: 4
-    equipmentData: {fileID: 11400000, guid: 532214dd12015324482e3d8a45cacc13, type: 2}
-  spriteRenderer: {fileID: 474273973}
---- !u!212 &474273973
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474273971}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 0.75, y: 0.625}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &474273974
+  _unitStatsManager: {fileID: 1743723587}
+--- !u!4 &172130272
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474273971}
+  m_GameObject: {fileID: 172130270}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.1, y: 3.18, z: -0.025801418}
+  m_LocalPosition: {x: 1.1714407, y: 3.5256293, z: -0.022818673}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -395,10 +331,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
-      insertIndex: 10
-      addedObject: {fileID: 1743723594}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
 --- !u!1 &700309944
 GameObject:
@@ -616,11 +549,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1238389223 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
-  m_PrefabInstance: {fileID: 612141487}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1334381778
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,6 +671,7 @@ MonoBehaviour:
   _target: {fileID: 1743723583}
   _enemy: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
   _coin: {fileID: 1046081068886245829, guid: 1c2be0395a7f57f4e95ed5db61946e45, type: 3}
+  _equipment: {fileID: 10510561529045871, guid: 824f56dd5f6d1a641beadb3e20453c28, type: 3}
   _chest: {fileID: 2901563251189732253, guid: dc1d27c0ae146b448911c1bc91cfff22, type: 3}
   EnemiesAlive: 0
 --- !u!4 &1521285354
@@ -770,25 +699,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 975495283408982183, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
   m_PrefabInstance: {fileID: 612141487}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238389223}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3219a11222cd4d4ca7ad3bbd543ec91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1743723594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1238389223}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dd51bbe1279328409cbe68aa4c47f96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitStatsManager: {fileID: 1743723587}
 --- !u!114 &1795767290 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1111984389996517648, guid: 63d9c594ac685ba4fa987094bec724b6, type: 3}
@@ -1096,4 +1012,4 @@ SceneRoots:
   - {fileID: 1392800404}
   - {fileID: 1521285354}
   - {fileID: 1113463465}
-  - {fileID: 474273974}
+  - {fileID: 172130272}
