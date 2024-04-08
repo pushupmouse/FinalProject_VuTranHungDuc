@@ -12,11 +12,12 @@ public enum EquipmentType
 
 public enum RarityType
 {
-    Regular = 0,
-    Bronze = 1,
-    Silver = 2,
-    Gold = 3,
-    Crimson = 4,
+    None = 0,
+    Regular = 1,
+    Bronze = 2,
+    Silver = 3,
+    Gold = 4,
+    Crimson = 5,
 }
 
 [System.Serializable]
@@ -25,6 +26,8 @@ public class RarityData
     public RarityType rarityType;
     public Sprite image;
     public float bonusAmount;
+    public int shardDrop;
+    public int shardPrice;
 }
 
 [CreateAssetMenu(fileName = "New Equipment Data", menuName = "Equipment Data")]

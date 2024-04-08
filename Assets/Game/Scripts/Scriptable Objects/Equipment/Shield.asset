@@ -16,18 +16,28 @@ MonoBehaviour:
   PrimaryAttribute: 2
   SecondaryAttribute: 5
   RarityDataList:
-  - rarityType: 0
+  - rarityType: 1
     image: {fileID: -519875040, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     bonusAmount: 5
-  - rarityType: 1
+    shardDrop: 1
+    shardPrice: 1
+  - rarityType: 2
     image: {fileID: 141807013, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     bonusAmount: 10
-  - rarityType: 2
+    shardDrop: 2
+    shardPrice: 2
+  - rarityType: 3
     image: {fileID: 1943745140, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     bonusAmount: 15
-  - rarityType: 3
+    shardDrop: 3
+    shardPrice: 4
+  - rarityType: 4
     image: {fileID: -178809090, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     bonusAmount: 20
-  - rarityType: 4
+    shardDrop: 5
+    shardPrice: 8
+  - rarityType: 5
     image: {fileID: 1487762582, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     bonusAmount: 30
+    shardDrop: 10
+    shardPrice: 15

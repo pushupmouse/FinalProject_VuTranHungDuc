@@ -20,6 +20,7 @@ public class SpawnManager : MonoBehaviour
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
     private List<Coin> _spawnedCoins = new List<Coin>();
+    private List<Equipment> _spawnedEquipment = new List<Equipment>();
     private DungeonManager _dungeonManager;
     
     private void Awake()
@@ -117,6 +118,25 @@ public class SpawnManager : MonoBehaviour
                 coin.CollectCoins();
             }
         }
+
+        foreach (Equipment equipment in _spawnedEquipment)
+        {
+            if (equipment != null)
+            {
+                equipment.CollectEquipments();
+            }
+        }
+    }
+
+    public void SpawnCoin(Transform transform)
+    {
+        Coin coin = Instantiate(_coin, transform.position, Quaternion.identity);
+
+        coin.SetTarget(_target);
+
+        coin.CollectCoins();
+
+        _spawnedCoins.Add(coin);
     }
 
     private void SpawnCoin(Enemy enemy)
@@ -134,11 +154,17 @@ public class SpawnManager : MonoBehaviour
 
     private void SpawnEquipment(Enemy enemy)
     {
-        int randomEquipmentIndex = UnityEngine.Random.Range(0, Enum.GetValues(typeof(EquipmentType)).Length);
+        Vector3 directionToPlayer = _target.transform.position - enemy.transform.position;
 
-        Equipment equipment = Instantiate(_equipment, enemy.transform.position, Quaternion.identity);
+        Vector3 spawnPosition = enemy.transform.position - directionToPlayer.normalized * 1.5f;
 
-        equipment.SetTypeAndRarity((EquipmentType)randomEquipmentIndex, RarityType.Regular);
+        Equipment equipment = Instantiate(_equipment, spawnPosition, Quaternion.identity);
+
+        equipment.SetTarget(_target);
+
+        _spawnedEquipment.Add(equipment);
+
+        equipment.SetRandomTypeAndRarity(RarityType.Regular, RarityType.Bronze);
     }
 
     private void OnChestOpenHandler()

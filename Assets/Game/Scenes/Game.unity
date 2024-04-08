@@ -152,27 +152,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd51bbe1279328409cbe68aa4c47f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shards: 0
   _unitStatsManager: {fileID: 1743723587}
   _helmetRarityData:
     rarityType: 0
     image: {fileID: 0}
     bonusAmount: 0
+    shardDrop: 0
+    shardPrice: 0
   _chestRarityData:
     rarityType: 0
     image: {fileID: 0}
     bonusAmount: 0
+    shardDrop: 0
+    shardPrice: 0
   _shieldRarityData:
     rarityType: 0
     image: {fileID: 0}
     bonusAmount: 0
+    shardDrop: 0
+    shardPrice: 0
   _glovesRarityData:
     rarityType: 0
     image: {fileID: 0}
     bonusAmount: 0
+    shardDrop: 0
+    shardPrice: 0
   _bootsRarityData:
     rarityType: 0
     image: {fileID: 0}
     bonusAmount: 0
+    shardDrop: 0
+    shardPrice: 0
 --- !u!4 &172130272
 Transform:
   m_ObjectHideFlags: 0
@@ -688,7 +699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemySpawnRate: 0.5
-  _equipmentSpawnRate: 0.1
+  _equipmentSpawnRate: 0.2
   _target: {fileID: 1743723583}
   _enemy: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
   _coin: {fileID: 1046081068886245829, guid: 1c2be0395a7f57f4e95ed5db61946e45, type: 3}

@@ -5,7 +5,7 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] public Rigidbody2D _rb;
     [SerializeField] private float _speed = 10f;
 
     private Transform _target;

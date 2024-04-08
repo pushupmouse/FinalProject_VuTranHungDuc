@@ -6,6 +6,8 @@ public class PlayerEquipmentManager : MonoBehaviour
 {
     public static PlayerEquipmentManager Instance;
 
+    [SerializeField] private int _shards;
+
     [SerializeField] private UnitStatsManager _unitStatsManager;
     [SerializeField] private RarityData _helmetRarityData;
     [SerializeField] private RarityData _chestRarityData;
@@ -33,35 +35,45 @@ public class PlayerEquipmentManager : MonoBehaviour
 
     public void EquipEquipment(EquipmentData equipmentData, RarityData rarityData)
     {
+        RarityData currentRarityData = GetCurrentRarityData(equipmentData.EquipmentType);
+
+        // If there's already equipped equipment:
+        // - and it's not null (i.e., there's currently equipped equipment)
+        // - and it's not regular (lowest rank)
+        // - and the new equipment is not of higher rarity than the current one
+        if (currentRarityData != null && (int)rarityData.rarityType <= (int)currentRarityData.rarityType)
+        {
+            // Increase shard count based on the rarity of the unequipped equipment
+            IncreaseShards(rarityData.shardDrop);
+            return;
+        }
+
+        // If there's already equipped equipment, increase shard count based on its rarity
+        if (currentRarityData != null)
+        {
+            IncreaseShards(currentRarityData.shardDrop);
+        }
+
+        // Equip the new equipment
         switch (equipmentData.EquipmentType)
         {
             case EquipmentType.Helmet:
-                if (_helmetEquipment != null)
-                    return;
                 _helmetEquipment = equipmentData;
                 _helmetRarityData = rarityData;
                 break;
             case EquipmentType.Chest:
-                if (_chestEquipment != null)
-                    return;
                 _chestEquipment = equipmentData;
                 _chestRarityData = rarityData;
                 break;
             case EquipmentType.Shield:
-                if (_shieldEquipment != null)
-                    return;
                 _shieldEquipment = equipmentData;
                 _shieldRarityData = rarityData;
                 break;
             case EquipmentType.Gloves:
-                if (_glovesEquipment != null)
-                    return;
                 _glovesEquipment = equipmentData;
                 _glovesRarityData = rarityData;
                 break;
             case EquipmentType.Boots:
-                if (_bootsEquipment != null)
-                    return;
                 _bootsEquipment = equipmentData;
                 _bootsRarityData = rarityData;
                 break;
@@ -69,6 +81,31 @@ public class PlayerEquipmentManager : MonoBehaviour
                 break;
         }
 
+        // Modify unit stats based on the new equipment
         _unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, rarityData.bonusAmount);
+    }
+
+    private RarityData GetCurrentRarityData(EquipmentType equipmentType)
+    {
+        switch (equipmentType)
+        {
+            case EquipmentType.Helmet:
+                return _helmetRarityData;
+            case EquipmentType.Chest:
+                return _chestRarityData;
+            case EquipmentType.Shield:
+                return _shieldRarityData;
+            case EquipmentType.Gloves:
+                return _glovesRarityData;
+            case EquipmentType.Boots:
+                return _bootsRarityData;
+            default:
+                return null;
+        }
+    }
+
+    private void IncreaseShards(int amount)
+    {
+        _shards += amount;
     }
 }
