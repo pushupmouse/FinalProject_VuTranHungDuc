@@ -21,7 +21,6 @@ public class Chest : MonoBehaviour, IInteractable
     public void Interact()
     {
         Invoke(nameof(SpawnRewards), 1f);
-        OnChestOpen?.Invoke();
         gameObject.layer = LayerMask.NameToLayer("Dead");
         _animator.Play("Open");
         Destroy(gameObject, 2f);
@@ -55,7 +54,7 @@ public class Chest : MonoBehaviour, IInteractable
             _spawnedEquipments.Add(equipment);
         }
 
-        Invoke(nameof(CollectRewards), 0.5f);
+        Invoke(nameof(CollectRewards), 1f);
     }
 
     private void CollectRewards()
@@ -75,6 +74,8 @@ public class Chest : MonoBehaviour, IInteractable
                 equipment.CollectEquipments();
             }
         }
+
+        OnChestOpen?.Invoke();
     }
 
     public void SetTarget(Transform transform)

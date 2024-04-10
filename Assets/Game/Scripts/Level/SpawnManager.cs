@@ -16,7 +16,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Equipment _equipment;
     [SerializeField] private Chest _chest;
 
-    [HideInInspector] public bool EnemiesAlive = false;
+    public bool EnemiesAlive = false;
+    public bool RewardsToCollect = false;
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
     private List<Coin> _spawnedCoins = new List<Coin>();
@@ -77,6 +78,8 @@ public class SpawnManager : MonoBehaviour
             return;
         }
 
+        RewardsToCollect = true;
+
         Chest chest = Instantiate(_chest, Vector2.zero, Quaternion.identity);
 
         chest.OnChestOpen -= OnChestOpenHandler;
@@ -130,17 +133,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    public void SpawnCoin(Transform transform)
-    {
-        Coin coin = Instantiate(_coin, transform.position, Quaternion.identity);
-
-        coin.SetTarget(_target);
-
-        coin.CollectCoins();
-
-        _spawnedCoins.Add(coin);
-    }
-
     private void SpawnCoin(Enemy enemy)
     {
         Vector3 directionToPlayer = _target.transform.position - enemy.transform.position;
@@ -171,6 +163,8 @@ public class SpawnManager : MonoBehaviour
 
     private void OnChestOpenHandler()
     {
+        RewardsToCollect = false;
+
         if (!_dungeonManager.CurrentPlayerLocation.IsCleared)
         {
             _dungeonManager.CurrentPlayerLocation.IsCleared = true;

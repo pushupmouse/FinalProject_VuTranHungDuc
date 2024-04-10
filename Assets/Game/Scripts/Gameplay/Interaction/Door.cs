@@ -13,7 +13,7 @@ public class Door : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (!spawnManager.EnemiesAlive) // Check if all enemies are defeated
+        if (!spawnManager.EnemiesAlive && !spawnManager.RewardsToCollect)
         {
             DungeonTraversalManager dungeonTraversalManager = DungeonTraversalManager.Instance;
 

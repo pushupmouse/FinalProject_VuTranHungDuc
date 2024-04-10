@@ -624,7 +624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf39bf3c0b4cfb4e81b43720b1e9552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMainRooms: 8
+  _maxMainRooms: 3
 --- !u!1 &1392800402
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,6 +706,7 @@ MonoBehaviour:
   _equipment: {fileID: 10510561529045871, guid: 824f56dd5f6d1a641beadb3e20453c28, type: 3}
   _chest: {fileID: 2901563251189732253, guid: dc1d27c0ae146b448911c1bc91cfff22, type: 3}
   EnemiesAlive: 0
+  RewardsToCollect: 0
 --- !u!4 &1521285354
 Transform:
   m_ObjectHideFlags: 0
