@@ -7,10 +7,9 @@ public enum AttributeType
     Constitution = 0,
     Strength = 1,
     Defense = 2,
-    Fortune = 3,
+    Potency = 3,
     Accuracy = 4,
     Resilience = 5,
-    Luck = 6
 }
 
 [CreateAssetMenu(fileName = "New Attribute Data", menuName = "Attribute Data")]

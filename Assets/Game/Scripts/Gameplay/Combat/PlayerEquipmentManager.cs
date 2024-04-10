@@ -36,15 +36,15 @@ public class PlayerEquipmentManager : MonoBehaviour
     public void EquipEquipment(EquipmentData equipmentData, RarityData rarityData)
     {
         RarityData currentRarityData = GetCurrentRarityData(equipmentData.EquipmentType);
-
+        RarityData newRarityData = rarityData;
         // If there's already equipped equipment:
         // - and it's not null (i.e., there's currently equipped equipment)
         // - and it's not regular (lowest rank)
         // - and the new equipment is not of higher rarity than the current one
-        if (currentRarityData != null && (int)rarityData.rarityType <= (int)currentRarityData.rarityType)
+        if (currentRarityData != null && (int)newRarityData.rarityType <= (int)currentRarityData.rarityType)
         {
             // Increase shard count based on the rarity of the unequipped equipment
-            IncreaseShards(rarityData.shardDrop);
+            IncreaseShards(newRarityData.shardDrop);
             return;
         }
 
@@ -52,6 +52,14 @@ public class PlayerEquipmentManager : MonoBehaviour
         if (currentRarityData != null)
         {
             IncreaseShards(currentRarityData.shardDrop);
+        }
+
+        EquipmentData currentEquipmentData = GetCurrentEquipmentData(equipmentData.EquipmentType);
+
+        if (currentEquipmentData != null)
+        {
+            _unitStatsManager.ModifyStat(currentEquipmentData.PrimaryAttribute, -currentRarityData.primaryBonusAmount);
+            _unitStatsManager.ModifyStat(currentEquipmentData.SecondaryAttribute, -currentRarityData.secondaryBonusAmount);
         }
 
         // Equip the new equipment
@@ -82,7 +90,27 @@ public class PlayerEquipmentManager : MonoBehaviour
         }
 
         // Modify unit stats based on the new equipment
-        _unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, rarityData.bonusAmount);
+        _unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, rarityData.primaryBonusAmount);
+        _unitStatsManager.ModifyStat(equipmentData.SecondaryAttribute, rarityData.secondaryBonusAmount);
+    }
+
+    private EquipmentData GetCurrentEquipmentData(EquipmentType equipmentType)
+    {
+        switch (equipmentType)
+        {
+            case EquipmentType.Helmet:
+                return _helmetEquipment;
+            case EquipmentType.Chest:
+                return _chestEquipment;
+            case EquipmentType.Shield:
+                return _shieldEquipment;
+            case EquipmentType.Gloves:
+                return _glovesEquipment;
+            case EquipmentType.Boots:
+                return _bootsEquipment;
+            default:
+                return null;
+        }
     }
 
     private RarityData GetCurrentRarityData(EquipmentType equipmentType)

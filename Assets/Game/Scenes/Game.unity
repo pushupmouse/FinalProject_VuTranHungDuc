@@ -157,31 +157,36 @@ MonoBehaviour:
   _helmetRarityData:
     rarityType: 0
     image: {fileID: 0}
-    bonusAmount: 0
+    primaryBonusAmount: 0
+    secondaryBonusAmount: 0
     shardDrop: 0
     shardPrice: 0
   _chestRarityData:
     rarityType: 0
     image: {fileID: 0}
-    bonusAmount: 0
+    primaryBonusAmount: 0
+    secondaryBonusAmount: 0
     shardDrop: 0
     shardPrice: 0
   _shieldRarityData:
     rarityType: 0
     image: {fileID: 0}
-    bonusAmount: 0
+    primaryBonusAmount: 0
+    secondaryBonusAmount: 0
     shardDrop: 0
     shardPrice: 0
   _glovesRarityData:
     rarityType: 0
     image: {fileID: 0}
-    bonusAmount: 0
+    primaryBonusAmount: 0
+    secondaryBonusAmount: 0
     shardDrop: 0
     shardPrice: 0
   _bootsRarityData:
     rarityType: 0
     image: {fileID: 0}
-    bonusAmount: 0
+    primaryBonusAmount: 0
+    secondaryBonusAmount: 0
     shardDrop: 0
     shardPrice: 0
 --- !u!4 &172130272
@@ -315,6 +320,10 @@ PrefabInstance:
       propertyPath: _staminaBar
       value: 
       objectReference: {fileID: 8356032477216839134}
+    - target: {fileID: 5172964933829018224, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+      propertyPath: _staminaRegenRate
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8400341698045192277, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -624,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf39bf3c0b4cfb4e81b43720b1e9552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMainRooms: 3
+  _maxMainRooms: 4
 --- !u!1 &1392800402
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d08ab7821df11b458363d46a03f62f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemySpawnRate: 0.5
+  _enemySpawnRate: 0.4
   _equipmentSpawnRate: 0.2
   _target: {fileID: 1743723583}
   _enemy: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}

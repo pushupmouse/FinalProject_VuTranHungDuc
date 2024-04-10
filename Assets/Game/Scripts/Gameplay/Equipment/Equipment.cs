@@ -71,7 +71,7 @@ public class Equipment : MonoBehaviour
         _spriteRenderer.sprite = _rarityData.image;
     }
 
-    public void SetRandomTypeAndRarity(RarityType minRarityType, RarityType maxRarityType)
+    public void SetRandomTypeAndRarityRange(RarityType minRarityType, RarityType maxRarityType)
     {
         int randomEquipmentIndex = Random.Range(0, Enum.GetValues(typeof(EquipmentType)).Length);
 
@@ -89,6 +89,27 @@ public class Equipment : MonoBehaviour
         RarityType randomRarityType = (RarityType)Random.Range(minRarityInt, maxRarityInt + 1);
 
         _rarityData = _equipmentData.RarityDataList.Find(x => x.rarityType == randomRarityType);
+        if (_rarityData == null)
+        {
+            return;
+        }
+
+        _spriteRenderer.sprite = _rarityData.image;
+    }  
+    
+    public void SetRandomTypeAndRarity(RarityType rarityType)
+    {
+        int randomEquipmentIndex = Random.Range(0, Enum.GetValues(typeof(EquipmentType)).Length);
+
+        EquipmentTuple equipmentTuple = _equipmentList.Find(x => x.equipmentType == (EquipmentType)randomEquipmentIndex);
+        if (equipmentTuple == null)
+        {
+            return;
+        }
+
+        _equipmentData = equipmentTuple.equipmentData;
+
+        _rarityData = _equipmentData.RarityDataList.Find(x => x.rarityType == rarityType);
         if (_rarityData == null)
         {
             return;

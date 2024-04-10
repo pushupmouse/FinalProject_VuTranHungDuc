@@ -14,30 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EquipmentType: 3
   PrimaryAttribute: 1
-  SecondaryAttribute: 4
+  SecondaryAttribute: 3
   RarityDataList:
+  - rarityType: 0
+    image: {fileID: 0}
+    primaryBonusAmount: 0
+    secondaryBonusAmount: 0
+    shardDrop: 0
+    shardPrice: 0
   - rarityType: 1
     image: {fileID: -914623996, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 5
+    primaryBonusAmount: 3
+    secondaryBonusAmount: 0
     shardDrop: 1
     shardPrice: 1
   - rarityType: 2
     image: {fileID: 1072921076, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 10
+    primaryBonusAmount: 7
+    secondaryBonusAmount: 0.1
     shardDrop: 2
     shardPrice: 2
   - rarityType: 3
     image: {fileID: -1867895781, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 15
+    primaryBonusAmount: 12
+    secondaryBonusAmount: 0.2
     shardDrop: 3
     shardPrice: 4
   - rarityType: 4
     image: {fileID: 88921888, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 20
+    primaryBonusAmount: 18
+    secondaryBonusAmount: 0.3
     shardDrop: 5
     shardPrice: 8
   - rarityType: 5
     image: {fileID: 748011440, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    bonusAmount: 30
+    primaryBonusAmount: 25
+    secondaryBonusAmount: 0.55
     shardDrop: 10
     shardPrice: 15

@@ -47,7 +47,7 @@ public class Chest : MonoBehaviour, IInteractable
 
             Equipment equipment = Instantiate(_equipment, spawnPosition, Quaternion.identity);
 
-            equipment.SetRandomTypeAndRarity(RarityType.Bronze, RarityType.Gold);
+            equipment.SetRandomTypeAndRarity(RarityType.Bronze);
 
             equipment.SetTarget(_target);
 

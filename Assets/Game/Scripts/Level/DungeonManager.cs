@@ -67,7 +67,7 @@ public class DungeonManager : MonoBehaviour
 
     private void CreateMainRooms()
     {
-        RoomType[] mainRoomTypes = {  RoomType.Treasure }; // Types of main rooms
+        RoomType[] mainRoomTypes = { RoomType.Fighting, RoomType.Treasure }; // Types of main rooms
 
         RoomNode startingRoom = new RoomNode(RoomType.Start, new Vector2Int(0, 0)); // Create the starting room at position (0, 0)
 

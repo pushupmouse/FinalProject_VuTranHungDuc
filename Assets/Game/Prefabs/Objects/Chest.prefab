@@ -202,4 +202,4 @@ MonoBehaviour:
   _equipment: {fileID: 10510561529045871, guid: 824f56dd5f6d1a641beadb3e20453c28, type: 3}
   _coinAmount: 20
   _equipmentAmount: 1
-  _spawnRadius: 1.5
+  _spawnRadius: 3

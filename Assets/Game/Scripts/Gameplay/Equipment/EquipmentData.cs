@@ -25,7 +25,8 @@ public class RarityData
 {
     public RarityType rarityType;
     public Sprite image;
-    public float bonusAmount;
+    public float primaryBonusAmount;
+    public float secondaryBonusAmount;
     public int shardDrop;
     public int shardPrice;
 }

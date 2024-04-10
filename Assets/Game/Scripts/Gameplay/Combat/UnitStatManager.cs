@@ -6,6 +6,7 @@ public class UnitStatsManager : MonoBehaviour
     [SerializeField] private float _constitution;
     [SerializeField] private float _strength;
     [SerializeField] private float _defense;
+    [SerializeField] private float _potency;
     [SerializeField] private float _accuracy;
     [SerializeField] private float _resilience;
 
@@ -69,6 +70,11 @@ public class UnitStatsManager : MonoBehaviour
                 _defense += amount;
                 if (healthController != null)
                     healthController.InitializeDamageRed(_defense);
+                break;
+            case AttributeType.Potency:
+                _potency += amount;
+                if(attackController != null)
+                    attackController.InitializeDamageMult(_potency);
                 break;
             case AttributeType.Accuracy:
                 _accuracy += amount;

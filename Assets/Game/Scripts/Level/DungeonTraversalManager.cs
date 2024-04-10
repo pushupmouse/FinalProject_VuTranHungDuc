@@ -77,6 +77,7 @@ public class DungeonTraversalManager : MonoBehaviour
             case RoomType.Boss:
                 break;
             case RoomType.Fighting:
+                Debug.Log("Fight");
                 spawnManager.SpawnEnemy(currentRoom);
                 break;
             case RoomType.Upgrade:

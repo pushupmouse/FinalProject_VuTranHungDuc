@@ -69,6 +69,11 @@ public class SpawnManager : MonoBehaviour
                 enemy.SetTarget(_target);
             }
         }
+
+        if(!EnemiesAlive)
+        {
+            SpawnTreasure(room);
+        }
     }
 
     public void SpawnTreasure(Room room)
@@ -158,7 +163,7 @@ public class SpawnManager : MonoBehaviour
 
         _spawnedEquipments.Add(equipment);
 
-        equipment.SetRandomTypeAndRarity(RarityType.Regular, RarityType.Bronze);
+        equipment.SetRandomTypeAndRarity(RarityType.Regular);
     }
 
     private void OnChestOpenHandler()

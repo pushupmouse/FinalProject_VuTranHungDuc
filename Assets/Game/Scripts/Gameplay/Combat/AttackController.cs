@@ -14,6 +14,7 @@ public class AttackController : MonoBehaviour
     private Knockback _knockback;
     private float _damage;
     private float _critChance;
+    private float _damageMult;
 
 
     private void Awake()
@@ -48,6 +49,18 @@ public class AttackController : MonoBehaviour
         {
             _critDamageMult += (_critChance - _maxCritChance) * 2;
             _critChance = _maxCritChance;
+        }
+    }
+
+    public void InitializeDamageMult(float value)
+    {
+        if (value <= 0)
+        {
+            _damageMult = 0;
+        }
+        else
+        {
+            _damageMult = value;
         }
     }
 
@@ -92,14 +105,16 @@ public class AttackController : MonoBehaviour
             yield break;
         }
 
+        float finalDamage = damage;
+
         if (target != null && Vector2.Distance(transform.position, target.position) <= _attackRange)
         {
             if (isCritical)
             {
-                damage += _critDamageMult * damage;
+                finalDamage = (1 +_critDamageMult) * (1 + _damageMult) * damage;
             }
 
-            hitHealth.TakeDamage(damage, isCritical);
+            hitHealth.TakeDamage(finalDamage, isCritical);
         }
     }
 
