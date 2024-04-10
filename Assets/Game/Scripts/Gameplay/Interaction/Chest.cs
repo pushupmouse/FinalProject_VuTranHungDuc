@@ -12,6 +12,10 @@ public class Chest : MonoBehaviour, IInteractable
     [SerializeField] private int _coinAmount = 10;
     [SerializeField] private int _equipmentAmount = 1;
     [SerializeField] private float _spawnRadius = 2f;
+    
+    private Transform _target;
+    private List<Coin> _spawnedCoins = new List<Coin>();
+    private List<Equipment> _spawnedEquipments = new List<Equipment>();
     public Action OnChestOpen;
 
     public void Interact()
@@ -30,7 +34,11 @@ public class Chest : MonoBehaviour, IInteractable
             Vector3 randomOffset = Random.insideUnitCircle * _spawnRadius;
             Vector3 spawnPosition = transform.position + randomOffset;
 
-            Instantiate(_coin, spawnPosition, Quaternion.identity);
+            Coin coin = Instantiate(_coin, spawnPosition, Quaternion.identity);
+
+            _spawnedCoins.Add(coin);
+
+            coin.SetTarget(_target);
         }
 
         for (int i = 0; i < _equipmentAmount; i++)
@@ -41,6 +49,36 @@ public class Chest : MonoBehaviour, IInteractable
             Equipment equipment = Instantiate(_equipment, spawnPosition, Quaternion.identity);
 
             equipment.SetRandomTypeAndRarity(RarityType.Bronze, RarityType.Gold);
+
+            equipment.SetTarget(_target);
+
+            _spawnedEquipments.Add(equipment);
         }
+
+        Invoke(nameof(CollectRewards), 0.5f);
+    }
+
+    private void CollectRewards()
+    {
+        foreach (Coin coin in _spawnedCoins)
+        {
+            if (coin != null)
+            {
+                coin.CollectCoins();
+            }
+        }
+
+        foreach (Equipment equipment in _spawnedEquipments)
+        {
+            if (equipment != null)
+            {
+                equipment.CollectEquipments();
+            }
+        }
+    }
+
+    public void SetTarget(Transform transform)
+    {
+        _target = transform;
     }
 }

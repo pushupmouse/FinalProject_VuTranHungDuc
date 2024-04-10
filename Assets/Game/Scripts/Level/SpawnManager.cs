@@ -20,7 +20,7 @@ public class SpawnManager : MonoBehaviour
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
     private List<Coin> _spawnedCoins = new List<Coin>();
-    private List<Equipment> _spawnedEquipment = new List<Equipment>();
+    private List<Equipment> _spawnedEquipments = new List<Equipment>();
     private DungeonManager _dungeonManager;
     
     private void Awake()
@@ -83,6 +83,8 @@ public class SpawnManager : MonoBehaviour
         chest.OnChestOpen += OnChestOpenHandler;
 
         chest.transform.SetParent(room.SpawnInstances);
+
+        chest.SetTarget(_target);
     }
 
     private void OnEnemyDeathHandler(Enemy enemy)
@@ -119,7 +121,7 @@ public class SpawnManager : MonoBehaviour
             }
         }
 
-        foreach (Equipment equipment in _spawnedEquipment)
+        foreach (Equipment equipment in _spawnedEquipments)
         {
             if (equipment != null)
             {
@@ -162,7 +164,7 @@ public class SpawnManager : MonoBehaviour
 
         equipment.SetTarget(_target);
 
-        _spawnedEquipment.Add(equipment);
+        _spawnedEquipments.Add(equipment);
 
         equipment.SetRandomTypeAndRarity(RarityType.Regular, RarityType.Bronze);
     }

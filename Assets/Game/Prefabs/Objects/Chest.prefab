@@ -200,6 +200,6 @@ MonoBehaviour:
   _animator: {fileID: 5480854700896733183}
   _coin: {fileID: 1046081068886245829, guid: 1c2be0395a7f57f4e95ed5db61946e45, type: 3}
   _equipment: {fileID: 10510561529045871, guid: 824f56dd5f6d1a641beadb3e20453c28, type: 3}
-  _coinAmount: 10
+  _coinAmount: 20
   _equipmentAmount: 1
-  _spawnRadius: 1
+  _spawnRadius: 1.5

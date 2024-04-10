@@ -5,10 +5,11 @@ using Random = UnityEngine.Random;
 
 public enum RoomType
 {
+    None = -1,
     Start = 0,
     Boss = 1,
     Fighting = 2,
-    Shop = 3,
+    Upgrade = 3,
     Treasure = 4,
 }
 
@@ -76,20 +77,24 @@ public class DungeonManager : MonoBehaviour
         CurrentPlayerLocation = startingRoom; // Set the current player location to the starting room
 
         RoomNode previousRoom = startingRoom; // Track the previous room while generating rooms
-        for (int i = 1; i <= _maxMainRooms; i++) // Iterate to create main rooms
+        for (int i = 1; i <= _maxMainRooms + 1; i++) // Iterate to create main rooms
         {
-            RoomType currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Boss; // Determine the type of the current room (main or boss)
+            RoomType currentRoomType = RoomType.None;
+            if (i <= _maxMainRooms)
+            {
+                currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Upgrade; // Determine the type of the current room (main or upgrade
+            }
+            else
+            {
+                currentRoomType = RoomType.Boss;
+            }
+
 
             List<Direction> availableDirections = new List<Direction> { Direction.North, Direction.East, Direction.South, Direction.West }; // List of available directions for branching
             if (i > 1)
             {
                 Direction directionBack = GetOppositeDirection(previousRoom.position, startingRoom.position); // Get the direction back to the starting room
                 availableDirections.Remove(directionBack); // Remove the back direction from available directions
-            }
-
-            if (currentRoomType == RoomType.Boss)
-            {
-                availableDirections.Remove(GetDirection(previousRoom.position, startingRoom.position)); // Remove the direction leading back to the starting room if the current room is a boss room
             }
 
             for (int j = availableDirections.Count - 1; j >= 0; j--) // Iterate through available directions
@@ -121,11 +126,9 @@ public class DungeonManager : MonoBehaviour
 
     private void CreateBranchRooms()
     {
-        RoomType[] branchRoomTypes = { RoomType.Fighting, RoomType.Shop, RoomType.Treasure }; // Types of branch rooms
-
         foreach (RoomNode mainRoom in _roomGrid)
         {
-            if (mainRoom == null || mainRoom.type == RoomType.Boss)
+            if (mainRoom == null || mainRoom.type == RoomType.Boss || mainRoom.type == RoomType.Upgrade)
                 continue; // Skip null rooms or boss room
 
             List<Direction> availableDirections = new List<Direction>();

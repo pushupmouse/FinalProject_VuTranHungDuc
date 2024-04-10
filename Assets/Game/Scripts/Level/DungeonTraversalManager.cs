@@ -38,8 +38,6 @@ public class DungeonTraversalManager : MonoBehaviour
             currentRoom.AddDoors(_dungeonManager.GetAvailableDirections());
 
             _dungeonManager.CurrentPlayerLocation = firstRoom;
-
-            Debug.Log("Current Room: " + _dungeonManager.CurrentPlayerLocation.type);
         }
     }
 
@@ -75,24 +73,18 @@ public class DungeonTraversalManager : MonoBehaviour
         switch (_dungeonManager.CurrentPlayerLocation.type)
         {
             case RoomType.Start:
-                Debug.Log("Starting out!");
                 break;
             case RoomType.Boss:
-                Debug.Log("Time to fight the boss");
                 break;
             case RoomType.Fighting:
-                Debug.Log("More enemies");
                 spawnManager.SpawnEnemy(currentRoom);
                 break;
-            case RoomType.Shop:
-                Debug.Log("Upgrade time");
+            case RoomType.Upgrade:
                 break;
             case RoomType.Treasure:
                 spawnManager.SpawnTreasure(currentRoom);
-                Debug.Log("WOHOO");
                 break;
             default:
-                Debug.Log("What is this...");
                 break;
         }
 
