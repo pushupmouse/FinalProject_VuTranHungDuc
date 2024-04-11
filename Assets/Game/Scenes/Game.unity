@@ -633,7 +633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf39bf3c0b4cfb4e81b43720b1e9552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMainRooms: 4
+  _maxMainRooms: 1
 --- !u!1 &1392800402
 GameObject:
   m_ObjectHideFlags: 0
@@ -714,6 +714,9 @@ MonoBehaviour:
   _coin: {fileID: 1046081068886245829, guid: 1c2be0395a7f57f4e95ed5db61946e45, type: 3}
   _equipment: {fileID: 10510561529045871, guid: 824f56dd5f6d1a641beadb3e20453c28, type: 3}
   _chest: {fileID: 2901563251189732253, guid: dc1d27c0ae146b448911c1bc91cfff22, type: 3}
+  _blacksmith: {fileID: 9144943758572141504, guid: f3e0afb063a80a748bfa0bd03e0f0b46, type: 3}
+  _shopkeeper: {fileID: 7937943944471437124, guid: da84785143c49dd45935f778b08c4180, type: 3}
+  _priestess: {fileID: 8702054721679808944, guid: 297eb107792dcdf4ba4489683eee61ce, type: 3}
   EnemiesAlive: 0
   RewardsToCollect: 0
 --- !u!4 &1521285354

@@ -15,9 +15,12 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Coin _coin;
     [SerializeField] private Equipment _equipment;
     [SerializeField] private Chest _chest;
+    [SerializeField] private Blacksmith _blacksmith;
+    [SerializeField] private Shopkeeper _shopkeeper;
+    [SerializeField] private Priestess _priestess;
 
-    public bool EnemiesAlive = false;
-    public bool RewardsToCollect = false;
+    [HideInInspector] public bool EnemiesAlive = false;
+    [HideInInspector] public bool RewardsToCollect = false;
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
     private List<Coin> _spawnedCoins = new List<Coin>();
@@ -93,6 +96,17 @@ public class SpawnManager : MonoBehaviour
         chest.transform.SetParent(room.SpawnInstances);
 
         chest.SetTarget(_target);
+    }
+
+    public void SpawnUpgradeNPCs(Room room)
+    {
+        Blacksmith blacksmith = Instantiate(_blacksmith, room.SpawnPoints[0].position, Quaternion.identity);
+        Shopkeeper shopkeeper = Instantiate(_shopkeeper, room.SpawnPoints[2].position, Quaternion.identity);
+        Priestess priestess = Instantiate(_priestess, room.SpawnPoints[3].position, Quaternion.identity);
+
+        blacksmith.transform.SetParent(room.SpawnInstances);
+        shopkeeper.transform.SetParent(room.SpawnInstances);
+        priestess.transform.SetParent(room.SpawnInstances);
     }
 
     private void OnEnemyDeathHandler(Enemy enemy)

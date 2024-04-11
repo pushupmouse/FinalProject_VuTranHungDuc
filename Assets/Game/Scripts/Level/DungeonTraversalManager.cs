@@ -77,10 +77,10 @@ public class DungeonTraversalManager : MonoBehaviour
             case RoomType.Boss:
                 break;
             case RoomType.Fighting:
-                Debug.Log("Fight");
                 spawnManager.SpawnEnemy(currentRoom);
                 break;
             case RoomType.Upgrade:
+                spawnManager.SpawnUpgradeNPCs(currentRoom);
                 break;
             case RoomType.Treasure:
                 spawnManager.SpawnTreasure(currentRoom);
