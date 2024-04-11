@@ -188,7 +188,7 @@ public class SpawnManager : MonoBehaviour
 
         _spawnedEquipments.Add(equipment);
 
-        equipment.SetRandomTypeAndRarity(RarityType.Regular);
+        equipment.SetRandomTypeAndRarityRange(RarityType.Regular, RarityType.Bronze);
     }
 
     private void OnChestOpenHandler()
