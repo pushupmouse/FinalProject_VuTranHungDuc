@@ -11,6 +11,7 @@ public class HealthController : MonoBehaviour
     [SerializeField] private FloatingPointHandler _floatingPoint;
     [SerializeField] private float _maxRecoveryChance = 0.75f;
     [SerializeField] public HealthBar _healthBar;
+    [SerializeField] private float _tick = 0.25f;
 
     private float _maxHealth = 0;
     private float _currentHealth;
@@ -19,7 +20,7 @@ public class HealthController : MonoBehaviour
     private float _recoveryChance;
     private float _recoveryAmount;
     private bool _healthChanged = false;
-
+    public float MaxHealth => _maxHealth;
     public Action OnTakeDamage;
     public Action OnDeath;
 
@@ -121,20 +122,20 @@ public class HealthController : MonoBehaviour
         }
     }
 
-    private IEnumerator HealOverTime(float amount, float duration)
+    public IEnumerator HealOverTime(float amount, float duration)
     {
-        float healPerSecond = amount / duration;
+        float healPerTick = amount / duration;
         float elapsedTime = 0f;
 
         while (elapsedTime < duration)
         {
-            yield return new WaitForSeconds(0.25f);
-            _currentHealth += healPerSecond;
+            yield return new WaitForSeconds(_tick);
+            _currentHealth += healPerTick;
             _healthChanged = true;
             FloatingPointHandler point = Instantiate(_floatingPoint, transform.position, Quaternion.identity);
-            point.DisplayHealText(Mathf.CeilToInt(healPerSecond));
+            point.DisplayHealText(Mathf.CeilToInt(healPerTick));
             _currentHealth = Mathf.Min(_currentHealth, _maxHealth);
-            elapsedTime += 0.25f;
+            elapsedTime += _tick;
         }
     }
 

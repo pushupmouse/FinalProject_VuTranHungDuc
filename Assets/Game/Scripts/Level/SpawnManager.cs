@@ -26,6 +26,7 @@ public class SpawnManager : MonoBehaviour
     private List<Coin> _spawnedCoins = new List<Coin>();
     private List<Equipment> _spawnedEquipments = new List<Equipment>();
     private DungeonManager _dungeonManager;
+    public bool Healed = false;
     
     private void Awake()
     {
@@ -41,7 +42,13 @@ public class SpawnManager : MonoBehaviour
 
     private void Start()
     {
+        OnInit();
         _dungeonManager = DungeonManager.Instance;
+    }
+
+    private void OnInit()
+    {
+        Healed = false;
     }
 
     public void SpawnEnemy(Room room)
@@ -107,6 +114,10 @@ public class SpawnManager : MonoBehaviour
         blacksmith.transform.SetParent(room.SpawnInstances);
         shopkeeper.transform.SetParent(room.SpawnInstances);
         priestess.transform.SetParent(room.SpawnInstances);
+
+        blacksmith.SetTarget(_target);
+        shopkeeper.SetTarget(_target);
+        priestess.SetTarget(_target);
     }
 
     private void OnEnemyDeathHandler(Enemy enemy)
