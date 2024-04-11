@@ -6,8 +6,9 @@ public class CoinManager : MonoBehaviour
 {
     public static CoinManager Instance;
 
-    [SerializeField] private int currentCoins = 0;
-    public int CurrentCoins => currentCoins;
+    [SerializeField] private int _currentCoins = 0;
+
+    public int CurrentCoins => _currentCoins;
 
     private void Awake()
     {
@@ -23,16 +24,20 @@ public class CoinManager : MonoBehaviour
 
     public void AddCoins(int amount)
     {
-        currentCoins += amount;
+        _currentCoins += amount;
+
+        InventoryManager.Instance.SetCoinText(_currentCoins);
     }
 
     public void SubtractCoins(int amount)
     {
-        if(currentCoins < amount)
+        if(_currentCoins < amount)
         {
             return;
         }
 
-        currentCoins -= amount;
+        _currentCoins -= amount;
+
+        InventoryManager.Instance.SetCoinText(_currentCoins);
     }
 }

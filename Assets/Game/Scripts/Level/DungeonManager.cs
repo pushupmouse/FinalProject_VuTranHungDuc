@@ -60,7 +60,7 @@ public class DungeonManager : MonoBehaviour
     private void Start()
     {
         CreateMainRooms();
-        //CreateBranchRooms();
+        CreateBranchRooms();
         DungeonTraversalManager dungeonManager = DungeonTraversalManager.Instance;
         dungeonManager.InitializeTraversal();
     }

@@ -17,7 +17,7 @@ MonoBehaviour:
   SecondaryAttribute: 3
   RarityDataList:
   - rarityType: 0
-    image: {fileID: 0}
+    image: {fileID: 21300000, guid: d176ae8b3d724184fb5843c5669336b3, type: 3}
     primaryBonusAmount: 0
     secondaryBonusAmount: 0
     shardDrop: 0

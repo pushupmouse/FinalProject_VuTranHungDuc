@@ -21,6 +21,12 @@ public class PlayerEquipmentManager : MonoBehaviour
     private EquipmentData _glovesEquipment;
     private EquipmentData _bootsEquipment;
 
+    public RarityData HelmetRarityData => _helmetRarityData;
+    public RarityData ChestRarityData => _chestRarityData;
+    public RarityData ShieldRarityData => _shieldRarityData;
+    public RarityData GlovesRarityData => _glovesRarityData;
+    public RarityData BootsRarityData => _bootsRarityData;
+
     private void Awake()
     {
         if (Instance == null)
@@ -92,6 +98,8 @@ public class PlayerEquipmentManager : MonoBehaviour
         // Modify unit stats based on the new equipment
         _unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, rarityData.primaryBonusAmount);
         _unitStatsManager.ModifyStat(equipmentData.SecondaryAttribute, rarityData.secondaryBonusAmount);
+
+        InventoryManager.Instance.UpdateImage(equipmentData.EquipmentType, rarityData);
     }
 
     private EquipmentData GetCurrentEquipmentData(EquipmentType equipmentType)

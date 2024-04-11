@@ -10,7 +10,7 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private Transform _shopkeeperPanel;
     [SerializeField] private EquipmentOffer _equipmentOffer;
-    [SerializeField] private int _priceAmount = 30;
+    [SerializeField] private List<EquipmentData> _equipmentDataList;
 
     private void Awake()
     {
@@ -31,9 +31,7 @@ public class ShopManager : MonoBehaviour
         for (int i = 0; i < equipmentCount; i++)
         {
             EquipmentOffer equipmentOffer = Instantiate(_equipmentOffer, _shopkeeperPanel);
-            equipmentOffer.SetImage((EquipmentType)i, RarityType.Silver);
-            equipmentOffer.SetPriceTag(_priceAmount);
+            equipmentOffer.SetImage((EquipmentType)i, _equipmentDataList[i].RarityDataList[3]);
         }
     }
-
 }
