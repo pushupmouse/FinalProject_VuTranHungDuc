@@ -1314,6 +1314,7 @@ MonoBehaviour:
   _equipmentSpawnRate: 0.2
   _target: {fileID: 1743723583}
   _enemy: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
+  _bossEnemy: {fileID: 2723159892876595277, guid: 3870c53a02f3b664bb7334faa72ccab9, type: 3}
   _coin: {fileID: 1046081068886245829, guid: 1c2be0395a7f57f4e95ed5db61946e45, type: 3}
   _equipment: {fileID: 10510561529045871, guid: 824f56dd5f6d1a641beadb3e20453c28, type: 3}
   _chest: {fileID: 2901563251189732253, guid: dc1d27c0ae146b448911c1bc91cfff22, type: 3}

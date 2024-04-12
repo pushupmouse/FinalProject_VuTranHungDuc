@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 using Random = UnityEngine.Random;
 
 public class SpawnManager : MonoBehaviour
@@ -12,6 +13,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _equipmentSpawnRate = 0.1f;
     [SerializeField] private Transform _target;
     [SerializeField] private Enemy _enemy;
+    [SerializeField] private Enemy _bossEnemy;
     [SerializeField] private Coin _coin;
     [SerializeField] private Equipment _equipment;
     [SerializeField] private Chest _chest;
@@ -86,6 +88,31 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+
+    public void SpawnBoss(Room room)
+    {
+        if (_dungeonManager.CurrentPlayerLocation.IsCleared)
+        {
+            return;
+        }
+
+        if (!EnemiesAlive)
+        {
+            EnemiesAlive = true;
+        }
+
+        Enemy bossEnemy = Instantiate(_bossEnemy, room.SpawnPoints[0].position, Quaternion.identity);
+
+        bossEnemy.OnEnemyDeath -= OnBossDeathHandler;
+        bossEnemy.OnEnemyDeath += OnBossDeathHandler;
+
+        bossEnemy.transform.SetParent(room.SpawnInstances);
+
+        _spawnedEnemies.Add(bossEnemy);
+
+        bossEnemy.SetTarget(_target);
+    }
+
     public void SpawnTreasure(Room room)
     {
         if (_dungeonManager.CurrentPlayerLocation.IsCleared)
@@ -128,12 +155,71 @@ public class SpawnManager : MonoBehaviour
 
         if (Random.value <= _equipmentSpawnRate)
         {
-            SpawnEquipment(enemy);
+            SpawnEquipment(enemy, RarityType.Regular, RarityType.Bronze);
         }
 
         if (_spawnedEnemies.Count == 0)
         {
             OnAllEnemiesDefeated();
+        }
+    }
+
+    private void OnBossDeathHandler(Enemy enemy)
+    {
+        _spawnedEnemies.Remove(enemy);
+
+        Invoke(nameof(SpawnBossRewards), 2f);
+
+        OnBossDefeated();
+    }
+
+    private void SpawnBossRewards()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            Vector3 randomOffset = Random.insideUnitCircle * 3;
+            Vector3 spawnPosition = transform.position + randomOffset;
+
+            Coin coin = Instantiate(_coin, spawnPosition, Quaternion.identity);
+
+            _spawnedCoins.Add(coin);
+
+            coin.SetTarget(_target);
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
+            Vector3 randomOffset = Random.insideUnitCircle * 3;
+            Vector3 spawnPosition = transform.position + randomOffset;
+
+            Equipment equipment = Instantiate(_equipment, spawnPosition, Quaternion.identity);
+
+            equipment.SetRandomTypeAndRarityRange(RarityType.Silver, RarityType.Gold);
+
+            equipment.SetTarget(_target);
+
+            _spawnedEquipments.Add(equipment);
+        }
+
+        Invoke(nameof(CollectRewards), 1f);
+    }
+
+    private void CollectRewards()
+    {
+        foreach (Coin coin in _spawnedCoins)
+        {
+            if (coin != null)
+            {
+                coin.CollectCoins();
+            }
+        }
+
+        foreach (Equipment equipment in _spawnedEquipments)
+        {
+            if (equipment != null)
+            {
+                equipment.CollectEquipments();
+            }
         }
     }
 
@@ -163,6 +249,18 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    private void OnBossDefeated()
+    {
+        EnemiesAlive = false;
+
+        if (!_dungeonManager.CurrentPlayerLocation.IsCleared)
+        {
+            _dungeonManager.CurrentPlayerLocation.IsCleared = true;
+        }
+
+        //spawn way to new level
+    }
+
     private void SpawnCoin(Enemy enemy)
     {
         Vector3 directionToPlayer = _target.transform.position - enemy.transform.position;
@@ -176,7 +274,7 @@ public class SpawnManager : MonoBehaviour
         _spawnedCoins.Add(coin);
     }
 
-    private void SpawnEquipment(Enemy enemy)
+    private void SpawnEquipment(Enemy enemy, RarityType minRarity, RarityType maxRarity)
     {
         Vector3 directionToPlayer = _target.transform.position - enemy.transform.position;
 
@@ -188,7 +286,7 @@ public class SpawnManager : MonoBehaviour
 
         _spawnedEquipments.Add(equipment);
 
-        equipment.SetRandomTypeAndRarityRange(RarityType.Regular, RarityType.Bronze);
+        equipment.SetRandomTypeAndRarityRange(minRarity, maxRarity);
     }
 
     private void OnChestOpenHandler()
