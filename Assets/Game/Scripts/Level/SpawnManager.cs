@@ -134,15 +134,15 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnUpgradeNPCs(Room room)
     {
-        Blacksmith blacksmith = Instantiate(_blacksmith, room.SpawnPoints[0].position, Quaternion.identity);
+        //Blacksmith blacksmith = Instantiate(_blacksmith, room.SpawnPoints[0].position, Quaternion.identity);
         Shopkeeper shopkeeper = Instantiate(_shopkeeper, room.SpawnPoints[2].position, Quaternion.identity);
         Priestess priestess = Instantiate(_priestess, room.SpawnPoints[3].position, Quaternion.identity);
 
-        blacksmith.transform.SetParent(room.SpawnInstances);
+        //blacksmith.transform.SetParent(room.SpawnInstances);
         shopkeeper.transform.SetParent(room.SpawnInstances);
         priestess.transform.SetParent(room.SpawnInstances);
 
-        blacksmith.SetTarget(_target);
+        //blacksmith.SetTarget(_target);
         shopkeeper.SetTarget(_target);
         priestess.SetTarget(_target);
     }

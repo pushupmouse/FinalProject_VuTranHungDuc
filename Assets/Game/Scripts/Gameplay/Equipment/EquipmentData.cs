@@ -27,8 +27,7 @@ public class RarityData
     public Sprite image;
     public float primaryBonusAmount;
     public float secondaryBonusAmount;
-    public int shardDrop;
-    public int shardPrice;
+    public int coinDrop;
 }
 
 [CreateAssetMenu(fileName = "New Equipment Data", menuName = "Equipment Data")]

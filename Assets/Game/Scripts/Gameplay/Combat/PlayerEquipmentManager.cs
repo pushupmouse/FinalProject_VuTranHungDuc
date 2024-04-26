@@ -6,7 +6,7 @@ public class PlayerEquipmentManager : MonoBehaviour
 {
     public static PlayerEquipmentManager Instance;
 
-    [SerializeField] private int _shards;
+    //[SerializeField] private int _shards;
 
     [SerializeField] private UnitStatsManager _unitStatsManager;
     [SerializeField] private RarityData _helmetRarityData;
@@ -50,14 +50,14 @@ public class PlayerEquipmentManager : MonoBehaviour
         if (currentRarityData != null && (int)newRarityData.rarityType <= (int)currentRarityData.rarityType)
         {
             // Increase shard count based on the rarity of the unequipped equipment
-            IncreaseShards(newRarityData.shardDrop);
+            ConvertDuplicateEquipment(newRarityData.coinDrop);
             return;
         }
 
         // If there's already equipped equipment, increase shard count based on its rarity
         if (currentRarityData != null)
         {
-            IncreaseShards(currentRarityData.shardDrop);
+            ConvertDuplicateEquipment(currentRarityData.coinDrop);
         }
 
         EquipmentData currentEquipmentData = GetCurrentEquipmentData(equipmentData.EquipmentType);
@@ -140,8 +140,13 @@ public class PlayerEquipmentManager : MonoBehaviour
         }
     }
 
-    private void IncreaseShards(int amount)
+    //private void IncreaseShards(int amount)
+    //{
+    //    _shards += amount;
+    //}
+
+    private void ConvertDuplicateEquipment(int coinAmount)
     {
-        _shards += amount;
+        CoinManager.Instance.AddCoins(coinAmount);
     }
 }
