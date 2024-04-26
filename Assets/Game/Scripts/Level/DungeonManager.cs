@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -11,6 +12,7 @@ public enum RoomType
     Fighting = 2,
     Upgrade = 3,
     Treasure = 4,
+    Branch = 5,
 }
 
 public enum Direction
@@ -43,6 +45,8 @@ public class DungeonManager : MonoBehaviour
     [SerializeField] private int _maxMainRooms; // Maximum number of main rooms to generate
 
     private RoomNode[,] _roomGrid; // 2D array representing the grid of rooms
+    private DungeonTraversalManager _dungeonManager;
+    private bool _treasureRoomSpawned = false;
     public RoomNode CurrentPlayerLocation;
 
     private void Awake()
@@ -59,10 +63,17 @@ public class DungeonManager : MonoBehaviour
 
     private void Start()
     {
+        _dungeonManager = DungeonTraversalManager.Instance;
+        CreateDungeon();
+    }
+
+    public void CreateDungeon()
+    {
+        _treasureRoomSpawned = false;
+        _maxMainRooms = LevelManager.Instance.GetLevelData().NumRooms;
         CreateMainRooms();
         CreateBranchRooms();
-        DungeonTraversalManager dungeonManager = DungeonTraversalManager.Instance;
-        dungeonManager.InitializeTraversal();
+        _dungeonManager.InitializeTraversal();
     }
 
     private void CreateMainRooms()
@@ -82,7 +93,18 @@ public class DungeonManager : MonoBehaviour
             RoomType currentRoomType = RoomType.None;
             if (i <= _maxMainRooms)
             {
-                currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Upgrade; // Determine the type of the current room (main or upgrade
+                if (!_treasureRoomSpawned)
+                {
+                    currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Upgrade; // Determine the type of the current room (main or upgrade)
+                    if (currentRoomType == RoomType.Treasure)
+                    {
+                        _treasureRoomSpawned = true;
+                    }
+                }
+                else
+                {
+                    currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[0] : RoomType.Upgrade;
+                }
             }
             else
             {
@@ -126,9 +148,11 @@ public class DungeonManager : MonoBehaviour
 
     private void CreateBranchRooms()
     {
+
         foreach (RoomNode mainRoom in _roomGrid)
         {
-            if (mainRoom == null || mainRoom.type == RoomType.Boss || mainRoom.type == RoomType.Upgrade)
+
+            if (mainRoom == null || mainRoom.type == RoomType.Boss || mainRoom.type == RoomType.Upgrade || mainRoom.type == RoomType.Branch)
                 continue; // Skip null rooms or boss room
 
             List<Direction> availableDirections = new List<Direction>();
@@ -146,7 +170,7 @@ public class DungeonManager : MonoBehaviour
                 // Randomize the number of branch rooms (0 to 2)
                 int numBranches = Random.Range(0, Mathf.Min(3, availableDirections.Count));
 
-                for (int i = 0; i < numBranches; i++)
+                for (int j = 0; j < numBranches; j++)
                 {
                     // Randomly select a direction from available directions
                     Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)];
@@ -155,7 +179,7 @@ public class DungeonManager : MonoBehaviour
                     Vector2Int branchPosition = mainRoom.position + DirectionToVector(randomDirection);
 
                     // Create the branch room and add it to the grid
-                    RoomNode branchRoom = new RoomNode(RoomType.Fighting, branchPosition);
+                    RoomNode branchRoom = new RoomNode(RoomType.Branch, branchPosition);
                     AddRoomToGrid(branchRoom);
 
                     // Connect the branch room to the main room

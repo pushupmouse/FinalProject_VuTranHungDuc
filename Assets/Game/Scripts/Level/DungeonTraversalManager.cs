@@ -86,10 +86,28 @@ public class DungeonTraversalManager : MonoBehaviour
             case RoomType.Treasure:
                 spawnManager.SpawnTreasure(currentRoom);
                 break;
+            case RoomType.Branch:
+                spawnManager.SpawnEnemy(currentRoom);
+                break;
             default:
                 break;
         }
 
+    }
+
+    public Room GetCurrentRoom()
+    {
+        return currentRoom;
+    }
+
+    public void MoveToNewLevel()
+    {
+        if (currentRoom != null)
+        {
+            Destroy(currentRoom.gameObject);
+        }
+
+        _dungeonManager.CreateDungeon();
     }
 
     private Direction GetOppositeDirection(Direction direction)

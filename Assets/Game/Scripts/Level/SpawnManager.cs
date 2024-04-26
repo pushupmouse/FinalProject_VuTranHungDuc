@@ -20,6 +20,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Blacksmith _blacksmith;
     [SerializeField] private Shopkeeper _shopkeeper;
     [SerializeField] private Priestess _priestess;
+    [SerializeField] private Hatch _hatch;
 
     [HideInInspector] public bool EnemiesAlive = false;
     [HideInInspector] public bool RewardsToCollect = false;
@@ -28,6 +29,8 @@ public class SpawnManager : MonoBehaviour
     private List<Coin> _spawnedCoins = new List<Coin>();
     private List<Equipment> _spawnedEquipments = new List<Equipment>();
     private DungeonManager _dungeonManager;
+    private RarityType _lowRarity = RarityType.Regular;
+    private RarityType _highRarity = RarityType.Bronze;
     public bool Healed = false;
     
     private void Awake()
@@ -43,14 +46,16 @@ public class SpawnManager : MonoBehaviour
     }
 
     private void Start()
-    {
-        OnInit();
+    { 
         _dungeonManager = DungeonManager.Instance;
     }
 
-    private void OnInit()
+    public void OnInit()
     {
         Healed = false;
+        _enemySpawnRate = LevelManager.Instance.GetLevelData().SpawnRate;
+        _lowRarity = LevelManager.Instance.GetLevelData().MinRarityDrop;
+        _highRarity = LevelManager.Instance.GetLevelData().MeanRarityDrop;
     }
 
     public void SpawnEnemy(Room room)
@@ -113,6 +118,13 @@ public class SpawnManager : MonoBehaviour
         bossEnemy.SetTarget(_target);
     }
 
+    public void SpawnHatch(Room room)
+    {
+        Hatch hatch = Instantiate(_hatch, room.SpawnPoints[0].position, Quaternion.identity);
+
+        hatch.transform.SetParent(room.SpawnInstances);
+    }
+
     public void SpawnTreasure(Room room)
     {
         if (_dungeonManager.CurrentPlayerLocation.IsCleared)
@@ -155,7 +167,7 @@ public class SpawnManager : MonoBehaviour
 
         if (Random.value <= _equipmentSpawnRate)
         {
-            SpawnEquipment(enemy, RarityType.Regular, RarityType.Bronze);
+            SpawnEquipment(enemy, _lowRarity, _highRarity);
         }
 
         if (_spawnedEnemies.Count == 0)
@@ -168,7 +180,7 @@ public class SpawnManager : MonoBehaviour
     {
         _spawnedEnemies.Remove(enemy);
 
-        Invoke(nameof(SpawnBossRewards), 2f);
+        Invoke(nameof(SpawnBossRewards), 1f);
 
         OnBossDefeated();
     }
@@ -187,14 +199,14 @@ public class SpawnManager : MonoBehaviour
             coin.SetTarget(_target);
         }
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 1; i++)
         {
             Vector3 randomOffset = Random.insideUnitCircle * 3;
             Vector3 spawnPosition = transform.position + randomOffset;
 
             Equipment equipment = Instantiate(_equipment, spawnPosition, Quaternion.identity);
 
-            equipment.SetRandomTypeAndRarityRange(RarityType.Silver, RarityType.Gold);
+            equipment.SetRandomTypeAndRarity(LevelManager.Instance.GetLevelData().BossRarityDrop);
 
             equipment.SetTarget(_target);
 
@@ -258,7 +270,7 @@ public class SpawnManager : MonoBehaviour
             _dungeonManager.CurrentPlayerLocation.IsCleared = true;
         }
 
-        //spawn way to new level
+        SpawnHatch(DungeonTraversalManager.Instance.GetCurrentRoom());
     }
 
     private void SpawnCoin(Enemy enemy)

@@ -255,43 +255,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dd51bbe1279328409cbe68aa4c47f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shards: 0
   _unitStatsManager: {fileID: 1743723587}
   _helmetRarityData:
     rarityType: 0
     image: {fileID: 0}
     primaryBonusAmount: 0
     secondaryBonusAmount: 0
-    shardDrop: 0
-    shardPrice: 0
+    coinDrop: 0
   _chestRarityData:
     rarityType: 0
     image: {fileID: 0}
     primaryBonusAmount: 0
     secondaryBonusAmount: 0
-    shardDrop: 0
-    shardPrice: 0
+    coinDrop: 0
   _shieldRarityData:
     rarityType: 0
     image: {fileID: 0}
     primaryBonusAmount: 0
     secondaryBonusAmount: 0
-    shardDrop: 0
-    shardPrice: 0
+    coinDrop: 0
   _glovesRarityData:
     rarityType: 0
     image: {fileID: 0}
     primaryBonusAmount: 0
     secondaryBonusAmount: 0
-    shardDrop: 0
-    shardPrice: 0
+    coinDrop: 0
   _bootsRarityData:
     rarityType: 0
     image: {fileID: 0}
     primaryBonusAmount: 0
     secondaryBonusAmount: 0
-    shardDrop: 0
-    shardPrice: 0
+    coinDrop: 0
 --- !u!4 &172130272
 Transform:
   m_ObjectHideFlags: 0
@@ -490,6 +484,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2700492348914706305, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+      propertyPath: m_CollisionDetection
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4832093791711402418, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
@@ -910,6 +908,55 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &954625713
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 954625715}
+  - component: {fileID: 954625714}
+  m_Layer: 0
+  m_Name: LevelManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &954625714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954625713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b63ccf41911d1d419ef301111a91d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentLevel: 0
+  _levelDatas:
+  - {fileID: 11400000, guid: bded31a764da70f4aac4e0a74158f0c0, type: 2}
+  - {fileID: 11400000, guid: 98d704473e5678647bf54385112fe4bc, type: 2}
+  - {fileID: 11400000, guid: 6cfcf0f9b817b6146862718e144b7f8b, type: 2}
+--- !u!4 &954625715
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954625713}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &994362211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,7 +1283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf39bf3c0b4cfb4e81b43720b1e9552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMainRooms: 1
+  _maxMainRooms: 0
 --- !u!1 &1392800402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,6 +1368,7 @@ MonoBehaviour:
   _blacksmith: {fileID: 9144943758572141504, guid: f3e0afb063a80a748bfa0bd03e0f0b46, type: 3}
   _shopkeeper: {fileID: 7937943944471437124, guid: da84785143c49dd45935f778b08c4180, type: 3}
   _priestess: {fileID: 8702054721679808944, guid: 297eb107792dcdf4ba4489683eee61ce, type: 3}
+  _hatch: {fileID: 356545283484390513, guid: 45e4e6982028816488c218714c660048, type: 3}
   EnemiesAlive: 0
   RewardsToCollect: 0
   Healed: 0
@@ -1892,6 +1940,7 @@ SceneRoots:
   - {fileID: 1702789508}
   - {fileID: 1334381780}
   - {fileID: 1993010689}
+  - {fileID: 954625715}
   - {fileID: 1521285354}
   - {fileID: 1113463465}
   - {fileID: 172130272}

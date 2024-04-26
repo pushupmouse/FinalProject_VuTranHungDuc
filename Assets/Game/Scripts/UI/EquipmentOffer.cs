@@ -10,11 +10,11 @@ public class EquipmentOffer : MonoBehaviour
     [SerializeField] private List<EquipmentTuple> _equipmentList;
     [SerializeField] private TextMeshProUGUI _price;
     [SerializeField] private Button _button;
-    [SerializeField] private int _priceAmount = 30;
 
     private EquipmentData _equipmentData;
     private RarityData _rarityData;
     private CoinManager _coinManager;
+    private int _priceAmount = 30;
 
     public void Start()
     {
@@ -34,6 +34,7 @@ public class EquipmentOffer : MonoBehaviour
 
     public void SetPriceTag()
     {
+        _priceAmount = LevelManager.Instance.GetLevelData().ShopPrice;
         _price.text = _priceAmount.ToString();
     }
 

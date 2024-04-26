@@ -16,10 +16,22 @@ public class Chest : MonoBehaviour, IInteractable
     private Transform _target;
     private List<Coin> _spawnedCoins = new List<Coin>();
     private List<Equipment> _spawnedEquipments = new List<Equipment>();
+    private RarityType _rarityType = RarityType.Silver;
+    private bool _interacted = false;
     public Action OnChestOpen;
+
+    private void Start()
+    {
+        _rarityType = LevelManager.Instance.GetLevelData().TreasureRarityDrop;
+    }
 
     public void Interact()
     {
+        if(_interacted)
+        {
+            return;
+        }
+        _interacted = true;
         Invoke(nameof(SpawnRewards), 1f);
         gameObject.layer = LayerMask.NameToLayer("Dead");
         _animator.Play("Open");
@@ -47,7 +59,7 @@ public class Chest : MonoBehaviour, IInteractable
 
             Equipment equipment = Instantiate(_equipment, spawnPosition, Quaternion.identity);
 
-            equipment.SetRandomTypeAndRarityRange(RarityType.Bronze, RarityType.Silver);
+            equipment.SetRandomTypeAndRarity(_rarityType);
 
             equipment.SetTarget(_target);
 

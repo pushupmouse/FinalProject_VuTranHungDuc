@@ -20,35 +20,29 @@ MonoBehaviour:
     image: {fileID: 21300000, guid: d176ae8b3d724184fb5843c5669336b3, type: 3}
     primaryBonusAmount: 0
     secondaryBonusAmount: 0
-    shardDrop: 0
-    shardPrice: 0
+    coinDrop: 0
   - rarityType: 1
     image: {fileID: -914623996, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     primaryBonusAmount: 3
     secondaryBonusAmount: 0
-    shardDrop: 1
-    shardPrice: 1
+    coinDrop: 1
   - rarityType: 2
     image: {fileID: 1072921076, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     primaryBonusAmount: 7
     secondaryBonusAmount: 0.1
-    shardDrop: 2
-    shardPrice: 2
+    coinDrop: 2
   - rarityType: 3
     image: {fileID: -1867895781, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     primaryBonusAmount: 12
     secondaryBonusAmount: 0.2
-    shardDrop: 3
-    shardPrice: 4
+    coinDrop: 3
   - rarityType: 4
     image: {fileID: 88921888, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     primaryBonusAmount: 18
     secondaryBonusAmount: 0.3
-    shardDrop: 5
-    shardPrice: 8
+    coinDrop: 4
   - rarityType: 5
     image: {fileID: 748011440, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     primaryBonusAmount: 25
     secondaryBonusAmount: 0.55
-    shardDrop: 10
-    shardPrice: 15
+    coinDrop: 5

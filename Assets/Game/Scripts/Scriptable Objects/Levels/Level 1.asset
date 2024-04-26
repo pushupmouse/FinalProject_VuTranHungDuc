@@ -9,14 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f243e90968ea9a445a336efca14c6f7f, type: 3}
-  m_Name: Demon
+  m_Script: {fileID: 11500000, guid: e779ee4d876080946bb9d955e6018f54, type: 3}
+  m_Name: Level 1
   m_EditorClassIdentifier: 
-  attributes:
-  - 1
-  - 10
-  - 10
-  - 0
-  - 0
-  - 0
-  - 0
+  SpawnRate: 0.4
+  MinRarityDrop: 1
+  MeanRarityDrop: 2
+  TreasureRarityDrop: 3
+  BossRarityDrop: 4
+  ShopPrice: 30
+  NumRooms: 5

@@ -105,13 +105,13 @@ public class AttackController : MonoBehaviour
             yield break;
         }
 
-        float finalDamage = damage;
+        float finalDamage = (1 + _damageMult) * damage;
 
         if (target != null && Vector2.Distance(transform.position, target.position) <= _attackRange)
         {
             if (isCritical)
             {
-                finalDamage = (1 +_critDamageMult) * (1 + _damageMult) * damage;
+                finalDamage = (1 +_critDamageMult) * finalDamage;
             }
 
             hitHealth.TakeDamage(finalDamage, isCritical);

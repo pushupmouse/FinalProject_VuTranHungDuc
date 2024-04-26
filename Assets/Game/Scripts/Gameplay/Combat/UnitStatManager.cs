@@ -6,7 +6,7 @@ public class UnitStatsManager : MonoBehaviour
     [SerializeField] private float _constitution;
     [SerializeField] private float _strength;
     [SerializeField] private float _defense;
-    [SerializeField] private float _potency;
+    [SerializeField] private float _intensity;
     [SerializeField] private float _accuracy;
     [SerializeField] private float _resilience;
 
@@ -30,6 +30,7 @@ public class UnitStatsManager : MonoBehaviour
         _constitution = attributeData.GetAttributeValue(AttributeType.Constitution);
         _strength = attributeData.GetAttributeValue(AttributeType.Strength);
         _defense = attributeData.GetAttributeValue(AttributeType.Defense);
+        _intensity = attributeData.GetAttributeValue(AttributeType.Intensity);
         _accuracy = attributeData.GetAttributeValue(AttributeType.Accuracy);
         _resilience = attributeData.GetAttributeValue(AttributeType.Resilience);
 
@@ -48,6 +49,7 @@ public class UnitStatsManager : MonoBehaviour
         if (attackController != null)
         {
             attackController.InitializeDamage(_strength);
+            attackController.InitializeDamageMult(_intensity);
             attackController.InitializeCritChance(_accuracy);
         }
     }
@@ -71,10 +73,10 @@ public class UnitStatsManager : MonoBehaviour
                 if (healthController != null)
                     healthController.InitializeDamageRed(_defense);
                 break;
-            case AttributeType.Potency:
-                _potency += amount;
+            case AttributeType.Intensity:
+                _intensity += amount;
                 if(attackController != null)
-                    attackController.InitializeDamageMult(_potency);
+                    attackController.InitializeDamageMult(_intensity);
                 break;
             case AttributeType.Accuracy:
                 _accuracy += amount;

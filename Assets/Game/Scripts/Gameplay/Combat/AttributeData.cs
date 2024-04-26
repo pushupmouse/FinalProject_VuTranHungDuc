@@ -7,7 +7,7 @@ public enum AttributeType
     Constitution = 0,
     Strength = 1,
     Defense = 2,
-    Potency = 3,
+    Intensity = 3,
     Accuracy = 4,
     Resilience = 5,
 }
