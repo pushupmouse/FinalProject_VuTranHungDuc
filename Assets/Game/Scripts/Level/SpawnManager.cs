@@ -98,6 +98,7 @@ public class SpawnManager : MonoBehaviour
     {
         if (_dungeonManager.CurrentPlayerLocation.IsCleared)
         {
+            SpawnHatch(DungeonTraversalManager.Instance.GetCurrentRoom());
             return;
         }
 

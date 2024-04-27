@@ -937,7 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b63ccf41911d1d419ef301111a91d9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currentLevel: 0
+  _currentLevel: 1
   _levelDatas:
   - {fileID: 11400000, guid: bded31a764da70f4aac4e0a74158f0c0, type: 2}
   - {fileID: 11400000, guid: 98d704473e5678647bf54385112fe4bc, type: 2}
@@ -1283,7 +1283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf39bf3c0b4cfb4e81b43720b1e9552, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxMainRooms: 0
+  _maxMainRooms: 3
 --- !u!1 &1392800402
 GameObject:
   m_ObjectHideFlags: 0

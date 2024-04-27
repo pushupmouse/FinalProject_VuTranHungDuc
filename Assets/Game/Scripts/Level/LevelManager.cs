@@ -6,7 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance;
  
-    [SerializeField] private int _currentLevel;
+    [SerializeField] private int _currentLevel = 1;
     [SerializeField] private List<LevelData> _levelDatas;
 
     private void Awake()
