@@ -98,13 +98,6 @@ public class AttackController : MonoBehaviour
 
     private void DealDamage(HealthController hitHealth, float damage, Transform target, bool isCritical)
     {
-        //yield return new WaitForSeconds(delay);
-
-        //if (_knockback != null && _knockback.IsKnockbacked)
-        //{
-        //    return;
-        //}
-
         float finalDamage = (1 + _damageMult) * damage;
 
         if (target != null && Vector2.Distance(transform.position, target.position) <= _attackArea)
