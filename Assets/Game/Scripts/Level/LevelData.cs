@@ -12,4 +12,5 @@ public class LevelData : ScriptableObject
     public RarityType BossRarityDrop;
     public int ShopPrice;
     public int NumRooms;
+    public float StatIncrease;
 }

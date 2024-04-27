@@ -283,13 +283,12 @@ MonoBehaviour:
   _detectionRange: 7
   _attackRange: 0.75
   _moveSpeed: 3
-  _hitDuration: 0.2
-  _attackCooldown: 1
   _hpBar: {fileID: 5310458468608535358}
+  _health: {fileID: 9001736729543653194}
+  _knockback: {fileID: 5324170185752574529}
   AttackDuration: 1
   IsRunning: 0
   IsAttacking: 0
-  IsTakeDamage: 0
   IsDead: 0
 --- !u!114 &770499134551368773
 MonoBehaviour:
@@ -323,6 +322,7 @@ MonoBehaviour:
   _intensity: 0
   _accuracy: 0
   _resilience: 0
+  _isEnemy: 1
 --- !u!114 &4725475939000193199
 MonoBehaviour:
   m_ObjectHideFlags: 0

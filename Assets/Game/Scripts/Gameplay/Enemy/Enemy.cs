@@ -11,37 +11,23 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _detectionRange = 10f;
     [SerializeField] private float _attackRange = 2f;
     [SerializeField] private float _moveSpeed = 3f;
-    [SerializeField] private float _hitDuration = 0.2f;
-    [SerializeField] private float _attackCooldown = 1f;
     [SerializeField] private Transform _hpBar;
+    [SerializeField] private HealthController _health;
+    [SerializeField] private Knockback _knockback;
 
-    [HideInInspector] public float AttackDuration = 1f;
-    [HideInInspector] public bool IsRunning;
-    [HideInInspector] public bool IsAttacking = false;
-    [HideInInspector] public bool IsTakeDamage;
-    [HideInInspector] public bool IsDead;
+     [HideInInspector] public float AttackDuration = 1f;
+     [HideInInspector] public bool IsRunning;
+     [HideInInspector] public bool IsAttacking = false;
+     [HideInInspector] public bool IsDead;
 
-    private HealthController _health;
-    private Knockback _knockback;
-    private AttackController _attackController;
     private bool _targetInDetectionRange = false;
     private float _attackEndTime = 0f;
-    private float _lastAttackTime;
     public Action<Enemy> OnEnemyDeath;
-
-    private void Awake()
-    {
-        _health = GetComponent<HealthController>();
-        _knockback = GetComponent<Knockback>();
-        _attackController = GetComponent<AttackController>();
-    }
 
     private void Start()
     {
         _health.OnDeath -= HandleDeath;
         _health.OnDeath += HandleDeath;
-        _health.OnTakeDamage -= HandleTakeDamage;
-        _health.OnTakeDamage += HandleTakeDamage;
         IsDead = false;
     }
 
@@ -55,11 +41,6 @@ public class Enemy : MonoBehaviour
         if (_target != null && Vector2.Distance(transform.position, _target.position) <= _detectionRange)
         {
             _targetInDetectionRange = true;
-
-            if (Vector3.Distance(transform.position, _target.position) <= _attackRange && Time.time - _lastAttackTime >= _attackCooldown && IsAttacking)
-            {
-                _lastAttackTime = Time.time;
-            }
         }
         else
         {
@@ -76,7 +57,7 @@ public class Enemy : MonoBehaviour
     {
         if (_knockback.IsKnockbacked || IsDead)
         {
-            IsAttacking = false;
+            //IsAttacking = false;
             return;
         }
 
@@ -87,20 +68,19 @@ public class Enemy : MonoBehaviour
             if (!IsAttacking)
             {
                 _rb.velocity = direction * _moveSpeed;
+                IsRunning = true;
             }
             else
             {
                 _rb.velocity = Vector2.zero;
             }
 
-            IsRunning = true;
 
             if (Vector3.Distance(transform.position, _target.position) <= _attackRange)
             {
                 _rb.velocity = Vector2.zero;
-
                 IsRunning = false;
-
+                
                 if (!IsAttacking)
                 {
                     IsAttacking = true;
@@ -148,18 +128,6 @@ public class Enemy : MonoBehaviour
     public void SetTarget(Transform target)
     {
         _target = target;
-    }
-
-    public void HandleTakeDamage()
-    {
-        IsTakeDamage = true;
-        StartCoroutine(ResetTakeDamage());
-    }
-
-    private IEnumerator ResetTakeDamage()
-    {
-        yield return new WaitForSeconds(_hitDuration);
-        IsTakeDamage = false;
     }
 
     private void HandleDeath()

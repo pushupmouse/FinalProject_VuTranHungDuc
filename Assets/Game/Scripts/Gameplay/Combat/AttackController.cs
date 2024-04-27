@@ -83,7 +83,6 @@ public class AttackController : MonoBehaviour
                 {
                     bool isCritical = Random.value <= _critChance;
 
-                    //StartCoroutine(DealDamage(hitHealth, _damage, _delay, target, isCritical));
                     DealDamage(hitHealth, _damage, target, isCritical);
                 }
 

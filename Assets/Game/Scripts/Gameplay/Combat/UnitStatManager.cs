@@ -9,9 +9,11 @@ public class UnitStatsManager : MonoBehaviour
     [SerializeField] private float _intensity;
     [SerializeField] private float _accuracy;
     [SerializeField] private float _resilience;
+    [SerializeField] bool _isEnemy;
 
     private HealthController healthController;
     private AttackController attackController;
+    private float _statIncrease = 0;
 
 
     private void Awake()
@@ -27,12 +29,21 @@ public class UnitStatsManager : MonoBehaviour
 
     private void InitializeStats()
     {
-        _constitution = attributeData.GetAttributeValue(AttributeType.Constitution);
-        _strength = attributeData.GetAttributeValue(AttributeType.Strength);
-        _defense = attributeData.GetAttributeValue(AttributeType.Defense);
-        _intensity = attributeData.GetAttributeValue(AttributeType.Intensity);
-        _accuracy = attributeData.GetAttributeValue(AttributeType.Accuracy);
-        _resilience = attributeData.GetAttributeValue(AttributeType.Resilience);
+        if (_isEnemy)
+        {
+            _statIncrease = LevelManager.Instance.GetLevelData().StatIncrease;
+        }
+        else
+        {
+            _statIncrease = 0;
+        }
+
+        _constitution = attributeData.GetAttributeValue(AttributeType.Constitution) * (1 + _statIncrease);
+        _strength = attributeData.GetAttributeValue(AttributeType.Strength) * (1 + _statIncrease);
+        _defense = attributeData.GetAttributeValue(AttributeType.Defense) * (1 + _statIncrease);
+        _intensity = attributeData.GetAttributeValue(AttributeType.Intensity) * (1 + _statIncrease);
+        _accuracy = attributeData.GetAttributeValue(AttributeType.Accuracy) * (1 + _statIncrease);
+        _resilience = attributeData.GetAttributeValue(AttributeType.Resilience) * (1 + _statIncrease);
 
         ApplyStats();
     }

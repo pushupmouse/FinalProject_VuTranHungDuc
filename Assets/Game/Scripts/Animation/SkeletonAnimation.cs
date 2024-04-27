@@ -35,11 +35,6 @@ public class SkeletonAnimation : AnimationHandler
             return DeathAnim;
         }
 
-        if(_enemy.IsTakeDamage)
-        {
-            return TakeDamageAnim;
-        }
-
         if (Time.time < _lockedTime)
         {
             return _currentState;
@@ -54,6 +49,11 @@ public class SkeletonAnimation : AnimationHandler
         {
             return RunAnim;
         }
+
+        //if (_enemy.IsTakeDamage)
+        //{
+        //    return TakeDamageAnim;
+        //}
 
         return IdleAnim;
     }

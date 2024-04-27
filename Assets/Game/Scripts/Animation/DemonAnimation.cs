@@ -35,20 +35,20 @@ public class DemonAnimation : AnimationHandler
             return DeathAnim;
         }
 
-        if (Time.time < _lockedTime)
-        {
-            return _currentState;
-        }
-
         if (_enemy.IsAttacking)
         {
             return LockState(AttackAnim, _enemy.AttackDuration);
         }
 
-        if (_enemy.IsTakeDamage)
-        {
-            return TakeDamageAnim;
-        }
+        //if (Time.time < _lockedTime)
+        //{
+        //    return _currentState;
+        //}
+
+        //if (_enemy.IsTakeDamage)
+        //{
+        //    return TakeDamageAnim;
+        //}
 
         if (_enemy.IsRunning)
         {

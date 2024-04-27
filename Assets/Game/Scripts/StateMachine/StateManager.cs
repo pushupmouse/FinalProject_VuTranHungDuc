@@ -6,12 +6,7 @@ public class StateManager : MonoBehaviour
 {
     public State CurrentState;
 
-    private void Update()
-    {
-        RunStateMachine();
-    }
-
-    private void RunStateMachine()
+    public void RunStateMachine()
     {
         State nextState = CurrentState?.RunCurrentState();
 
