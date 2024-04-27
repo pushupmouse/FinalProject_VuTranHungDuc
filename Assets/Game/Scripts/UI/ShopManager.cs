@@ -48,8 +48,9 @@ public class ShopManager : MonoBehaviour
 
     private void RemoveShop()
     {
-        for(int i = _equipmentOfferList.Count - 1; i > 0; i--)
+        for(int i = _equipmentOfferList.Count - 1; i >= 0; i--)
         {
+            Destroy(_equipmentOfferList[i].gameObject);
             _equipmentOfferList.RemoveAt(i);
         }
     }

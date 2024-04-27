@@ -23,7 +23,6 @@ public class Chest : MonoBehaviour, IInteractable
     private void Start()
     {
         _rarityType = LevelManager.Instance.GetLevelData().TreasureRarityDrop;
-        Debug.Log("rarity type for chest");
     }
 
     public void Interact()

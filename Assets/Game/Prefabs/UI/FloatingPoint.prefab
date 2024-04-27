@@ -91,7 +91,7 @@ TextMesh:
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
-  m_FontSize: 50
+  m_FontSize: 120
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 0}
@@ -165,3 +165,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 150757986627874862}
+  _fontSize: 200
