@@ -36,10 +36,6 @@ public class PlayerAnimation : AnimationHandler
 
     protected override int GetState()
     {
-        if( _movementController.IsTakeDamage)
-        {
-            return TakeDamageAnim;
-        }
 
         if (_movementController.IsDashing)
         {
@@ -62,6 +58,11 @@ public class PlayerAnimation : AnimationHandler
                 case 3:
                     return LockState(Attack3Anim, _attackController.AttackDuration);
             }
+        }
+
+        if (_movementController.IsTakeDamage)
+        {
+            return TakeDamageAnim;
         }
 
         if (_movementController.MoveX != 0 || _movementController.MoveY != 0)

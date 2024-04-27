@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _moveSpeed = 3f;
     [SerializeField] private float _hitDuration = 0.2f;
     [SerializeField] private float _attackCooldown = 1f;
+    [SerializeField] private Transform _hpBar;
 
     [HideInInspector] public float AttackDuration = 1f;
     [HideInInspector] public bool IsRunning;
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
 
     private HealthController _health;
     private Knockback _knockback;
-    private AttackController _attackAction;
+    private AttackController _attackController;
     private bool _targetInDetectionRange = false;
     private float _attackEndTime = 0f;
     private float _lastAttackTime;
@@ -32,7 +33,7 @@ public class Enemy : MonoBehaviour
     {
         _health = GetComponent<HealthController>();
         _knockback = GetComponent<Knockback>();
-        _attackAction = GetComponent<AttackController>();
+        _attackController = GetComponent<AttackController>();
     }
 
     private void Start()
@@ -57,7 +58,6 @@ public class Enemy : MonoBehaviour
 
             if (Vector3.Distance(transform.position, _target.position) <= _attackRange && Time.time - _lastAttackTime >= _attackCooldown && IsAttacking)
             {
-                _attackAction.Attack();
                 _lastAttackTime = Time.time;
             }
         }
@@ -124,7 +124,7 @@ public class Enemy : MonoBehaviour
 
     private void Flip()
     {
-        if(_target == null)
+        if (_target == null)
         {
             return;
         }
@@ -133,11 +133,15 @@ public class Enemy : MonoBehaviour
 
         if (direction.x > 0.1f)
         {
-            _spriteTransform.localScale = new Vector3(Mathf.Abs(_spriteTransform.localScale.x), _spriteTransform.localScale.y, _spriteTransform.localScale.z);
+            // Flip the transform
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            _hpBar.localScale = new Vector3(Mathf.Abs(_hpBar.localScale.x), _hpBar.localScale.y, _hpBar.localScale.z);
         }
         else if (direction.x < -0.1f)
         {
-            _spriteTransform.localScale = new Vector3(-Mathf.Abs(_spriteTransform.localScale.x), _spriteTransform.localScale.y, _spriteTransform.localScale.z);
+            // Flip the transform
+            transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            _hpBar.localScale = new Vector3(-Mathf.Abs(_hpBar.localScale.x), _hpBar.localScale.y, _hpBar.localScale.z);
         }
     }
 

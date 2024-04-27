@@ -5,9 +5,8 @@ using UnityEngine;
 public class AttackController : MonoBehaviour
 {
     [SerializeField] private Transform _attackPoint;
-    [SerializeField] private float _attackRange = 0.75f;
+    [SerializeField] private float _attackArea = 0.75f;
     [SerializeField] private LayerMask _targetLayers;
-    [SerializeField] private float _delay = 0.15f;
     [SerializeField] private float _maxCritChance = 0.75f;
     [SerializeField] private float _critDamageMult = 0.5f;
 
@@ -71,7 +70,7 @@ public class AttackController : MonoBehaviour
             return;
         }
 
-        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(_attackPoint.position, _attackRange, _targetLayers);
+        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(_attackPoint.position, _attackArea, _targetLayers);
 
         foreach (Collider2D hit in hitTargets)
         {
@@ -84,30 +83,31 @@ public class AttackController : MonoBehaviour
                 {
                     bool isCritical = Random.value <= _critChance;
 
-                    StartCoroutine(DealDamage(hitHealth, _damage, _delay, target, isCritical));
+                    //StartCoroutine(DealDamage(hitHealth, _damage, _delay, target, isCritical));
+                    DealDamage(hitHealth, _damage, target, isCritical);
                 }
 
                 Knockback hitKnockback = Cache<Knockback>.GetComponent(hit);
                 if (hitKnockback != null)
                 {
-                    StartCoroutine(InflictKnockback(hitKnockback, transform.position, _delay, target));
+                    InflictKnockback(hitKnockback, transform.position, target);
                 }
             }
         }
     }
 
-    private IEnumerator DealDamage(HealthController hitHealth, float damage, float delay, Transform target, bool isCritical)
+    private void DealDamage(HealthController hitHealth, float damage, Transform target, bool isCritical)
     {
-        yield return new WaitForSeconds(delay);
+        //yield return new WaitForSeconds(delay);
 
-        if (_knockback != null && _knockback.IsKnockbacked)
-        {
-            yield break;
-        }
+        //if (_knockback != null && _knockback.IsKnockbacked)
+        //{
+        //    return;
+        //}
 
         float finalDamage = (1 + _damageMult) * damage;
 
-        if (target != null && Vector2.Distance(transform.position, target.position) <= _attackRange)
+        if (target != null && Vector2.Distance(transform.position, target.position) <= _attackArea)
         {
             if (isCritical)
             {
@@ -118,13 +118,17 @@ public class AttackController : MonoBehaviour
         }
     }
 
-    private IEnumerator InflictKnockback(Knockback hitKnockback, Vector3 position, float delay, Transform target)
+    private void InflictKnockback(Knockback hitKnockback, Vector3 position, Transform target)
     {
-        yield return new WaitForSeconds(delay);
 
-        if (target != null && Vector2.Distance(transform.position, target.position) <= _attackRange)
+        if (target != null && Vector2.Distance(transform.position, target.position) <= _attackArea)
         {
             hitKnockback.ApplyKnockback(position);
         }
+    }
+
+    public void AttackDemo()
+    {
+        Debug.Log("HIT");
     }
 }

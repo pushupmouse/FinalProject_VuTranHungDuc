@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6027381810467038631}
   - component: {fileID: 7265186901820091158}
   - component: {fileID: 7091617327220463957}
+  - component: {fileID: 576698528919001360}
   m_Layer: 0
   m_Name: EnemyGFX
   m_TagString: Untagged
@@ -106,6 +107,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &576698528919001360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995304118175722257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b285cbcc4263b144833cda9175edb79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackController: {fileID: 4725475939000193199}
 --- !u!1 &2024685734074463995
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +145,7 @@ Transform:
   m_GameObject: {fileID: 2024685734074463995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -267,10 +281,11 @@ MonoBehaviour:
   _spriteTransform: {fileID: 6027381810467038631}
   _target: {fileID: 0}
   _detectionRange: 7
-  _attackRange: 0.5
+  _attackRange: 0.75
   _moveSpeed: 3
   _hitDuration: 0.2
   _attackCooldown: 1
+  _hpBar: {fileID: 5310458468608535358}
   AttackDuration: 1
   IsRunning: 0
   IsAttacking: 0
@@ -305,6 +320,7 @@ MonoBehaviour:
   _constitution: 0
   _strength: 0
   _defense: 0
+  _intensity: 0
   _accuracy: 0
   _resilience: 0
 --- !u!114 &4725475939000193199
@@ -320,11 +336,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackPoint: {fileID: 5341918304251308518}
-  _attackRange: 1
+  _attackArea: 1
   _targetLayers:
     serializedVersion: 2
     m_Bits: 1024
-  _delay: 0.5
   _maxCritChance: 0.75
   _critDamageMult: 0.5
 --- !u!114 &9001736729543653194
@@ -342,6 +357,7 @@ MonoBehaviour:
   _floatingPoint: {fileID: -8879463613880763708, guid: 9f5163d17643b0a49aa62ddf6e999f7a, type: 3}
   _maxRecoveryChance: 0.75
   _healthBar: {fileID: 1883811608243318992}
+  _tick: 0.25
 --- !u!114 &5324170185752574529
 MonoBehaviour:
   m_ObjectHideFlags: 0

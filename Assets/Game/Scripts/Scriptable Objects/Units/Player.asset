@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   attributes:
-  - 60
+  - 600000
   - 10
   - 5
   - 0
