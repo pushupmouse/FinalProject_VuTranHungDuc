@@ -1358,7 +1358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemySpawnRate: 0.4
-  _equipmentSpawnRate: 0.2
+  _equipmentSpawnRate: 0.05
   _target: {fileID: 1743723583}
   _enemy: {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
   _bossEnemy: {fileID: 2723159892876595277, guid: 3870c53a02f3b664bb7334faa72ccab9, type: 3}

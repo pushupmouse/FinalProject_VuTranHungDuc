@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributes:
   - 60
-  - 35
+  - 10
   - 5
-  - 1
-  - 1
+  - 0
+  - 0
   - 0
   - 1
