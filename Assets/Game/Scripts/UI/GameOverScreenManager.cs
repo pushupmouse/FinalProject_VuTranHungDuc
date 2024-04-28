@@ -11,10 +11,16 @@ public class GameOverScreenManager : MonoBehaviour
     private void Start()
     {
         _newGameButton.onClick.AddListener(StartNewGame);
+        _mainMenuButton.onClick.AddListener(GoToMainMenu);
     }
 
     private void StartNewGame()
     {
         GameManager.Instance.StartNewGame();
+    }
+
+    private void GoToMainMenu()
+    {
+        UIManager.Instance.MainMenuInit();
     }
 }

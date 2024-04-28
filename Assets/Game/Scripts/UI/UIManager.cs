@@ -13,9 +13,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas _gameOverScreenCanvas;
     [SerializeField] private Canvas _playerBarCanvas;
     [SerializeField] private Canvas _mainMenuCanvas;
+    [SerializeField] private Canvas _pauseMenuCanvas;
     
     private bool _isShopkeeperActive = false;
     private bool _isInventoryActive = false;
+    private bool _isPauseActive = false;
 
     private void Awake()
     {
@@ -45,6 +47,7 @@ public class UIManager : MonoBehaviour
         InventoryManager.Instance.SetCoinText(0);
 
         _gameOverScreenCanvas.enabled = false;
+        _pauseMenuCanvas.enabled = false;
     }
 
     public void ToggleShopkeeperCanvas()
@@ -67,6 +70,12 @@ public class UIManager : MonoBehaviour
     public void ShowGameOverScreen()
     {
         _gameOverScreenCanvas.enabled = true;
+    }
+
+    public void TogglePauseCanvas()
+    {
+        _isPauseActive = !_isPauseActive;
+        _pauseMenuCanvas.enabled = _isPauseActive;
     }
 
     public void StartGame()

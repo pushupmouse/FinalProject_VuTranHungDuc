@@ -66,9 +66,13 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnPlayer()
     {        
-        PlayerController player = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity);
+        if(_player != null)
+        {
+            Destroy(_player.gameObject);
+            _target = null;
+        }
 
-        _player = player;
+        _player = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity);
 
         _target = _player.transform;
 
