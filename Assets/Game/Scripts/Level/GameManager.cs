@@ -42,5 +42,6 @@ public class GameManager : MonoBehaviour
         UIManager.Instance.OnInit();
         SpawnManager.Instance.SpawnPlayer();
         CoinManager.Instance.OnInit();
+        PlayerEquipmentManager.Instance.OnInit();
     }
 }
