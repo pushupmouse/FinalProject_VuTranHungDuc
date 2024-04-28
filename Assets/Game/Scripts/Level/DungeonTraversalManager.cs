@@ -66,10 +66,11 @@ public class DungeonTraversalManager : MonoBehaviour
         // Offset the player according to the direction
         playerPosition += GetPlayerOffset(oppositeDirection);
 
-        // Update player's position
-        _player.transform.position = playerPosition;
-
         SpawnManager spawnManager = SpawnManager.Instance;
+
+        // Update player's position
+        spawnManager.TeleportPlayer(playerPosition);
+
         switch (_dungeonManager.CurrentPlayerLocation.type)
         {
             case RoomType.Start:
@@ -100,7 +101,7 @@ public class DungeonTraversalManager : MonoBehaviour
         return currentRoom;
     }
 
-    public void MoveToNewLevel()
+    public void RecreateDungeon()
     {
         if (currentRoom != null)
         {

@@ -10,6 +10,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image _fill;
     [SerializeField] private float _transitionSpeed = 0.5f;
     [SerializeField] private bool _isInactive;
+    [SerializeField] private bool _belongToPlayer;
 
     private Coroutine _healthCoroutine;
 
@@ -63,7 +64,7 @@ public class HealthBar : MonoBehaviour
         _slider.value = targetValue;
         _fill.color = _gradient.Evaluate(_slider.normalizedValue);
 
-        if (targetValue <= 0f)
+        if (targetValue <= 0f && !_belongToPlayer)
         {
             SetHealthBarVisibility(false);
         }

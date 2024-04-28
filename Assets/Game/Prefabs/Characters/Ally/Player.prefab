@@ -113,7 +113,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1678048617865994187
 MonoBehaviour:
@@ -167,7 +167,7 @@ MonoBehaviour:
   _moveSpeed: 5
   _dashSpeed: 15
   _dashTime: 0.2
-  _staminaRegenRate: 10
+  _staminaRegenRate: 20
   _staminaConsumption: 25
   _dashCooldown: 0.25
   _staminaBar: {fileID: 0}
@@ -197,13 +197,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributeData: {fileID: 11400000, guid: f544188715d6952428eac64d3039b17e, type: 2}
-  Constitution: 0
-  Strength: 0
-  Defense: 0
-  Fortune: 0
-  Accuracy: 0
-  Resilience: 0
-  Luck: 0
+  _constitution: 0
+  _strength: 0
+  _defense: 0
+  _intensity: 0
+  _accuracy: 0
+  _resilience: 0
+  _isEnemy: 0
 --- !u!114 &4832093791711402418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +219,7 @@ MonoBehaviour:
   _floatingPoint: {fileID: -8879463613880763708, guid: 9f5163d17643b0a49aa62ddf6e999f7a, type: 3}
   _maxRecoveryChance: 0.75
   _healthBar: {fileID: 0}
+  _tick: 0.25
 --- !u!114 &5041336664337488942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,11 +233,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackPoint: {fileID: 6687644256317009325}
-  _attackRange: 1
+  _attackArea: 1.5
   _targetLayers:
     serializedVersion: 2
-    m_Bits: 2048
-  _delay: 0.15
+    m_Bits: 6144
   _maxCritChance: 1
   _critDamageMult: 0.5
 --- !u!114 &8553745061963572415
@@ -279,7 +279,7 @@ Transform:
   m_GameObject: {fileID: 2250868771541603937}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.7, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -296,6 +296,7 @@ GameObject:
   - component: {fileID: 5217545328969548480}
   - component: {fileID: 2029445538804720681}
   - component: {fileID: 2255711840371872275}
+  - component: {fileID: 8302774514901651828}
   m_Layer: 0
   m_Name: PlayerGFX
   m_TagString: Untagged
@@ -391,3 +392,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8302774514901651828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2508606268316742504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b285cbcc4263b144833cda9175edb79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _attackController: {fileID: 5041336664337488942}

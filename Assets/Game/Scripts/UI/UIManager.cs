@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private Canvas _shopkeeperCanvas;
     [SerializeField] private Canvas _inventoryCanvas;
+    [SerializeField] private Canvas _gameOverScreenCanvas;
     
     private bool _isShopkeeperActive = false;
     private bool _isInventoryActive = false;
@@ -28,6 +29,10 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+    }
+
+    public void OnInit()
+    {
         _shopkeeperCanvas.enabled = false;
         _isShopkeeperActive = false;
         ShopManager.Instance.PopulateShop();
@@ -36,6 +41,8 @@ public class UIManager : MonoBehaviour
         _isInventoryActive = false;
         InventoryManager.Instance.PopulateInventory();
         InventoryManager.Instance.SetCoinText(0);
+
+        _gameOverScreenCanvas.enabled = false;
     }
 
     public void ToggleShopkeeperCanvas()
@@ -53,5 +60,10 @@ public class UIManager : MonoBehaviour
     {
         _isInventoryActive = !_isInventoryActive;
         _inventoryCanvas.enabled = _isInventoryActive;
+    }
+
+    public void ShowGameOverScreen()
+    {
+        _gameOverScreenCanvas.enabled = true;
     }
 }

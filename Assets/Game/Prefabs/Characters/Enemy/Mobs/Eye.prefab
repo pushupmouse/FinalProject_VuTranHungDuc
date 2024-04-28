@@ -136,6 +136,7 @@ MonoBehaviour:
   _fill: {fileID: 8385111084525125829}
   _transitionSpeed: 4
   _isInactive: 1
+  _belongToPlayer: 0
 --- !u!1 &1237849311690418077
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackPoint: {fileID: 8267568535488859589}
-  _attackArea: 0.75
+  _attackArea: 1.25
   _targetLayers:
     serializedVersion: 2
     m_Bits: 1024

@@ -63,6 +63,10 @@ public class DungeonManager : MonoBehaviour
 
     private void Start()
     {
+    }
+
+    public void OnInit()
+    {
         _dungeonManager = DungeonTraversalManager.Instance;
         CreateDungeon();
     }

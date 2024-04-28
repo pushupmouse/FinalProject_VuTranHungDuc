@@ -21,6 +21,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Shopkeeper _shopkeeper;
     [SerializeField] private Priestess _priestess;
     [SerializeField] private Hatch _hatch;
+    [SerializeField] private PlayerController _playerPrefab;
+    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private StaminaBar _staminaBar;
 
     [HideInInspector] public bool EnemiesAlive = false;
     [HideInInspector] public bool RewardsToCollect = false;
@@ -31,6 +34,7 @@ public class SpawnManager : MonoBehaviour
     private DungeonManager _dungeonManager;
     private RarityType _lowRarity = RarityType.Regular;
     private RarityType _highRarity = RarityType.Bronze;
+    private PlayerController _player;
     public bool Healed = false;
     
     private void Awake()
@@ -53,9 +57,25 @@ public class SpawnManager : MonoBehaviour
     public void OnInit()
     {
         Healed = false;
+        EnemiesAlive = false;
         _enemySpawnRate = LevelManager.Instance.GetLevelData().SpawnRate;
         _lowRarity = LevelManager.Instance.GetLevelData().MinRarityDrop;
         _highRarity = LevelManager.Instance.GetLevelData().MeanRarityDrop;
+    }
+
+    public void SpawnPlayer()
+    {
+        _player = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity);
+
+        _target = _player.transform;
+
+        _player.SetUpHealthBar(_healthBar);
+        _player.SetUpStaminaBar(_staminaBar);
+    }
+
+    public void TeleportPlayer(Vector3 position)
+    {
+        _player.transform.position = position;
     }
 
     public void SpawnEnemy(Room room)

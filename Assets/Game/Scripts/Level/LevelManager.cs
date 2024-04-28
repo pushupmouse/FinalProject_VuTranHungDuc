@@ -25,8 +25,11 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
+    }
+
+    public void OnInit()
+    {
         _currentLevel = 1;
-        SpawnManager.Instance.OnInit();
     }
 
     public void IncreaseLevel()
@@ -36,7 +39,7 @@ public class LevelManager : MonoBehaviour
             _currentLevel++;
         }
         SpawnManager.Instance.OnInit();
-        DungeonTraversalManager.Instance.MoveToNewLevel();
+        DungeonTraversalManager.Instance.RecreateDungeon();
         ShopManager.Instance.OnInit();
     }
 

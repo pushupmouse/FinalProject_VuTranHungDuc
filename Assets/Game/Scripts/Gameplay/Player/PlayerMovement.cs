@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(InputMovementController))]
+[RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(InputAttackController))]
 public class PlayerMovement : MonoBehaviour
 {
@@ -14,9 +14,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _staminaRegenRate = 10f;
     [SerializeField] private float _staminaConsumption = 50f;
     [SerializeField] private float _dashCooldown = 1f;
-    [SerializeField] private StaminaBar _staminaBar;
+    [SerializeField] public StaminaBar _staminaBar;
 
-    private InputMovementController _movementController;
+    private PlayerController _playerController;
     private InputAttackController _inputAttackController;
     private bool _isFacingRight = true;
     private float _maxStamina = 100f;
@@ -24,18 +24,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        _movementController = GetComponent<InputMovementController>();
+        _playerController = GetComponent<PlayerController>();
         _inputAttackController = GetComponent<InputAttackController>();
     }
 
     private void Start()
     {
-        _currentStamina = _maxStamina;
+        OnInit();
     }
 
     private void Update()
     {
-        if (_currentStamina < _maxStamina && !_movementController.IsDashing)
+        if (_currentStamina < _maxStamina && !_playerController.IsDashing)
         {
             _currentStamina += _staminaRegenRate * Time.deltaTime;
             _currentStamina = Mathf.Clamp(_currentStamina, 0f, _maxStamina);
@@ -47,9 +47,14 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void OnInit()
+    {
+        _currentStamina = _maxStamina;
+    }
+
     private void FixedUpdate()
     {
-        if (_movementController.IsDashing)
+        if (_playerController.IsDashing)
         {
             return;
         }
@@ -60,14 +65,14 @@ public class PlayerMovement : MonoBehaviour
             return;
         } 
 
-        _rb.velocity = _movementController.MoveDirection * _moveSpeed;
+        _rb.velocity = _playerController.MoveDirection * _moveSpeed;
 
         Flip();
     }
 
     private void Flip()
     {
-        if (_isFacingRight && _movementController.MoveX < 0f || !_isFacingRight && _movementController.MoveX > 0f)
+        if (_isFacingRight && _playerController.MoveX < 0f || !_isFacingRight && _playerController.MoveX > 0f)
         {
             Vector3 localScale = transform.localScale;
 
@@ -81,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator Dash()
     {
-        if (_currentStamina >= _staminaConsumption)
+        if (_currentStamina >= _staminaConsumption && _playerController.CanDash)
         {
             _currentStamina -= _staminaConsumption;
             if (_staminaBar != null)
@@ -89,12 +94,12 @@ public class PlayerMovement : MonoBehaviour
                 _staminaBar.SetStamina(_currentStamina);
             }
 
-            _movementController.CanDash = false;
-            _movementController.IsDashing = true;
+            _playerController.CanDash = false;
+            _playerController.IsDashing = true;
 
-            if (_movementController.MoveDirection != Vector2.zero)
+            if (_playerController.MoveDirection != Vector2.zero)
             {
-                _rb.velocity = _movementController.MoveDirection * _dashSpeed;
+                _rb.velocity = _playerController.MoveDirection * _dashSpeed;
             }
             else
             {
@@ -110,13 +115,13 @@ public class PlayerMovement : MonoBehaviour
 
             yield return new WaitForSeconds(_dashTime);
 
-            _movementController.IsDashing = false;
+            _playerController.IsDashing = false;
 
             _rb.velocity = Vector2.zero;
 
             yield return new WaitForSeconds(_dashCooldown);
 
-            _movementController.CanDash = true;
+            _playerController.CanDash = true;
         }
     }
 }

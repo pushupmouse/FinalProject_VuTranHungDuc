@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(InputMovementController))]
+[RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(InputAttackController))]
 public class PlayerAnimation : AnimationHandler
 {
@@ -19,12 +19,12 @@ public class PlayerAnimation : AnimationHandler
 
     [SerializeField] private Animator _animator;
     
-    private InputMovementController _movementController;
+    private PlayerController _playerController;
     private InputAttackController _attackController;
 
     private void Awake()
     {
-        _movementController = GetComponent<InputMovementController>();
+        _playerController = GetComponent<PlayerController>();
         _attackController = GetComponent<InputAttackController>();
     }
 
@@ -37,13 +37,13 @@ public class PlayerAnimation : AnimationHandler
 
     protected override int GetState()
     {
-        if (_movementController.IsDead)
+        if (_playerController.IsDead)
         {
             return DeathAnim;
         }
 
 
-        if (_movementController.IsDashing)
+        if (_playerController.IsDashing)
         {
             return DashAnim;
         }
@@ -66,12 +66,12 @@ public class PlayerAnimation : AnimationHandler
             }
         }
 
-        if (_movementController.IsTakeDamage)
+        if (_playerController.IsTakeDamage)
         {
             return TakeDamageAnim;
         }
 
-        if (_movementController.MoveX != 0 || _movementController.MoveY != 0)
+        if (_playerController.MoveX != 0 || _playerController.MoveY != 0)
         {
             return RunAnim;
         }
