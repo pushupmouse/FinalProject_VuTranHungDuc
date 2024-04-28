@@ -74,6 +74,7 @@ public class SpawnManager : MonoBehaviour
 
         _player.SetUpHealthBar(_healthBar);
         _player.SetUpStaminaBar(_staminaBar);
+        PlayerEquipmentManager.Instance.SetUnitStatManager(_player.GetComponent<UnitStatsManager>());
     }
 
     public void TeleportPlayer(Vector3 position)
