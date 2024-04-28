@@ -22,6 +22,11 @@ public class CoinManager : MonoBehaviour
         }
     }
 
+    public void OnInit()
+    {
+        _currentCoins = 0;
+    }
+
     public void AddCoins(int amount)
     {
         _currentCoins += amount;

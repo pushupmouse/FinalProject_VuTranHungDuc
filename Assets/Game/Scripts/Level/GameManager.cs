@@ -20,7 +20,13 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        StartNewGame();
+        OnInit();
+    }
+
+    private void OnInit()
+    {
+        UIManager.Instance.MainMenuInit();
+        UIManager.Instance.OnInit();
     }
 
     public void StartNewGame()
@@ -35,5 +41,6 @@ public class GameManager : MonoBehaviour
         SpawnManager.Instance.OnInit();
         UIManager.Instance.OnInit();
         SpawnManager.Instance.SpawnPlayer();
+        CoinManager.Instance.OnInit();
     }
 }

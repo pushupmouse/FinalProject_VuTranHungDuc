@@ -39,6 +39,15 @@ public class PlayerEquipmentManager : MonoBehaviour
         }
     }
 
+    public void OnInit()
+    {
+        _helmetRarityData = null;
+        _chestRarityData = null;
+        _shieldRarityData = null;
+        _glovesRarityData = null;
+        _bootsRarityData = null;
+    }
+
     public void EquipEquipment(EquipmentData equipmentData, RarityData rarityData)
     {
         RarityData currentRarityData = GetCurrentRarityData(equipmentData.EquipmentType);

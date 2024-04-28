@@ -63,6 +63,11 @@ public class Enemy : MonoBehaviour
 
         if (_targetInDetectionRange)
         {
+            if(_target == null)
+            {
+                return;
+            }
+
             Vector2 direction = (_target.position - transform.position).normalized;
 
             if (!IsAttacking)

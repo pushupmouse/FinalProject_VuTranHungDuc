@@ -36,6 +36,12 @@ public class InventoryManager : MonoBehaviour
 
     public void PopulateInventory()
     {
+        foreach (var currentEquipment in _currentEquipments)
+        {
+            Destroy(currentEquipment.gameObject);
+        }
+        _currentEquipments.Clear();
+
         int equipmentCount = Enum.GetValues(typeof(EquipmentType)).Length;
 
         for (int i = 0; i < equipmentCount; i++)

@@ -493,6 +493,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1460281408603380474, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4832093791711402418, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
       propertyPath: _healthBar
       value: 
@@ -949,6 +953,7 @@ MonoBehaviour:
   _fill: {fileID: 124199576}
   _transitionSpeed: 4
   _isInactive: 0
+  _belongToPlayer: 1
 --- !u!1 &748558241
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,7 +1991,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemySpawnRate: 0.4
-  _equipmentSpawnRate: 0.05
+  _equipmentSpawnRate: 0.1
   _target: {fileID: 1743723583}
   _enemyList:
   - {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
@@ -2005,7 +2010,9 @@ MonoBehaviour:
   _shopkeeper: {fileID: 7937943944471437124, guid: da84785143c49dd45935f778b08c4180, type: 3}
   _priestess: {fileID: 8702054721679808944, guid: 297eb107792dcdf4ba4489683eee61ce, type: 3}
   _hatch: {fileID: 356545283484390513, guid: 45e4e6982028816488c218714c660048, type: 3}
-  _player: {fileID: 0}
+  _playerPrefab: {fileID: 1678048617865994187, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
+  _healthBar: {fileID: 745493030}
+  _staminaBar: {fileID: 745493029}
   EnemiesAlive: 0
   RewardsToCollect: 0
   Healed: 0

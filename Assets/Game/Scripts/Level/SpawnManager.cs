@@ -25,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private StaminaBar _staminaBar;
 
-    [HideInInspector] public bool EnemiesAlive = false;
+     public bool EnemiesAlive = false;
     [HideInInspector] public bool RewardsToCollect = false;
 
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
@@ -58,14 +58,17 @@ public class SpawnManager : MonoBehaviour
     {
         Healed = false;
         EnemiesAlive = false;
+        _spawnedEnemies.Clear();
         _enemySpawnRate = LevelManager.Instance.GetLevelData().SpawnRate;
         _lowRarity = LevelManager.Instance.GetLevelData().MinRarityDrop;
         _highRarity = LevelManager.Instance.GetLevelData().MeanRarityDrop;
     }
 
     public void SpawnPlayer()
-    {
-        _player = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity);
+    {        
+        PlayerController player = Instantiate(_playerPrefab, Vector2.zero, Quaternion.identity);
+
+        _player = player;
 
         _target = _player.transform;
 

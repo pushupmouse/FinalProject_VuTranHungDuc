@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     {
         IsDead = true;
         gameObject.layer = LayerMask.NameToLayer("Dead");
-        Destroy(gameObject, 1.5f);
+        Destroy(gameObject);
         UIManager.Instance.ShowGameOverScreen();
     }
 }

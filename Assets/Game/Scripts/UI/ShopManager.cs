@@ -34,6 +34,12 @@ public class ShopManager : MonoBehaviour
 
     public void PopulateShop()
     {
+        foreach (var equipmentOffer in _equipmentOfferList)
+        {
+            Destroy(equipmentOffer.gameObject);
+        }
+        _equipmentOfferList.Clear(); 
+        
         int equipmentCount = Enum.GetValues(typeof(EquipmentType)).Length;
 
         RarityType rarityType = LevelManager.Instance.GetLevelData().TreasureRarityDrop;

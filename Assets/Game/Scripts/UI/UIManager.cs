@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Canvas _shopkeeperCanvas;
     [SerializeField] private Canvas _inventoryCanvas;
     [SerializeField] private Canvas _gameOverScreenCanvas;
+    [SerializeField] private Canvas _playerBarCanvas;
+    [SerializeField] private Canvas _mainMenuCanvas;
     
     private bool _isShopkeeperActive = false;
     private bool _isInventoryActive = false;
@@ -65,5 +67,18 @@ public class UIManager : MonoBehaviour
     public void ShowGameOverScreen()
     {
         _gameOverScreenCanvas.enabled = true;
+    }
+
+    public void StartGame()
+    {
+        _playerBarCanvas.enabled = true;
+        _mainMenuCanvas.enabled = false;
+    }
+
+    public void MainMenuInit()
+    {
+        _playerBarCanvas.enabled = false;
+        _mainMenuCanvas.enabled = true;
+        _gameOverScreenCanvas.enabled = false;
     }
 }
