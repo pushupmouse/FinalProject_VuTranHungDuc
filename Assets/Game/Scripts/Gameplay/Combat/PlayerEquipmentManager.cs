@@ -40,24 +40,17 @@ public class PlayerEquipmentManager : MonoBehaviour
     }
 
     public void OnInit()
-    {   
-
-        //_helmetRarityData = null;
-        //_chestRarityData = null;
-        //_shieldRarityData = null;
-        //_glovesRarityData = null;
-        //_bootsRarityData = null;
-        //_helmetEquipment = null;
-        //_chestEquipment = null;
-        //_shieldEquipment = null;
-        //_glovesEquipment = null;
-        //_bootsEquipment = null;
-        //_helmetRarityData = null;
-        //_chestRarityData = null;
-        //_shieldRarityData = null;
-        //_bootsEquipment = null;
-        //_helmetRarityData = null;
-        //_bootsEquipment = null;
+    {
+        _helmetRarityData = null;
+        _chestRarityData = null;
+        _shieldRarityData = null;
+        _glovesRarityData = null;
+        _bootsRarityData = null;
+        _helmetEquipment = null;
+        _chestEquipment = null;
+        _shieldEquipment = null;
+        _glovesEquipment = null;
+        _bootsEquipment = null;
     }
 
     public void SetUnitStatManager(UnitStatsManager unitStatsManager)
