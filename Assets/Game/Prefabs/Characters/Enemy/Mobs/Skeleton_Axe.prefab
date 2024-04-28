@@ -281,7 +281,7 @@ MonoBehaviour:
   _spriteTransform: {fileID: 6027381810467038631}
   _target: {fileID: 0}
   _detectionRange: 10
-  _attackRange: 0.75
+  _attackRange: 1
   _moveSpeed: 3
   _hpBar: {fileID: 5310458468608535358}
   _health: {fileID: 9001736729543653194}

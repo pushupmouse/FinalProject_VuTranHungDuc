@@ -14,6 +14,7 @@ public class PlayerAnimation : AnimationHandler
     private static readonly int Attack2Anim = Animator.StringToHash("Player_Attack2");
     private static readonly int Attack3Anim = Animator.StringToHash("Player_Attack3");
     private static readonly int TakeDamageAnim = Animator.StringToHash("Player_TakeDamage");
+    private static readonly int DeathAnim = Animator.StringToHash("Player_Death");
     #endregion
 
     [SerializeField] private Animator _animator;
@@ -36,6 +37,11 @@ public class PlayerAnimation : AnimationHandler
 
     protected override int GetState()
     {
+        if (_movementController.IsDead)
+        {
+            return DeathAnim;
+        }
+
 
         if (_movementController.IsDashing)
         {

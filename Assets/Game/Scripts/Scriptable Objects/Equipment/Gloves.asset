@@ -38,11 +38,11 @@ MonoBehaviour:
     coinDrop: 3
   - rarityType: 4
     image: {fileID: 88921888, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    primaryBonusAmount: 20
+    primaryBonusAmount: 25
     secondaryBonusAmount: 0.3
     coinDrop: 4
   - rarityType: 5
     image: {fileID: 748011440, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
     primaryBonusAmount: 25
-    secondaryBonusAmount: 0.55
+    secondaryBonusAmount: 0.6
     coinDrop: 5

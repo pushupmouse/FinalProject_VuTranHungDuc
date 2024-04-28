@@ -669,7 +669,7 @@ MonoBehaviour:
   _spriteTransform: {fileID: 4563401944301818159}
   _target: {fileID: 0}
   _detectionRange: 10
-  _attackRange: 0.75
+  _attackRange: 1
   _moveSpeed: 2
   _hpBar: {fileID: 8121853770171126076}
   _health: {fileID: 8741060639147305252}
@@ -724,7 +724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attackPoint: {fileID: 8829994671482296410}
-  _attackArea: 0.75
+  _attackArea: 1
   _targetLayers:
     serializedVersion: 2
     m_Bits: 1024

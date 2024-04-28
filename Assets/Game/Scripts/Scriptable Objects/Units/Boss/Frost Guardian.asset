@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Frost Guardian
   m_EditorClassIdentifier: 
   attributes:
-  - 300
+  - 600
   - 10
   - 20
   - 0.25

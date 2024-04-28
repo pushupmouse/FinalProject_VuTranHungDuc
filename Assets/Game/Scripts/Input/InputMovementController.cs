@@ -37,12 +37,14 @@ public class InputMovementController : MonoBehaviour
 
     private void Update()
     {
+        if(IsDead) return;
+
         MoveX = Input.GetAxisRaw(HORIZONTAL);
         MoveY = Input.GetAxisRaw(VERTICAL);
 
         MoveDirection = new Vector2(MoveX, MoveY).normalized;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && CanDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space) && CanDash)
         {
             StartCoroutine(_playerMovement.Dash());
         }
@@ -64,6 +66,6 @@ public class InputMovementController : MonoBehaviour
     {
         IsDead = true;
         gameObject.layer = LayerMask.NameToLayer("Dead");
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, 1.5f);
     }
 }
