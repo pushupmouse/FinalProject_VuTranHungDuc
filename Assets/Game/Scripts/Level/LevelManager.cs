@@ -9,6 +9,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private int _currentLevel = 1;
     [SerializeField] private List<LevelData> _levelDatas;
 
+    public int CurrentLevel => _currentLevel;
+
     private void Awake()
     {
         if (Instance == null)

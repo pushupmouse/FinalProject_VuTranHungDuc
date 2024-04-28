@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e779ee4d876080946bb9d955e6018f54, type: 3}
   m_Name: Level 2
   m_EditorClassIdentifier: 
-  SpawnRate: 0.5
+  SpawnRate: 0.4
   MinRarityDrop: 2
   MeanRarityDrop: 3
   TreasureRarityDrop: 4

@@ -15,11 +15,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private HealthController _health;
     [SerializeField] private Knockback _knockback;
 
-     [HideInInspector] public float AttackDuration = 1f;
-     [HideInInspector] public bool IsRunning;
-     [HideInInspector] public bool IsAttacking = false;
-     [HideInInspector] public bool IsDead;
+    [HideInInspector] public bool IsRunning;
+    [HideInInspector] public bool IsAttacking = false;
+    [HideInInspector] public bool IsDead;
 
+    public float AttackDuration = 1f;
     private bool _targetInDetectionRange = false;
     private float _attackEndTime = 0f;
     public Action<Enemy> OnEnemyDeath;

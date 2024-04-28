@@ -12,8 +12,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float _enemySpawnRate = 0.5f;
     [SerializeField, Range(0f, 1f)] private float _equipmentSpawnRate = 0.1f;
     [SerializeField] private Transform _target;
-    [SerializeField] private Enemy _enemy;
-    [SerializeField] private Enemy _bossEnemy;
+    [SerializeField] private List<Enemy> _enemyList;
+    [SerializeField] private List<Enemy> _bossEnemyList;
     [SerializeField] private Coin _coin;
     [SerializeField] private Equipment _equipment;
     [SerializeField] private Chest _chest;
@@ -74,7 +74,9 @@ public class SpawnManager : MonoBehaviour
                     EnemiesAlive = true;
                 }
 
-                Enemy enemy = Instantiate(_enemy, spawnPoint.position, Quaternion.identity);
+                int randomIndex = Random.Range(0, _enemyList.Count);
+
+                Enemy enemy = Instantiate(_enemyList[randomIndex], spawnPoint.position, Quaternion.identity);
 
                 enemy.OnEnemyDeath -= OnEnemyDeathHandler;
                 enemy.OnEnemyDeath += OnEnemyDeathHandler;
@@ -107,7 +109,10 @@ public class SpawnManager : MonoBehaviour
             EnemiesAlive = true;
         }
 
-        Enemy bossEnemy = Instantiate(_bossEnemy, room.SpawnPoints[0].position, Quaternion.identity);
+        int bossIndex = LevelManager.Instance.CurrentLevel <= 3 ? LevelManager.Instance.CurrentLevel - 1 : 2;
+
+
+        Enemy bossEnemy = Instantiate(_bossEnemyList[bossIndex], room.SpawnPoints[0].position, Quaternion.identity);
 
         bossEnemy.OnEnemyDeath -= OnBossDeathHandler;
         bossEnemy.OnEnemyDeath += OnBossDeathHandler;

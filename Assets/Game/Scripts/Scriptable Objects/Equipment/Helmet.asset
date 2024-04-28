@@ -23,26 +23,26 @@ MonoBehaviour:
     coinDrop: 0
   - rarityType: 1
     image: {fileID: -914479419, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    primaryBonusAmount: 10
+    primaryBonusAmount: 15
     secondaryBonusAmount: 0
     coinDrop: 1
   - rarityType: 2
     image: {fileID: 1487426858, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    primaryBonusAmount: 20
+    primaryBonusAmount: 30
     secondaryBonusAmount: 0.1
     coinDrop: 2
   - rarityType: 3
     image: {fileID: -1857454546, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    primaryBonusAmount: 30
+    primaryBonusAmount: 45
     secondaryBonusAmount: 0.2
     coinDrop: 3
   - rarityType: 4
     image: {fileID: -811328578, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    primaryBonusAmount: 40
+    primaryBonusAmount: 60
     secondaryBonusAmount: 0.3
     coinDrop: 4
   - rarityType: 5
     image: {fileID: -667991888, guid: 22be2d8cba9d3fb4990cc39dac605294, type: 3}
-    primaryBonusAmount: 50
+    primaryBonusAmount: 75
     secondaryBonusAmount: 0.55
     coinDrop: 5
