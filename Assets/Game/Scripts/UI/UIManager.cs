@@ -67,9 +67,17 @@ public class UIManager : MonoBehaviour
         _inventoryCanvas.enabled = _isInventoryActive;
     }
 
-    public void ShowGameOverScreen()
+    public void ShowGameOverScreen(bool isCleared)
     {
         _gameOverScreenCanvas.enabled = true;
+        if(isCleared)
+        {
+            GameOverScreenManager.Instance.ChangeToVictory();
+        }
+        else
+        {
+            GameOverScreenManager.Instance.ChangeToDefeat();
+        }
     }
 
     public void TogglePauseCanvas()

@@ -6,6 +6,13 @@ public class Hatch : MonoBehaviour, IInteractable
 {
     public void Interact()
     {
-        LevelManager.Instance.IncreaseLevel();
+        if(LevelManager.Instance.CurrentLevel >= 3)
+        {
+            UIManager.Instance.ShowGameOverScreen(true);
+        }
+        else
+        {
+            LevelManager.Instance.IncreaseLevel();
+        }
     }
 }
