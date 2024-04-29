@@ -34,8 +34,6 @@ public class InputAttackController : MonoBehaviour
                 CurrentAttack = (CurrentAttack % 3) + 1;
             }
 
-            //_attackAction.Attack();
-
             _lastAttackTime = Time.time;
 
             IsAttacking = true;

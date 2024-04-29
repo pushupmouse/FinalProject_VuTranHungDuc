@@ -10,7 +10,7 @@ public class Cache<T> : MonoBehaviour where T : Component
     {
         if (collider == null)
         {
-            return null; // Return null if collider is null
+            return null;
         }
 
         if (!componentCache.ContainsKey(collider))
@@ -22,7 +22,7 @@ public class Cache<T> : MonoBehaviour where T : Component
             }
             else
             {
-                return null; // Return null if component is not found
+                return null;
             }
         }
 

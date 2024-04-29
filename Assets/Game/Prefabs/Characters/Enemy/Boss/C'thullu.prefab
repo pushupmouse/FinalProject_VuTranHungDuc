@@ -169,7 +169,7 @@ MonoBehaviour:
   IsRunning: 0
   IsAttacking: 0
   IsDead: 0
-  AttackDuration: 1.5
+  AttackDuration: 2
 --- !u!114 &546454986982049363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -687,6 +687,7 @@ MonoBehaviour:
   _fill: {fileID: 9144888905509223227}
   _transitionSpeed: 4
   _isInactive: 1
+  _belongToPlayer: 0
 --- !u!1 &6688774274018152928
 GameObject:
   m_ObjectHideFlags: 0

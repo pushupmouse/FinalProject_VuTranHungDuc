@@ -26,7 +26,7 @@ public class EquipmentOffer : MonoBehaviour
     public void SetImage(EquipmentType equipmentType, RarityData rarityData)
     { 
         EquipmentTuple equipmentTuple = _equipmentList.Find(x => x.equipmentType == equipmentType);
-        _equipmentData = equipmentTuple.equipmentData; //contains types
+        _equipmentData = equipmentTuple.equipmentData;
         _rarityData = rarityData;
 
         _image.sprite = _equipmentData.RarityDataList[(int)rarityData.rarityType].image;

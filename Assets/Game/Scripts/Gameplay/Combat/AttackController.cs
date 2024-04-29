@@ -118,9 +118,4 @@ public class AttackController : MonoBehaviour
             hitKnockback.ApplyKnockback(position);
         }
     }
-
-    public void AttackDemo()
-    {
-        Debug.Log("HIT");
-    }
 }

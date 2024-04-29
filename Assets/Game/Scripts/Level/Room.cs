@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,26 +16,29 @@ public class Room : MonoBehaviour
     [SerializeField] private DoorInfo[] _doorInfos;
     [SerializeField] private Tilemap _wallTilemap;
     [SerializeField] private Door _interactDoor;
+
+    private int _middleIndex;
+    private BoundsInt _bounds;
+
     
     public List<Transform> SpawnPoints;
     public Transform SpawnInstances;
 
     public void AddDoors(List<Direction> availableDirections)
     {
-        BoundsInt bounds = _wallTilemap.cellBounds;
+        _bounds = _wallTilemap.cellBounds;
 
-        foreach (Direction dir in availableDirections)
+        foreach (Direction direction in availableDirections)
         {
-            int middleIndex;
-            switch (dir)
+            switch (direction)
             {
                 case Direction.North:
                 case Direction.South:
-                    middleIndex = bounds.min.x + bounds.size.x / 2;
+                    _middleIndex = _bounds.min.x + _bounds.size.x / 2;
                     break;
                 case Direction.East:
                 case Direction.West:
-                    middleIndex = bounds.min.y + bounds.size.y / 2;
+                    _middleIndex = _bounds.min.y + _bounds.size.y / 2;
                     break;
                 default:
                     Debug.LogError("Invalid door direction.");
@@ -44,57 +48,71 @@ public class Room : MonoBehaviour
             Vector3Int localPositionLeft;
             Vector3Int localPositionRight;
 
-            switch (dir)
-            {
-                case Direction.North:
-                    localPositionLeft = new Vector3Int(middleIndex - 1, bounds.max.y - 1, 0);
-                    localPositionRight = new Vector3Int(middleIndex, bounds.max.y - 1, 0);
-                    break;
-                case Direction.South:
-                    localPositionLeft = new Vector3Int(middleIndex - 1, bounds.min.y, 0);
-                    localPositionRight = new Vector3Int(middleIndex, bounds.min.y, 0);
-                    break;
-                case Direction.East:
-                    localPositionLeft = new Vector3Int(bounds.max.x - 1, middleIndex, 0);
-                    localPositionRight = new Vector3Int(bounds.max.x - 1, middleIndex + 1, 0);
-                    break;
-                case Direction.West:
-                    localPositionLeft = new Vector3Int(bounds.min.x, middleIndex, 0);
-                    localPositionRight = new Vector3Int(bounds.min.x, middleIndex + 1, 0);
-                    break;
-                default:
-                    Debug.LogError("Invalid door direction.");
-                    continue;
-            }
+            AssignLocalPositions(direction, out localPositionLeft, out localPositionRight);
 
             Vector3Int worldPositionLeft = _wallTilemap.LocalToCell(localPositionLeft);
             Vector3Int worldPositionRight = _wallTilemap.LocalToCell(localPositionRight);
 
-            _wallTilemap.SetTile(worldPositionLeft, _doorInfos[(int)dir].DoorTileLeft);
-            _wallTilemap.SetTile(worldPositionRight, _doorInfos[(int)dir].DoorTileRight);
+            _wallTilemap.SetTile(worldPositionLeft, _doorInfos[(int)direction].DoorTileLeft);
+            _wallTilemap.SetTile(worldPositionRight, _doorInfos[(int)direction].DoorTileRight);
 
             Door interactDoor = Instantiate(_interactDoor, _wallTilemap.CellToWorld(worldPositionLeft), Quaternion.identity);
-            interactDoor.DoorDirection = dir;
 
-            switch (dir)
-            {
-                case Direction.North:
-                case Direction.South:
-                    interactDoor.transform.position += new Vector3(0f, 0.5f, 0f);
-                    break;
-                case Direction.East:
-                case Direction.West:
-                    interactDoor.transform.position += new Vector3(0.5f, 0f, 0f);
-                    interactDoor.transform.Rotate(0f, 0f, 90f);
-                    break;
-                default:
-                    Debug.LogError("Invalid door direction.");
-                    break;
-            }
+            SetDoorDirection(interactDoor, direction);
 
             interactDoor.transform.SetParent(_wallTilemap.transform);
         }
     }
+
+    private void AssignLocalPositions(Direction dir, out Vector3Int localPositionLeft, out Vector3Int localPositionRight)
+    {
+        switch (dir)
+        {
+            case Direction.North:
+                localPositionLeft = new Vector3Int(_middleIndex - 1, _bounds.max.y - 1, 0);
+                localPositionRight = new Vector3Int(_middleIndex, _bounds.max.y - 1, 0);
+                break;
+            case Direction.South:
+                localPositionLeft = new Vector3Int(_middleIndex - 1, _bounds.min.y, 0);
+                localPositionRight = new Vector3Int(_middleIndex, _bounds.min.y, 0);
+                break;
+            case Direction.East:
+                localPositionLeft = new Vector3Int(_bounds.max.x - 1, _middleIndex, 0);
+                localPositionRight = new Vector3Int(_bounds.max.x - 1, _middleIndex + 1, 0);
+                break;
+            case Direction.West:
+                localPositionLeft = new Vector3Int(_bounds.min.x, _middleIndex, 0);
+                localPositionRight = new Vector3Int(_bounds.min.x, _middleIndex + 1, 0);
+                break;
+            default:
+                Debug.LogError("Invalid door direction.");
+                localPositionLeft = Vector3Int.zero;
+                localPositionRight = Vector3Int.zero;
+                break;
+        }
+    }
+
+    private void SetDoorDirection(Door interactDoor, Direction dir)
+    {
+        interactDoor.DoorDirection = dir;
+
+        switch (dir)
+        {
+            case Direction.North:
+            case Direction.South:
+                interactDoor.transform.position += new Vector3(0f, 0.5f, 0f);
+                break;
+            case Direction.East:
+            case Direction.West:
+                interactDoor.transform.position += new Vector3(0.5f, 0f, 0f);
+                interactDoor.transform.Rotate(0f, 0f, 90f);
+                break;
+            default:
+                Debug.LogError("Invalid door direction.");
+                break;
+        }
+    }
+
 
     public Vector2Int GetDoorPosition(Direction direction)
     {

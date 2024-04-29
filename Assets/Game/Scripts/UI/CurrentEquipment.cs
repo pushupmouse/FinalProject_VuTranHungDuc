@@ -17,7 +17,6 @@ public class CurrentEquipment : MonoBehaviour
 
     public void SetImage(EquipmentType equipmentType, RarityData rarityData)
     {
-        //RarityData rarityData = GetEquipmentRarity(equipmentType);
         _image.sprite = rarityData.image;
     }
 

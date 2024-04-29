@@ -11,7 +11,7 @@ public class Interactor : MonoBehaviour
 {
     public Transform InteractorSource;
     public float InteractRange;
-    public float DownwardOffset; // New variable to specify the downward offset
+    public float DownwardOffset;
 
     private void Update()
     {
@@ -25,16 +25,6 @@ public class Interactor : MonoBehaviour
                     interactObj.Interact();
                 }
             }
-        }
-    }
-
-    // For visualization in the editor
-    private void OnDrawGizmosSelected()
-    {
-        if (InteractorSource != null)
-        {
-            Vector3 centerPosition = InteractorSource.position + new Vector3(0f, -DownwardOffset, 0f); // Apply downward offset
-            Gizmos.DrawWireSphere(centerPosition, InteractRange);
         }
     }
 }

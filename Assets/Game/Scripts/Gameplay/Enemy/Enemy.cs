@@ -57,7 +57,6 @@ public class Enemy : MonoBehaviour
     {
         if (_knockback.IsKnockbacked || IsDead)
         {
-            //IsAttacking = false;
             return;
         }
 
@@ -118,13 +117,11 @@ public class Enemy : MonoBehaviour
 
         if (direction.x > 0.1f)
         {
-            // Flip the transform
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             _hpBar.localScale = new Vector3(Mathf.Abs(_hpBar.localScale.x), _hpBar.localScale.y, _hpBar.localScale.z);
         }
         else if (direction.x < -0.1f)
         {
-            // Flip the transform
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             _hpBar.localScale = new Vector3(-Mathf.Abs(_hpBar.localScale.x), _hpBar.localScale.y, _hpBar.localScale.z);
         }

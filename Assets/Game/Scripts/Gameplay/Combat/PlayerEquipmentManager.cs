@@ -6,8 +6,6 @@ public class PlayerEquipmentManager : MonoBehaviour
 {
     public static PlayerEquipmentManager Instance;
 
-    //[SerializeField] private int _shards;
-
     [SerializeField] private UnitStatsManager _unitStatsManager;
     [SerializeField] private RarityData _helmetRarityData;
     [SerializeField] private RarityData _chestRarityData;
@@ -62,18 +60,13 @@ public class PlayerEquipmentManager : MonoBehaviour
     {
         RarityData currentRarityData = GetCurrentRarityData(equipmentData.EquipmentType);
         RarityData newRarityData = rarityData;
-        // If there's already equipped equipment:
-        // - and it's not null (i.e., there's currently equipped equipment)
-        // - and it's not regular (lowest rank)
-        // - and the new equipment is not of higher rarity than the current one
+
         if (currentRarityData != null && (int)newRarityData.rarityType <= (int)currentRarityData.rarityType)
         {
-            // Increase shard count based on the rarity of the unequipped equipment
             ConvertDuplicateEquipment(newRarityData.coinDrop);
             return;
         }
 
-        // If there's already equipped equipment, increase shard count based on its rarity
         if (currentRarityData != null)
         {
             ConvertDuplicateEquipment(currentRarityData.coinDrop);
@@ -87,7 +80,6 @@ public class PlayerEquipmentManager : MonoBehaviour
             _unitStatsManager.ModifyStat(currentEquipmentData.SecondaryAttribute, -currentRarityData.secondaryBonusAmount);
         }
 
-        // Equip the new equipment
         switch (equipmentData.EquipmentType)
         {
             case EquipmentType.Helmet:
@@ -114,7 +106,6 @@ public class PlayerEquipmentManager : MonoBehaviour
                 break;
         }
 
-        // Modify unit stats based on the new equipment
         _unitStatsManager.ModifyStat(equipmentData.PrimaryAttribute, rarityData.primaryBonusAmount);
         _unitStatsManager.ModifyStat(equipmentData.SecondaryAttribute, rarityData.secondaryBonusAmount);
 
@@ -158,11 +149,6 @@ public class PlayerEquipmentManager : MonoBehaviour
                 return null;
         }
     }
-
-    //private void IncreaseShards(int amount)
-    //{
-    //    _shards += amount;
-    //}
 
     private void ConvertDuplicateEquipment(int coinAmount)
     {

@@ -93,7 +93,6 @@ public class DungeonTraversalManager : MonoBehaviour
             default:
                 break;
         }
-
     }
 
     public Room GetCurrentRoom()

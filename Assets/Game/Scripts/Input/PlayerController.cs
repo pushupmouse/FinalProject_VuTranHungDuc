@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
         MoveDirection = new Vector2(MoveX, MoveY).normalized;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.Space) && CanDash)
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift) && CanDash)
         {
             StartCoroutine(_playerMovement.Dash());
         }

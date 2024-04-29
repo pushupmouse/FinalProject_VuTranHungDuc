@@ -99,7 +99,8 @@ public class DungeonManager : MonoBehaviour
             {
                 if (!_treasureRoomSpawned)
                 {
-                    currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Upgrade; // Determine the type of the current room (main or upgrade)
+                    // Determine the type of the current room (main or upgrade)
+                    currentRoomType = (i < _maxMainRooms) ? mainRoomTypes[Random.Range(0, mainRoomTypes.Length)] : RoomType.Upgrade; 
                     if (currentRoomType == RoomType.Treasure)
                     {
                         _treasureRoomSpawned = true;
@@ -116,7 +117,7 @@ public class DungeonManager : MonoBehaviour
             }
 
 
-            List<Direction> availableDirections = new List<Direction> { Direction.North, Direction.East, Direction.South, Direction.West }; // List of available directions for branching
+            List<Direction> availableDirections = new List<Direction> { Direction.North, Direction.East, Direction.South, Direction.West };
             if (i > 1)
             {
                 Direction directionBack = GetOppositeDirection(previousRoom.position, startingRoom.position); // Get the direction back to the starting room
@@ -136,9 +137,10 @@ public class DungeonManager : MonoBehaviour
             if (availableDirections.Count > 0) // If there are available directions to add a room
             {
                 Direction randomDirection = availableDirections[Random.Range(0, availableDirections.Count)]; // Choose a random direction from available directions
-
-                Vector2Int currentPosition = previousRoom.position + DirectionToVector(randomDirection); // Calculate the position of the current room based on the chosen direction
-
+                
+                // Calculate the position of the current room based on the chosen direction
+                Vector2Int currentPosition = previousRoom.position + DirectionToVector(randomDirection); 
+                
                 RoomNode currentRoom = new RoomNode(currentRoomType, currentPosition); // Create the current room with the determined type and position
 
                 AddRoomToGrid(currentRoom); // Add the current room to the grid

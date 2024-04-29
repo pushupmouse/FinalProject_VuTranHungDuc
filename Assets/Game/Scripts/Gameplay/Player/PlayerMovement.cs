@@ -47,11 +47,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void OnInit()
-    {
-        _currentStamina = _maxStamina;
-    }
-
     private void FixedUpdate()
     {
         if (_playerController.IsDashing)
@@ -68,6 +63,11 @@ public class PlayerMovement : MonoBehaviour
         _rb.velocity = _playerController.MoveDirection * _moveSpeed;
 
         Flip();
+    }
+
+    private void OnInit()
+    {
+        _currentStamina = _maxStamina;
     }
 
     private void Flip()
