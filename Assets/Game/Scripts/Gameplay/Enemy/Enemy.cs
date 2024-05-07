@@ -139,4 +139,9 @@ public class Enemy : MonoBehaviour
         OnEnemyDeath?.Invoke(this);
         Destroy(gameObject, 2f);
     }
+
+    public virtual void UseSkill()
+    {
+
+    }
 }

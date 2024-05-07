@@ -8,18 +8,18 @@ public class HealthController : MonoBehaviour
 {
     private const float _DIMINISH_CONST = 100f;
 
-    [SerializeField] private FloatingPointHandler _floatingPoint;
+    [SerializeField] protected FloatingPointHandler _floatingPoint;
     [SerializeField] private float _maxRecoveryChance = 0.75f;
     [SerializeField] public HealthBar _healthBar;
     [SerializeField] private float _tick = 0.25f;
 
-    private float _maxHealth = 0;
-    private float _currentHealth;
     private float _defense;
-    private float _damageReduction;
-    private float _recoveryChance;
-    private float _recoveryAmount;
-    private bool _healthChanged = false;
+    protected float _maxHealth = 0;
+    protected float _currentHealth;
+    protected float _damageReduction;
+    protected float _recoveryChance;
+    protected float _recoveryAmount;
+    protected bool _healthChanged = false;
     public float MaxHealth => _maxHealth;
     public Action OnTakeDamage;
     public Action OnDeath;
@@ -97,7 +97,7 @@ public class HealthController : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float amount, bool isCritical)
+    public virtual void TakeDamage(float amount, bool isCritical)
     {
         float damage = amount * (1 - _damageReduction);
         _currentHealth -= damage;
@@ -139,7 +139,7 @@ public class HealthController : MonoBehaviour
         }
     }
 
-    private void Die()
+    protected void Die()
     {
         OnDeath?.Invoke();
     }
