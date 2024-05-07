@@ -21,6 +21,7 @@ public class HealthController : MonoBehaviour
     protected float _recoveryAmount;
     protected bool _healthChanged = false;
     public float MaxHealth => _maxHealth;
+    public float CurrentHealth => _maxHealth;
     public Action OnTakeDamage;
     public Action OnDeath;
 
@@ -62,6 +63,17 @@ public class HealthController : MonoBehaviour
         SetHealthBar();
     }
 
+    public void SetHealth(float value)
+    {
+        if (value <= 0)
+        {
+            _currentHealth = 0;
+        }
+        else
+        {
+            _currentHealth = value;
+        }
+    }
 
     public void InitializeDamageRed(float value)
     {

@@ -14,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private List<Enemy> _enemyList;
     [SerializeField] private List<Enemy> _bossEnemyList;
+    [SerializeField] private List<FrostGuardian> _guardianClones;
     [SerializeField] private Coin _coin;
     [SerializeField] private Equipment _equipment;
     [SerializeField] private Chest _chest;
@@ -153,6 +154,27 @@ public class SpawnManager : MonoBehaviour
         bossEnemy.SetTarget(_target);
     }
 
+    public void SpawnCopyBoss(Transform transform, int cloneIndex)
+    {
+        if (cloneIndex >= _guardianClones.Count)
+        {
+            return;
+        }
+
+        FrostGuardian bossEnemyCopy = Instantiate(_guardianClones[cloneIndex], transform.position, Quaternion.identity);
+
+        bossEnemyCopy.OnEnemyDeath -= OnBossDeathHandler;
+        bossEnemyCopy.OnEnemyDeath += OnBossDeathHandler;
+
+        bossEnemyCopy.transform.SetParent(_spawnedObjects);
+
+        bossEnemyCopy.SpawnIndex = cloneIndex + 1;
+
+        _spawnedEnemies.Add(bossEnemyCopy);
+
+        bossEnemyCopy.SetTarget(_target);
+    }
+
     public void SpawnHatch(Room room)
     {
         Hatch hatch = Instantiate(_hatch, room.SpawnPoints[0].position, Quaternion.identity);
@@ -213,9 +235,12 @@ public class SpawnManager : MonoBehaviour
     {
         _spawnedEnemies.Remove(enemy);
 
-        Invoke(nameof(SpawnBossRewards), 1f);
+        if (_spawnedEnemies.Count == 0)
+        {
+            Invoke(nameof(SpawnBossRewards), 1f);
 
-        OnBossDefeated();
+            OnBossDefeated();
+        }
     }
 
     private void SpawnBossRewards()

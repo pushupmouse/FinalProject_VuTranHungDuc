@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class FrostGuardian : Enemy
 {
-    public override void UseSkill()
+    public int SpawnIndex = 0;
+
+    public override void UseFirstSkill()
     {
-        Debug.Log("want some more?");
+        SpawnManager.Instance.SpawnCopyBoss(transform, SpawnIndex);
+    }
+
+    public override void UseSecondSkill()
+    {
+        SpawnManager.Instance.SpawnCopyBoss(transform, SpawnIndex);
     }
 }

@@ -2773,7 +2773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemySpawnRate: 0.4
-  _equipmentSpawnRate: 1
+  _equipmentSpawnRate: 0.1
   _target: {fileID: 0}
   _enemyList:
   - {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
@@ -2782,9 +2782,12 @@ MonoBehaviour:
   - {fileID: 2610318490740141602, guid: 7b5c263dc9802c141b71660add3be67a, type: 3}
   - {fileID: 6643091309210607279, guid: f9aadb4875415464fa72143793d5faac, type: 3}
   _bossEnemyList:
-  - {fileID: 705007637249019663, guid: 190f6a94094c73840a4015ed51c9e340, type: 3}
-  - {fileID: 2723159892876595277, guid: 3870c53a02f3b664bb7334faa72ccab9, type: 3}
-  - {fileID: 3307861284289001171, guid: b43b30aae420f5c4daf86a20da0fc77f, type: 3}
+  - {fileID: 2335194361737192976, guid: 190f6a94094c73840a4015ed51c9e340, type: 3}
+  - {fileID: 4996662009909007589, guid: 3870c53a02f3b664bb7334faa72ccab9, type: 3}
+  - {fileID: 5596656843044408132, guid: b43b30aae420f5c4daf86a20da0fc77f, type: 3}
+  _guardianClones:
+  - {fileID: 2335194361737192976, guid: b48bc5b3ac8878643aa2b2be72c23172, type: 3}
+  - {fileID: 2335194361737192976, guid: 0e0c6d3cf94858041ae86b211c049373, type: 3}
   _coin: {fileID: 1046081068886245829, guid: 1c2be0395a7f57f4e95ed5db61946e45, type: 3}
   _equipment: {fileID: 10510561529045871, guid: 824f56dd5f6d1a641beadb3e20453c28, type: 3}
   _chest: {fileID: 2901563251189732253, guid: dc1d27c0ae146b448911c1bc91cfff22, type: 3}

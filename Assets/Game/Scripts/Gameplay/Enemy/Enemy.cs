@@ -12,8 +12,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float _attackRange = 2f;
     [SerializeField] private float _moveSpeed = 3f;
     [SerializeField] private Transform _hpBar;
-    [SerializeField] private HealthController _health;
     [SerializeField] private Knockback _knockback;
+    [SerializeField] protected HealthController _health;
 
     [HideInInspector] public bool IsRunning;
     [HideInInspector] public bool IsAttacking = false;
@@ -140,8 +140,11 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject, 2f);
     }
 
-    public virtual void UseSkill()
+    public virtual void UseFirstSkill()
     {
+    }
 
+    public virtual void UseSecondSkill()
+    {
     }
 }

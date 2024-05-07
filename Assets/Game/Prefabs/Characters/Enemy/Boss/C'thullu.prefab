@@ -42,10 +42,10 @@ GameObject:
   - component: {fileID: 7760351144215198578}
   - component: {fileID: 8259401492980724491}
   - component: {fileID: 4019497081478530924}
-  - component: {fileID: 3307861284289001171}
+  - component: {fileID: 5596656843044408132}
   - component: {fileID: 546454986982049363}
   - component: {fileID: 5379869299307344823}
-  - component: {fileID: 1668842112637913959}
+  - component: {fileID: -4135254220241049691}
   - component: {fileID: 4521802720808260665}
   - component: {fileID: 2741330292314041141}
   m_Layer: 12
@@ -145,7 +145,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3307861284289001171
+--- !u!114 &5596656843044408132
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2072128819941848392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: facddf4f75607d1409de7ec811475d39, type: 3}
+  m_Script: {fileID: 11500000, guid: 626cfd7eaad838145a269909dbdbaa18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 4019497081478530924}
@@ -164,7 +164,7 @@ MonoBehaviour:
   _attackRange: 1
   _moveSpeed: 240
   _hpBar: {fileID: 6410697846839774434}
-  _health: {fileID: 1668842112637913959}
+  _health: {fileID: -4135254220241049691}
   _knockback: {fileID: 4521802720808260665}
   IsRunning: 0
   IsAttacking: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
     m_Bits: 1024
   _maxCritChance: 0.75
   _critDamageMult: 0.5
---- !u!114 &1668842112637913959
+--- !u!114 &-4135254220241049691
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,13 +218,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2072128819941848392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c7db6111530d724cae7100ee16db35e, type: 3}
+  m_Script: {fileID: 11500000, guid: aebadca9802618d4cb5d32fec3264b2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _floatingPoint: {fileID: -8879463613880763708, guid: 9f5163d17643b0a49aa62ddf6e999f7a, type: 3}
   _maxRecoveryChance: 0.75
   _healthBar: {fileID: 1040402612500624403}
   _tick: 0.25
+  enemy: {fileID: 5596656843044408132}
+  _healthThreshold: 0.5
 --- !u!114 &4521802720808260665
 MonoBehaviour:
   m_ObjectHideFlags: 0

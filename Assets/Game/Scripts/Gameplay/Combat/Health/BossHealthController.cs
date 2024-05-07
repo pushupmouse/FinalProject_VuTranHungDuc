@@ -5,9 +5,11 @@ using UnityEngine;
 public class BossHealthController : HealthController
 {
     [SerializeField] private Enemy enemy;
-    [SerializeField] private float _healthThreshold = 0.5f;
+    [SerializeField] private float _healthFirstThreshold = 0.66f;
+    [SerializeField] private float _healthSecondThreshold = 0.33f;
 
-    private bool _conditionCleared = false;
+    private bool _firstConditionCleared = false;
+    private bool _secondConditionCleared = false;
 
     public override void TakeDamage(float amount, bool isCritical)
     {
@@ -24,13 +26,22 @@ public class BossHealthController : HealthController
         }
         else
         {
-            if (_currentHealth <= _maxHealth * _healthThreshold && !_conditionCleared)
+            if (_currentHealth <= _maxHealth * _healthFirstThreshold && !_firstConditionCleared)
             {
                 if(enemy != null)
                 {
-                    enemy.UseSkill();
+                    enemy.UseFirstSkill();
                 }
-                _conditionCleared = true;
+                _firstConditionCleared = true;
+            }
+
+            if (_currentHealth <= _maxHealth * _healthSecondThreshold && !_secondConditionCleared)
+            {
+                if (enemy != null)
+                {
+                    enemy.UseSecondSkill();
+                }
+                _secondConditionCleared = true;
             }
 
             OnTakeDamage?.Invoke();

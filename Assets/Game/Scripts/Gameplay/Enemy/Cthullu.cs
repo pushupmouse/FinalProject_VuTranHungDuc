@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Cthullu : Enemy
 {
-    public override void UseSkill()
+    public override void UseFirstSkill()
     {
         Debug.Log("good luck");
     }

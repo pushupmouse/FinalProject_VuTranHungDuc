@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 1149296099681916384}
   - component: {fileID: 4041036219195846273}
   m_Layer: 11
-  m_Name: Frost Guardian
+  m_Name: Frost Guardian Clone 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -277,7 +277,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.22, y: 2.11, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.6}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1914407673471459735}
@@ -374,7 +374,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   _detectionRange: 10
   _attackRange: 1
-  _moveSpeed: 180
+  _moveSpeed: 300
   _hpBar: {fileID: 2073301161387075868}
   _knockback: {fileID: 1149296099681916384}
   _health: {fileID: 4388305774155454466}
@@ -395,7 +395,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3219a11222cd4d4ca7ad3bbd543ec91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributeData: {fileID: 11400000, guid: b1f588e20bee9a047bfbc4f1f201b17a, type: 2}
+  attributeData: {fileID: 11400000, guid: b65e164e7ff01144dadd0f53c1dbfb62, type: 2}
   _constitution: 0
   _strength: 0
   _defense: 0
@@ -530,7 +530,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 90
+  m_SortingOrder: 94
   m_TargetDisplay: 0
 --- !u!114 &4399371954458284687
 MonoBehaviour:
@@ -646,7 +646,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 90
+  m_SortingOrder: 94
   m_Sprite: {fileID: -1682452793, guid: 67b49048e4d62024a8a3258bb57f2947, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1

@@ -23,20 +23,14 @@ public class UnitStatsManager : MonoBehaviour
     }
 
     private void Start()
-    {
+    {        
         InitializeStats();
     }
 
+
     private void InitializeStats()
     {
-        if (_isEnemy)
-        {
-            _statIncrease = LevelManager.Instance.GetLevelData().StatIncrease;
-        }
-        else
-        {
-            _statIncrease = 0;
-        }
+        StatIncreaseModifier();
 
         _constitution = attributeData.GetAttributeValue(AttributeType.Constitution) * (1 + _statIncrease);
         _strength = attributeData.GetAttributeValue(AttributeType.Strength) * (1 + _statIncrease);
@@ -46,6 +40,18 @@ public class UnitStatsManager : MonoBehaviour
         _resilience = attributeData.GetAttributeValue(AttributeType.Resilience) * (1 + _statIncrease);
 
         ApplyStats();
+    }
+
+    private void StatIncreaseModifier()
+    {
+        if (_isEnemy)
+        { 
+            _statIncrease = LevelManager.Instance.GetLevelData().StatIncrease;
+        }
+        else
+        {
+            _statIncrease = 0;
+        }
     }
 
     private void ApplyStats()
