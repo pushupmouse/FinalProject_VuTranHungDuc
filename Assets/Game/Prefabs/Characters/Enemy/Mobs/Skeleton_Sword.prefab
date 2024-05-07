@@ -331,6 +331,7 @@ MonoBehaviour:
   _fill: {fileID: 3661277423942847410}
   _transitionSpeed: 4
   _isInactive: 1
+  _belongToPlayer: 0
 --- !u!1 &6618738326119501388
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +463,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   _detectionRange: 10
   _attackRange: 1
-  _moveSpeed: 3
+  _moveSpeed: 180
   _hpBar: {fileID: 254948581934246003}
   _health: {fileID: 2559556300960084449}
   _knockback: {fileID: 2341732081516534520}

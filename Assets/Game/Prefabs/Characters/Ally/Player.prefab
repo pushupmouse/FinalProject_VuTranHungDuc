@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rb: {fileID: 2700492348914706305}
-  _moveSpeed: 5
+  _moveSpeed: 300
   _dashSpeed: 15
   _dashTime: 0.2
   _staminaRegenRate: 20

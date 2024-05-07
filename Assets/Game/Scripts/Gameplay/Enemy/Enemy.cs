@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour
 
             if (!IsAttacking)
             {
-                _rb.velocity = direction * _moveSpeed;
+                _rb.velocity = direction * _moveSpeed * Time.fixedDeltaTime;
                 IsRunning = true;
             }
             else

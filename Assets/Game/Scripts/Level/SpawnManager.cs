@@ -24,6 +24,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private PlayerController _playerPrefab;
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private StaminaBar _staminaBar;
+    [SerializeField] private Transform _spawnedObjects;
 
      public bool EnemiesAlive = false;
     [HideInInspector] public bool RewardsToCollect = false;
@@ -59,6 +60,7 @@ public class SpawnManager : MonoBehaviour
         Healed = false;
         EnemiesAlive = false;
         _spawnedEnemies.Clear();
+        DestroyAllSpawns();
         _enemySpawnRate = LevelManager.Instance.GetLevelData().SpawnRate;
         _lowRarity = LevelManager.Instance.GetLevelData().MinRarityDrop;
         _highRarity = LevelManager.Instance.GetLevelData().MeanRarityDrop;
@@ -122,7 +124,6 @@ public class SpawnManager : MonoBehaviour
             SpawnTreasure(room);
         }
     }
-
 
     public void SpawnBoss(Room room)
     {
@@ -189,6 +190,7 @@ public class SpawnManager : MonoBehaviour
         shopkeeper.SetTarget(_target);
         priestess.SetTarget(_target);
     }
+
 
     private void OnEnemyDeathHandler(Enemy enemy)
     {
@@ -314,6 +316,8 @@ public class SpawnManager : MonoBehaviour
 
         coin.SetTarget(_target);
 
+        coin.transform.SetParent(_spawnedObjects);
+
         _spawnedCoins.Add(coin);
     }
 
@@ -327,6 +331,8 @@ public class SpawnManager : MonoBehaviour
 
         equipment.SetTarget(_target);
 
+        equipment.transform.SetParent(_spawnedObjects);
+
         _spawnedEquipments.Add(equipment);
 
         equipment.SetRandomTypeAndRarityRange(minRarity, maxRarity);
@@ -339,6 +345,14 @@ public class SpawnManager : MonoBehaviour
         if (!_dungeonManager.CurrentPlayerLocation.IsCleared)
         {
             _dungeonManager.CurrentPlayerLocation.IsCleared = true;
+        }
+    }
+
+    private void DestroyAllSpawns()
+    {
+        foreach (Transform spawnedObject in _spawnedObjects.transform)
+        {
+            Destroy(spawnedObject.gameObject);
         }
     }
 }

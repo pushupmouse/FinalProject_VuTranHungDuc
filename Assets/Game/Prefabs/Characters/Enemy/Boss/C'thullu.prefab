@@ -162,7 +162,7 @@ MonoBehaviour:
   _target: {fileID: 0}
   _detectionRange: 10
   _attackRange: 1
-  _moveSpeed: 4
+  _moveSpeed: 240
   _hpBar: {fileID: 6410697846839774434}
   _health: {fileID: 1668842112637913959}
   _knockback: {fileID: 4521802720808260665}

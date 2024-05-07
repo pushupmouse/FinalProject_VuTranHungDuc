@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
             return;
         } 
 
-        _rb.velocity = _playerController.MoveDirection * _moveSpeed;
+        _rb.velocity = _playerController.MoveDirection * _moveSpeed * Time.fixedDeltaTime;
 
         Flip();
     }

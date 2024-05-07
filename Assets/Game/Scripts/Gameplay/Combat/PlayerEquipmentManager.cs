@@ -63,13 +63,13 @@ public class PlayerEquipmentManager : MonoBehaviour
 
         if (currentRarityData != null && (int)newRarityData.rarityType <= (int)currentRarityData.rarityType)
         {
-            ConvertDuplicateEquipment(newRarityData.coinDrop);
+            //ConvertDuplicateEquipment(newRarityData.coinDrop);
             return;
         }
 
         if (currentRarityData != null)
         {
-            ConvertDuplicateEquipment(currentRarityData.coinDrop);
+            //ConvertDuplicateEquipment(currentRarityData.coinDrop);
         }
 
         EquipmentData currentEquipmentData = GetCurrentEquipmentData(equipmentData.EquipmentType);

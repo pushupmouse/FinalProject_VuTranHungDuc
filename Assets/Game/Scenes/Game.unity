@@ -2225,6 +2225,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1176203610}
   m_CullTransparentMesh: 1
+--- !u!1 &1188160741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1188160742}
+  m_Layer: 0
+  m_Name: Spawned Objects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1188160742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188160741}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1521285354}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1222108040
 GameObject:
   m_ObjectHideFlags: 0
@@ -2742,7 +2773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemySpawnRate: 0.4
-  _equipmentSpawnRate: 0.1
+  _equipmentSpawnRate: 1
   _target: {fileID: 0}
   _enemyList:
   - {fileID: 6758732450208090318, guid: 8e100918f9ea644498eff951fa5d0387, type: 3}
@@ -2764,6 +2795,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 1678048617865994187, guid: 9d001200aa6e3344288b71c4d7261887, type: 3}
   _healthBar: {fileID: 745493030}
   _staminaBar: {fileID: 745493029}
+  _spawnedObjects: {fileID: 1188160742}
   EnemiesAlive: 0
   RewardsToCollect: 0
   Healed: 0
@@ -2779,7 +2811,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1188160742}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1580122952
