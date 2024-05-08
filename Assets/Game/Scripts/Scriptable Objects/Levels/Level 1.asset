@@ -18,5 +18,5 @@ MonoBehaviour:
   TreasureRarityDrop: 3
   BossRarityDrop: 4
   ShopPrice: 30
-  NumRooms: 5
+  NumRooms: 4
   StatIncrease: 0

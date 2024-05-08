@@ -10,6 +10,7 @@ public class DungeonTraversalManager : MonoBehaviour
     
     private Room currentRoom;
     public DungeonManager _dungeonManager;
+    private AudioManager _audioManager;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class DungeonTraversalManager : MonoBehaviour
     private void Start()
     {
         _dungeonManager = DungeonManager.Instance;
+        _audioManager = AudioManager.Instance;
     }
 
     public void InitializeTraversal()
@@ -77,18 +79,32 @@ public class DungeonTraversalManager : MonoBehaviour
                 break;
             case RoomType.Boss:
                 spawnManager.SpawnBoss(currentRoom);
+                if (spawnManager.EnemiesAlive)
+                {
+                    _audioManager.PlayBGM(_audioManager.Boss);
+                }
                 break;
             case RoomType.Fighting:
                 spawnManager.SpawnEnemy(currentRoom);
+                if (spawnManager.EnemiesAlive)
+                {
+                    _audioManager.PlayBGM(_audioManager.Fighting);
+                }
                 break;
             case RoomType.Upgrade:
                 spawnManager.SpawnUpgradeNPCs(currentRoom);
+                _audioManager.PlayBGM(_audioManager.Upgrade);
                 break;
             case RoomType.Treasure:
                 spawnManager.SpawnTreasure(currentRoom);
+                _audioManager.PlayBGM(_audioManager.Treasure);
                 break;
             case RoomType.Branch:
                 spawnManager.SpawnEnemy(currentRoom);
+                if (spawnManager.EnemiesAlive)
+                {
+                    _audioManager.PlayBGM(_audioManager.Fighting);
+                }
                 break;
             default:
                 break;

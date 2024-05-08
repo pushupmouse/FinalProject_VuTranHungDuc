@@ -339,6 +339,8 @@ public class SpawnManager : MonoBehaviour
 
     private void OnAllEnemiesDefeated()
     {
+        AudioManager.Instance.MuteBGMOverTime();
+
         EnemiesAlive = false;
 
         if (!_dungeonManager.CurrentPlayerLocation.IsCleared)
@@ -365,6 +367,8 @@ public class SpawnManager : MonoBehaviour
 
     private void OnBossDefeated()
     {
+        AudioManager.Instance.MuteBGMOverTime();
+
         EnemiesAlive = false;
 
         if (!_dungeonManager.CurrentPlayerLocation.IsCleared)
