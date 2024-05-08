@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8579057069464275838}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,8 +164,8 @@ MonoBehaviour:
   _attackRange: 1
   _moveSpeed: 240
   _hpBar: {fileID: 6410697846839774434}
-  _health: {fileID: -4135254220241049691}
   _knockback: {fileID: 4521802720808260665}
+  _health: {fileID: -4135254220241049691}
   IsRunning: 0
   IsAttacking: 0
   IsDead: 0
@@ -226,7 +226,8 @@ MonoBehaviour:
   _healthBar: {fileID: 1040402612500624403}
   _tick: 0.25
   enemy: {fileID: 5596656843044408132}
-  _healthThreshold: 0.5
+  _healthFirstThreshold: 0.66
+  _healthSecondThreshold: 0.33
 --- !u!114 &4521802720808260665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -405,7 +406,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 90
+  m_SortingOrder: 86
   m_Sprite: {fileID: 571351956, guid: abc24afb3757b6f41b3d37a6e652af55, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -511,7 +512,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 75
+  m_SortingOrder: 86
   m_TargetDisplay: 0
 --- !u!114 &4617029508762023708
 MonoBehaviour:

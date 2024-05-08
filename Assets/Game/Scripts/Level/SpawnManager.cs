@@ -26,6 +26,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private StaminaBar _staminaBar;
     [SerializeField] private Transform _spawnedObjects;
+    [SerializeField] private List<GameObject> _fireballSpawnerList;
 
      public bool EnemiesAlive = false;
     [HideInInspector] public bool RewardsToCollect = false;
@@ -33,6 +34,7 @@ public class SpawnManager : MonoBehaviour
     private List<Enemy> _spawnedEnemies = new List<Enemy>();
     private List<Coin> _spawnedCoins = new List<Coin>();
     private List<Equipment> _spawnedEquipments = new List<Equipment>();
+    private List<GameObject> _fireballSpawnerInstances = new List<GameObject>();
     private DungeonManager _dungeonManager;
     private RarityType _lowRarity = RarityType.Regular;
     private RarityType _highRarity = RarityType.Bronze;
@@ -154,7 +156,26 @@ public class SpawnManager : MonoBehaviour
         bossEnemy.SetTarget(_target);
     }
 
-    public void SpawnCopyBoss(Transform transform, int cloneIndex)
+    public void SpawnAdditionalBoss(Transform transform, int bossIndex)
+    {
+        if (bossIndex >= _bossEnemyList.Count)
+        {
+            return;
+        }
+
+        Enemy bossEnemy = Instantiate(_bossEnemyList[bossIndex], transform.position, Quaternion.identity);
+
+        bossEnemy.OnEnemyDeath -= OnBossDeathHandler;
+        bossEnemy.OnEnemyDeath += OnBossDeathHandler;
+
+        bossEnemy.transform.SetParent(_spawnedObjects);
+
+        _spawnedEnemies.Add(bossEnemy);
+
+        bossEnemy.SetTarget(_target);
+    }
+
+    public void SpawnBossCopy(Transform transform, int cloneIndex)
     {
         if (cloneIndex >= _guardianClones.Count)
         {
@@ -174,6 +195,29 @@ public class SpawnManager : MonoBehaviour
 
         bossEnemyCopy.SetTarget(_target);
     }
+
+    public void SpawnFireballSpawner(int index)
+    {
+        GameObject fireballSpawners = Instantiate(_fireballSpawnerList[index], transform.position, Quaternion.identity);
+
+        fireballSpawners.transform.position = _fireballSpawnerList[index].transform.position;
+
+        fireballSpawners.transform.SetParent(_spawnedObjects);
+
+        _fireballSpawnerInstances.Add(fireballSpawners);
+    }
+
+    public void DespawnFireballSpawner()
+    {
+        for (int i = _fireballSpawnerInstances.Count - 1; i >= 0; i--)
+        {
+            Destroy(_fireballSpawnerInstances[i]);
+
+            _fireballSpawnerInstances.RemoveAt(i);
+        }
+    }
+
+
 
     public void SpawnHatch(Room room)
     {

@@ -111,7 +111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8829994671482296410}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -673,8 +673,8 @@ MonoBehaviour:
   _attackRange: 1
   _moveSpeed: 120
   _hpBar: {fileID: 8121853770171126076}
-  _health: {fileID: 8741060639147305252}
   _knockback: {fileID: 1402721999323059824}
+  _health: {fileID: 8741060639147305252}
   IsRunning: 0
   IsAttacking: 0
   IsDead: 0

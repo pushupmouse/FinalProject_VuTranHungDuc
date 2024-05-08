@@ -8,11 +8,11 @@ public class FrostGuardian : Enemy
 
     public override void UseFirstSkill()
     {
-        SpawnManager.Instance.SpawnCopyBoss(transform, SpawnIndex);
+        SpawnManager.Instance.SpawnBossCopy(transform, SpawnIndex);
     }
 
     public override void UseSecondSkill()
     {
-        SpawnManager.Instance.SpawnCopyBoss(transform, SpawnIndex);
+        UseFirstSkill();
     }
 }

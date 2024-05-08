@@ -132,7 +132,7 @@ public class Enemy : MonoBehaviour
         _target = target;
     }
 
-    private void HandleDeath()
+    protected virtual void HandleDeath()
     {
         IsDead = true;
         gameObject.layer = LayerMask.NameToLayer("Dead");

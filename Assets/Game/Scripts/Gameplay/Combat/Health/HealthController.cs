@@ -134,6 +134,44 @@ public class HealthController : MonoBehaviour
         }
     }
 
+    public virtual void TakeFireballDamage(float amount)
+    {
+        float damage = amount * _maxHealth;
+        _currentHealth -= damage;
+        _healthChanged = true;
+
+        FloatingPointHandler point = Instantiate(_floatingPoint, transform.position, Quaternion.identity);
+        point.DisplayDamageText(Mathf.CeilToInt(damage), false);
+
+        StopCoroutine("DamageOverTime");
+        StartCoroutine(DamageOverTime(amount/4, 1f));
+
+        if (_currentHealth <= 0)
+        {
+            Die();
+        }
+        else
+        {
+            OnTakeDamage?.Invoke();
+        }
+    }
+
+    public IEnumerator DamageOverTime(float amount, float duration)
+    {
+        float damagePerTick = amount * _maxHealth / duration;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            yield return new WaitForSeconds(_tick);
+            _currentHealth -= damagePerTick;
+            _healthChanged = true;
+            FloatingPointHandler point = Instantiate(_floatingPoint, transform.position, Quaternion.identity);
+            point.DisplayDamageText(Mathf.CeilToInt(damagePerTick), false);
+            elapsedTime += _tick;
+        }
+    }
+
     public IEnumerator HealOverTime(float amount, float duration)
     {
         float healPerTick = amount / duration;

@@ -6,6 +6,11 @@ public class Cthullu : Enemy
 {
     public override void UseFirstSkill()
     {
-        Debug.Log("good luck");
+        SpawnManager.Instance.SpawnAdditionalBoss(transform, 0);
+    }
+
+    public override void UseSecondSkill()
+    {
+        SpawnManager.Instance.SpawnAdditionalBoss(transform, 1);
     }
 }
