@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: C'thullu
   m_EditorClassIdentifier: 
   attributes:
-  - 444
-  - 14
-  - 14
-  - 0.14
-  - 0.14
-  - 0.14
-  - 0
+  - type: 0
+    value: 400
+  - type: 1
+    value: 10
+  - type: 2
+    value: 10
+  - type: 3
+    value: 0.05
+  - type: 4
+    value: 0.05
+  - type: 5
+    value: 0.05

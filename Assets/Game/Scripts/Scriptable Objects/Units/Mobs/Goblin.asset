@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Goblin
   m_EditorClassIdentifier: 
   attributes:
-  - 35
-  - 5
-  - 5
-  - 0.05
-  - 0.05
-  - 0
-  - 0.2
+  - type: 0
+    value: 35
+  - type: 1
+    value: 5
+  - type: 2
+    value: 5
+  - type: 3
+    value: 0.05
+  - type: 4
+    value: 0.05
+  - type: 5
+    value: 0

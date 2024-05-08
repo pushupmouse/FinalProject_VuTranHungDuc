@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Frost Guardian Clone 2
   m_EditorClassIdentifier: 
   attributes:
-  - 150
-  - 10
-  - 10
-  - 0.25
-  - 0
-  - 0
-  - 0
+  - type: 0
+    value: 125
+  - type: 1
+    value: 12
+  - type: 2
+    value: 5
+  - type: 3
+    value: 0.1
+  - type: 4
+    value: 0
+  - type: 5
+    value: 0

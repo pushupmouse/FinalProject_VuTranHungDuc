@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
@@ -12,43 +13,41 @@ public enum AttributeType
     Resilience = 5,
 }
 
+[System.Serializable]
+public class Attribute
+{
+    public AttributeType type;
+    public float value;
+}
+
 [CreateAssetMenu(fileName = "New Attribute Data", menuName = "Attribute Data")]
 public class AttributeData : ScriptableObject
 {
-    public float[] attributes = new float[System.Enum.GetNames(typeof(AttributeType)).Length];
+    public List<Attribute> attributes = new List<Attribute>();
 
     public float GetAttributeValue(AttributeType attributeType)
     {
-        return attributes[(int)attributeType];
+        foreach (Attribute attribute in attributes)
+        {
+            if (attribute.type == attributeType)
+            {
+                return attribute.value;
+            }
+        }
+        return 0f; // Default value if attribute type not found
     }
 
     public void SetAttributeValue(AttributeType attributeType, float value)
     {
-        attributes[(int)attributeType] = value;
-    }
-}
-
-[CustomEditor(typeof(AttributeData))]
-public class AttributeDataEditor : Editor
-{
-    public override void OnInspectorGUI()
-    {
-        serializedObject.Update();
-
-        AttributeData attributeData = (AttributeData)target;
-
-        EditorGUI.BeginChangeCheck();
-
-        for (int i = 0; i < attributeData.attributes.Length; i++)
+        foreach (Attribute attribute in attributes)
         {
-            AttributeType attributeType = (AttributeType)i;
-            attributeData.attributes[i] = EditorGUILayout.FloatField(attributeType.ToString(), attributeData.attributes[i]);
+            if (attribute.type == attributeType)
+            {
+                attribute.value = value;
+                return;
+            }
         }
-
-        if (EditorGUI.EndChangeCheck())
-        {
-            serializedObject.ApplyModifiedProperties();
-            EditorUtility.SetDirty(target);
-        }
+        // If attribute type not found, add it
+        attributes.Add(new Attribute { type = attributeType, value = value });
     }
 }

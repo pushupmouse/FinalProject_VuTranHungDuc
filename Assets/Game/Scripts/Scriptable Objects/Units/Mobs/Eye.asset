@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Eye
   m_EditorClassIdentifier: 
   attributes:
-  - 30
-  - 5
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0.2
+  - type: 0
+    value: 30
+  - type: 1
+    value: 5
+  - type: 2
+    value: 0
+  - type: 3
+    value: 0
+  - type: 4
+    value: 0
+  - type: 5
+    value: 0

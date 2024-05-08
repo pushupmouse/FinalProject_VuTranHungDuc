@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Skeleton_Axe
   m_EditorClassIdentifier: 
   attributes:
-  - 40
-  - 7
-  - 0
-  - 0
-  - 0.1
-  - 0
-  - 0.2
+  - type: 0
+    value: 40
+  - type: 1
+    value: 7
+  - type: 2
+    value: 0
+  - type: 3
+    value: 0
+  - type: 4
+    value: 0.1
+  - type: 5
+    value: 0

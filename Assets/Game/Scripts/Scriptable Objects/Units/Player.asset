@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   attributes:
-  - 100
-  - 10
-  - 10
-  - 0
-  - 0
-  - 0
-  - 1
+  - type: 0
+    value: 100
+  - type: 1
+    value: 10
+  - type: 2
+    value: 20
+  - type: 3
+    value: 0
+  - type: 4
+    value: 0
+  - type: 5
+    value: 0

@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Demon
   m_EditorClassIdentifier: 
   attributes:
-  - 500
-  - 15
-  - 5
-  - 0
-  - 0.25
-  - 0
-  - 0
+  - type: 0
+    value: 450
+  - type: 1
+    value: 15
+  - type: 2
+    value: 0
+  - type: 3
+    value: 0
+  - type: 4
+    value: 0.1
+  - type: 5
+    value: 0
