@@ -11,11 +11,17 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         _startButton.onClick.AddListener(StartGame);
+        _quitButton.onClick.AddListener(QuitGame);
     }
 
     private void StartGame()
     {
         UIManager.Instance.StartGame();
         GameManager.Instance.StartNewGame();
+    }
+
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 }
